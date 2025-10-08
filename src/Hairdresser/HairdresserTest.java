@@ -66,7 +66,6 @@ public class HairdresserTest {
     }
 
     public void checkAvailableTimes(){
-
         for(BookingDateTime bt : bookingTimes){
             System.out.println(bt);
         }
