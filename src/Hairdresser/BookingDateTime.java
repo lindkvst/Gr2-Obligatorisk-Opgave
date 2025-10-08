@@ -61,4 +61,35 @@ public class BookingDateTime {
         DateTimeFormatter shortDKdate = DateTimeFormatter.ofPattern("E, dd/MM/yy HH:mm");
         return "date: " + dateTimeValue.format(shortDKdate) + ", Is Available: " + isAvailable + ", Is Booked: " + isBooked + ", Customer Name: " + customerName;
     }
+
+    //@Override
+    public boolean equals(int year, int month, int day) {
+        boolean allCorrect = false;
+        boolean yearCorrect = false;
+        boolean monthCorrect = false;
+        boolean dayCorrect = false;
+
+        if (dateTimeValue.getYear() == year) {
+            yearCorrect = true;
+        }
+
+        if (dateTimeValue.getMonthValue() == month) {
+            monthCorrect = true;
+        }
+
+        if (dateTimeValue.getDayOfMonth() == day) {
+            dayCorrect = true;
+        }
+
+        if (yearCorrect && monthCorrect && dayCorrect) {
+            allCorrect = true;
+        }
+
+        return allCorrect;
+    }
+
+
+
+
+
 }
