@@ -1,10 +1,12 @@
 package Hairdresser;
 
 public class HairdresserTest {
+    ScannerHelper sh = new ScannerHelper();
+
 
     public static void main(String[] args) {
-        ScannerHelper sh = new ScannerHelper();
-
+        HairdresserTest test = new HairdresserTest();
+        test.mainMenuProgram();
     }
 
     public void mainMenuProgram() {
@@ -12,8 +14,24 @@ public class HairdresserTest {
 
         while(!isDone) {
         printMainMenu();
-        sh.
-
+        int userChoice = sh.askNumber(4);
+        switch (userChoice) {
+            case 1:
+                System.out.println("CASE 1");
+                // bookTime();
+                break;
+            case 2:
+                System.out.println("CASE 2");
+                // deleteBooking();
+                break;
+            case 3:
+                System.out.println("CASE 3");
+                // seeAvailableTimes();
+                break;
+            case 4:
+                isDone = true;
+                break;
+        }
         }
     }
 
