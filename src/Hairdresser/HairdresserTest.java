@@ -9,6 +9,7 @@ public class HairdresserTest {
         test.mainMenuProgram();
     }
 
+    // Denne metoder kører programmet og er "hub" for metoderne.
     public void mainMenuProgram() {
         boolean isDone = false;
 
@@ -35,6 +36,7 @@ public class HairdresserTest {
         }
     }
 
+    // Denne metoder printer teksten for menuen.
     public void printMainMenu() {
         System.out.println();
         System.out.println("""
