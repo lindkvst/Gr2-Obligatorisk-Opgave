@@ -13,11 +13,11 @@ public class BookingDateTime {
         this.isPaid = isPaid;
     }
 
-    public boolean getIsAvailable() {
+    public boolean getAvailability() {
         return isAvailable;
     }
 
-    public boolean getIsBooked() {
+    public boolean getBookingStatus() {
         return isBooked;
     }
 
@@ -25,15 +25,15 @@ public class BookingDateTime {
         return customerName;
     }
 
-    public boolean getIsPaid() {
+    public boolean getPaymentStatus() {
         return isPaid;
     }
 
-    public void setIsAvailable(boolean isAvailable) {
+    public void setAvailability(boolean isAvailable) {
         this.isAvailable = isAvailable;
     }
 
-    public void setIsBooked(boolean isBooked) {
+    public void setBookingStatus(boolean isBooked) {
         this.isBooked = isBooked;
     }
 
@@ -41,7 +41,7 @@ public class BookingDateTime {
         this.customerName = customerName;
     }
 
-    public void setIsPaid(boolean isPaid) {
+    public void setPaymentStatus(boolean isPaid) {
         this.isPaid = isPaid;
     }
 }
