@@ -1,5 +1,7 @@
 package Hairdresser;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
 
 public class BookingDateTime {
     private LocalDateTime dateTimeValue;
@@ -50,5 +52,11 @@ public class BookingDateTime {
 
     public void setPaymentStatus(boolean isPaid) {
         this.isPaid = isPaid;
+    }
+
+    @Override
+    public String toString() {
+        DateTimeFormatter shortDKdate = DateTimeFormatter.ofLocalizedDate(FormatStyle.SHORT);
+        return "date: " + dateTimeValue.format(shortDKdate) + ", Is Available: " + isAvailable + " Is Booked: " + isBooked + "Customer Name: " + customerName;
     }
 }
