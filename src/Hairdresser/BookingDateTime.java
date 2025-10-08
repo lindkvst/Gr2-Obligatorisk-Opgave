@@ -12,6 +12,8 @@ public class BookingDateTime {
 
     public BookingDateTime(int year, int month, int day, int hour, int min) {
         this.dateTimeValue = LocalDateTime.of(year, month, day, hour, min);
+        this.isAvailable = true;
+        this.isBooked = false;
     }
 
     public LocalDateTime getDateTime() {
@@ -56,7 +58,7 @@ public class BookingDateTime {
 
     @Override
     public String toString() {
-        DateTimeFormatter shortDKdate = DateTimeFormatter.ofLocalizedDate(FormatStyle.SHORT);
+        DateTimeFormatter shortDKdate = DateTimeFormatter.ofPattern("E, dd/MM/yy HH:mm");
         return "date: " + dateTimeValue.format(shortDKdate) + ", Is Available: " + isAvailable + " Is Booked: " + isBooked + "Customer Name: " + customerName;
     }
 }
