@@ -59,6 +59,6 @@ public class BookingDateTime {
     @Override
     public String toString() {
         DateTimeFormatter shortDKdate = DateTimeFormatter.ofPattern("E, dd/MM/yy HH:mm");
-        return "date: " + dateTimeValue.format(shortDKdate) + ", Is Available: " + isAvailable + " Is Booked: " + isBooked + "Customer Name: " + customerName;
+        return "date: " + dateTimeValue.format(shortDKdate) + ", Is Available: " + isAvailable + ", Is Booked: " + isBooked + ", Customer Name: " + customerName;
     }
 }
