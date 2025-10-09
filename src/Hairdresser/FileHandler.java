@@ -1,20 +1,5 @@
 package Hairdresser;
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 import java.io.*;
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -22,14 +7,19 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
 
 public class FileHandler {
 
-
-
-
-
-
+    public void writeFile(String fileInput) {
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter("Bookings.csv"))) {
+            bw.write(fileInput);
+            System.out.println("Successfully wrote to the file.");
+        } catch (IOException e) {
+            System.out.println("Error writing file.");
+        }
+    }
 
     public static final String COMMA_DELIMITER = ",";
 
