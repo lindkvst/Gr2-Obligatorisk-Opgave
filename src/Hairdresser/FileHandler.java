@@ -50,7 +50,6 @@ public class FileHandler {
             boolean isPaid = Boolean.parseBoolean(readBookingTime.get(8));
             BookingDateTime booking = new BookingDateTime(year, month, day, hour, min, isAvailable, isBooked, customerName, isPaid);
             bookingTimes.add(booking);
-
         }
         System.out.println(readBookingTimes);
         return bookingTimes;
