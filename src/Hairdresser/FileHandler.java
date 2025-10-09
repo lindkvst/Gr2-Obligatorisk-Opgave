@@ -29,7 +29,7 @@ public class FileHandler {
             String line;
             while ((line = br.readLine()) != null) {
                 String[] values = line.trim().split(COMMA_DELIMITER);
-
+// meh
                 for (int i = 0; i < values.length; i++) {
                     values[i] = values[i].trim();
                 }
