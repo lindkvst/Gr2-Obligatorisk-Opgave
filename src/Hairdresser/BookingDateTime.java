@@ -9,11 +9,12 @@ public class BookingDateTime {
     private boolean isBooked;
     private String customerName;
     private boolean isPaid;
-    private int year;
-    private int month;
-    private int day;
-    private int hour;
-    private int min;
+    //har fjernet nedenstående - der skal kun ligge en LocalDateTime attribut
+ //   private int year;
+ //   private int month;
+ //   private int day;
+ //   private int hour;
+ //  private int min;
 
     public BookingDateTime(int year, int month, int day, int hour, int min) {
         this.dateTimeValue = LocalDateTime.of(year, month, day, hour, min);
@@ -22,16 +23,27 @@ public class BookingDateTime {
     }
 
     public BookingDateTime(int year, int month, int day, int hour, int min, boolean isAvailable, boolean isBooked, String customerName, boolean isPaid) {
+        this.dateTimeValue = LocalDateTime.of(year, month, day, hour, min);
+        this.customerName = customerName;
         this.isAvailable = isAvailable;
         this.isBooked = isBooked;
+    }
+
+    /*
+    public BookingDateTime(int year, int month, int day, int hour, int min, boolean isAvailable, boolean isBooked, String customerName, boolean isPaid) {
+
         this.year = year;
         this.month = month;
         this.day = day;
         this.hour = hour;
         this.min = min;
+        this.isAvailable = isAvailable;
+        this.isBooked = isBooked;
         this.customerName = customerName;
         this.isPaid = isPaid;
     }
+    */
+
 
     public LocalDateTime getDateTime() {
         return dateTimeValue;
@@ -75,7 +87,7 @@ public class BookingDateTime {
 
     @Override
     public String toString() {
-        DateTimeFormatter shortDKdate = DateTimeFormatter.ofPattern("E, dd/MM/yy HH:mm");
+        DateTimeFormatter shortDKdate = DateTimeFormatter.ofPattern("E dd/MM/yy HH:mm");
         return "date: " + dateTimeValue.format(shortDKdate) + ", Is Available: " + isAvailable + ", Is Booked: " + isBooked + ", Customer Name: " + customerName;
     }
 
@@ -113,7 +125,7 @@ public class BookingDateTime {
     }
 
     public String exportDateTimeFormat() {
-        DateTimeFormatter shortDKdate = DateTimeFormatter.ofPattern("dd/MM/yy HH:mm");
+        DateTimeFormatter shortDKdate = DateTimeFormatter.ofPattern("yy/MM/dd HH:mm");
         return dateTimeValue.format(shortDKdate);
     }
 

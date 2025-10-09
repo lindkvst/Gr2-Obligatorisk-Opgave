@@ -5,13 +5,14 @@ import java.util.ArrayList;
 public class HairdresserTest {
     FileHandler fh = new FileHandler();
     ScannerHelper sh = new ScannerHelper();
-    ArrayList<BookingDateTime> bookingTimes = new ArrayList<BookingDateTime>();
+    //ArrayList<BookingDateTime> bookingTimes = new ArrayList<BookingDateTime>();
 
+    ArrayList<BookingDateTime> bookingTimes = fh.readFromFile();
 
 
     public static void main(String[] args) {
         HairdresserTest test = new HairdresserTest();
-        test.testArray();
+ //       test.testArray();
         test.mainMenuProgram();
     }
 
@@ -34,8 +35,15 @@ public class HairdresserTest {
                 // seeAvailableTimes();
                 break;
             case 4:
+                saveBookings();
                 isDone = true;
+                System.out.println("Tak for i dag!");
                 break;
+
+            case 8:
+   //             System.out.println(bookingTimesTest.get(0));
+                break;
+
             case 9:
                 saveBookings();
         }
@@ -113,16 +121,26 @@ public class HairdresserTest {
         //ArrayList til at gemme BookingDateTime index værdier, der passer med specifik dato og booking-kriterier
         ArrayList<Integer>indexValues = new ArrayList<Integer>();
         int selNum = 1; //det tal som brugeren kan indtaste til at vælge den specifikke bookingtid
-        //int timeIndexValue = 0; //KAN SLETTES
+/* NEDENSTÅENDE INDELER TIL DAGE
+        System.out.println("Hvilket år vil du slette tiden fra?");
+        int userYear = sh.askNumber(3000);
+        System.out.println("Hvilken måned vil du slette tiden fra?");
+        int userMonth = sh.askNumber(12);
+        System.out.println("Hvilken dag vil du slette tiden fra?");
+        int userDay = sh.askNumber(31);
 
+ */
+/*
         //skal erstattes af bruger input
         int userYear = 2025;
         int userMonth = 10;
         int userDay = 13;
 
+ */
+
         //Skaber liste over dagens tidsrum, som allerede er booket
         for(int i = 0; i < bookingTimes.size(); i++){
-            if (bookingTimes.get(i).equals(userYear, userMonth, userDay)) {
+            //if (bookingTimes.get(i).equals(userYear, userMonth, userDay)) {
                 boolean isBooked = bookingTimes.get(i).getBookingStatus();
 
                 if(isBooked) {
@@ -133,7 +151,7 @@ public class HairdresserTest {
                     selNum++;
 
                 }
-            }
+            //}
         }
 
         int userSelect = sh.askNumber(selNum) - 1;
