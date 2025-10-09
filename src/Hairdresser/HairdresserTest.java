@@ -24,7 +24,6 @@ public class HairdresserTest {
         switch (userChoice) {
             case 1:
                 bookTime();
-
                 break;
             case 2:
                 System.out.println("CASE 2");
@@ -50,34 +49,24 @@ public class HairdresserTest {
                 Tryk 1 for at booke en ny tid.
                 Tryk 2 for at slette en tid.
                 Tryk 3 for at se ledige tider.
-                Tryk 4 
+                Tryk 4 for at lukke programmet.
                 ******************************
                 """);
     }
 
-    public void bookTime(){
-        /*
-        System.out.println("Hvilket år vil du booke tiden til?");
-        int askYear = sh.askNumber(2100);
-        System.out.println("Hvilken måned vil du booke tiden til?");
-        int askMonth = sh.askNumber(12);
-        System.out.println("Hvilken dag vil du booke tiden til?");
-        int askDay = sh.askNumber(31);
-
-         */
+    // Denne metode er så brugeren kan booke en tid i kalenderen.
+    // Den anvender ScannerHelper klassen til at kunne modtage brugerinput.
+    public void bookTime() {
         ArrayList<Integer>indexValues = new ArrayList<Integer>();
         int selNum = 1;
         int timeIndexValue = 0;
 
-/*
-        for(BookingDateTime bt : bookingTimes) {
-            int CorrectYear = bt.get
-        }
-*/
-
-        int userYear = 2025;
-        int userMonth = 10;
-        int userDay = 13;
+        System.out.println("Hvilket år vil du booke tiden til?");
+        int userYear = sh.askNumber(3000);
+        System.out.println("Hvilken måned vil du booke tiden til?");
+        int userMonth = sh.askNumber(12);
+        System.out.println("Hvilken dag vil du booke tiden til?");
+        int userDay = sh.askNumber(31);
 
         for(int i = 0; i < bookingTimes.size(); i++){
             if (bookingTimes.get(i).equals(userYear, userMonth, userDay)) {
@@ -92,11 +81,9 @@ public class HairdresserTest {
 
                 }
             }
-
-
         }
 
-        int userSelect = sh.askNumber(31) - 1;
+        int userSelect = sh.askNumber(selNum) - 1;
 
         int timeArrayIndexLookup = indexValues.get(userSelect);
 
@@ -104,15 +91,11 @@ public class HairdresserTest {
 
         bookingTimes.get(timeArrayIndexLookup).setBookingStatus(true);
 
-
-
-
-
-
     }
 
     public void checkAvailableTimes(){
         for(BookingDateTime bt : bookingTimes){
+            if(bt.getAvailability() && !bt.getBookingStatus())
             System.out.println(bt);
         }
     }
