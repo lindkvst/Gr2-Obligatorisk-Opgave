@@ -88,6 +88,13 @@ public class BookingDateTime {
         return allCorrect;
     }
 
+    public String printDateTime() {
+        DateTimeFormatter shortDKdate = DateTimeFormatter.ofPattern("EE 'd.' dd/MM/yy 'kl.' HH:mm");
+        return dateTimeValue.format(shortDKdate);
+
+
+    }
+
 
 
 
