@@ -95,6 +95,11 @@ public class BookingDateTime {
 
     }
 
+    public String exportDateTimeFormat() {
+        DateTimeFormatter shortDKdate = DateTimeFormatter.ofPattern("dd/MM/yy HH:mm");
+        return dateTimeValue.format(shortDKdate);
+    }
+
 
 
 
