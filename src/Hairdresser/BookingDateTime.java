@@ -9,11 +9,28 @@ public class BookingDateTime {
     private boolean isBooked;
     private String customerName;
     private boolean isPaid;
+    private int year;
+    private int month;
+    private int day;
+    private int hour;
+    private int min;
 
     public BookingDateTime(int year, int month, int day, int hour, int min) {
         this.dateTimeValue = LocalDateTime.of(year, month, day, hour, min);
         this.isAvailable = true;
         this.isBooked = false;
+    }
+
+    public BookingDateTime(int year, int month, int day, int hour, int min, boolean isAvailable, boolean isBooked, String customerName, boolean isPaid) {
+        this.isAvailable = isAvailable;
+        this.isBooked = isBooked;
+        this.year = year;
+        this.month = month;
+        this.day = day;
+        this.hour = hour;
+        this.min = min;
+        this.customerName = customerName;
+        this.isPaid = isPaid;
     }
 
     public LocalDateTime getDateTime() {
@@ -93,6 +110,11 @@ public class BookingDateTime {
         return dateTimeValue.format(shortDKdate);
 
 
+    }
+
+    public String exportDateTimeFormat() {
+        DateTimeFormatter shortDKdate = DateTimeFormatter.ofPattern("dd/MM/yy HH:mm");
+        return dateTimeValue.format(shortDKdate);
     }
 
 
