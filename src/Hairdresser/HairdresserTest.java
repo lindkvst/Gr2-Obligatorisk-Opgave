@@ -20,7 +20,7 @@ public class HairdresserTest {
 
         while(!isDone) {
         printMainMenu();
-        int userChoice = sh.askNumber(4);
+        int userChoice = sh.askNumber(9);
         switch (userChoice) {
             case 1:
                 bookTime();
@@ -35,6 +35,8 @@ public class HairdresserTest {
             case 4:
                 isDone = true;
                 break;
+            case 9:
+                saveBookings();
         }
         }
     }
@@ -49,6 +51,7 @@ public class HairdresserTest {
                 Tryk 2 for at slette en tid.
                 Tryk 3 for at se ledige tider.
                 Tryk 4 for at lukke programmet.
+                Tryk 9 for at gemme bookings.
                 ******************************
                 """);
     }
@@ -189,6 +192,37 @@ public class HairdresserTest {
         bookingTimes.add(b8);
 
  */
+    }
+
+    public void saveBookings() {
+        String savedBookings = null;
+        String dateString;
+        boolean isAvailable;
+        boolean isBooked;
+        String customerName;
+        boolean isPaid;
+        String singleLine;
+
+        for (int i = 0; i < bookingTimes.size(); i++) {
+            dateString = bookingTimes.get(i).exportDateTimeFormat();
+            isAvailable = bookingTimes.get(i).getAvailability();
+            isBooked = bookingTimes.get(i).getBookingStatus();
+            customerName = bookingTimes.get(i).getCustomerName();
+            isPaid = bookingTimes.get(i).getPaymentStatus();
+            singleLine = dateString + "," + isAvailable + "," + isBooked + "," + customerName + "," + isPaid;
+
+
+            if (i == 0) {
+                savedBookings = singleLine;
+            } else {
+                savedBookings = savedBookings.concat("\n" + singleLine);
+             }
+        }
+
+        //debug kommentar
+        System.out.println("String som sendes til BufferedWriter");
+        System.out.println(savedBookings);
+
     }
 
 }
