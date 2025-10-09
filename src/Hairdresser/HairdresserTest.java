@@ -3,6 +3,7 @@ package Hairdresser;
 import java.util.ArrayList;
 
 public class HairdresserTest {
+    FileHandler fh = new FileHandler();
     ScannerHelper sh = new ScannerHelper();
     ArrayList<BookingDateTime> bookingTimes = new ArrayList<BookingDateTime>();
 
@@ -222,7 +223,7 @@ public class HairdresserTest {
         //debug kommentar
         System.out.println("String som sendes til BufferedWriter");
         System.out.println(savedBookings);
-
+        fh.writeFile(savedBookings);
     }
 
 }

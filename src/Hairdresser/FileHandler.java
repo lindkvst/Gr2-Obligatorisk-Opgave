@@ -11,7 +11,6 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 
 public class FileHandler {
-
     public void writeFile(String fileInput) {
         try (BufferedWriter bw = new BufferedWriter(new FileWriter("Bookings.csv"))) {
             bw.write(fileInput);
