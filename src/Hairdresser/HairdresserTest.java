@@ -24,11 +24,9 @@ public class HairdresserTest {
         switch (userChoice) {
             case 1:
                 bookTime();
-
                 break;
             case 2:
-                System.out.println("CASE 2");
-                // deleteBooking();
+                deleteBooking();
                 break;
             case 3:
                 checkAvailableTimes();
@@ -50,34 +48,24 @@ public class HairdresserTest {
                 Tryk 1 for at booke en ny tid.
                 Tryk 2 for at slette en tid.
                 Tryk 3 for at se ledige tider.
-                Tryk 4 
+                Tryk 4 for at lukke programmet.
                 ******************************
                 """);
     }
 
-    public void bookTime(){
-        /*
-        System.out.println("Hvilket år vil du booke tiden til?");
-        int askYear = sh.askNumber(2100);
-        System.out.println("Hvilken måned vil du booke tiden til?");
-        int askMonth = sh.askNumber(12);
-        System.out.println("Hvilken dag vil du booke tiden til?");
-        int askDay = sh.askNumber(31);
-
-         */
+    // Denne metode er så brugeren kan booke en tid i kalenderen.
+    // Den anvender ScannerHelper klassen til at kunne modtage brugerinput.
+    public void bookTime() {
         ArrayList<Integer>indexValues = new ArrayList<Integer>();
         int selNum = 1;
         int timeIndexValue = 0;
 
-/*
-        for(BookingDateTime bt : bookingTimes) {
-            int CorrectYear = bt.get
-        }
-*/
-
-        int userYear = 2025;
-        int userMonth = 10;
-        int userDay = 13;
+        System.out.println("Hvilket år vil du booke tiden til?");
+        int userYear = sh.askNumber(3000);
+        System.out.println("Hvilken måned vil du booke tiden til?");
+        int userMonth = sh.askNumber(12);
+        System.out.println("Hvilken dag vil du booke tiden til?");
+        int userDay = sh.askNumber(31);
 
         for(int i = 0; i < bookingTimes.size(); i++){
             if (bookingTimes.get(i).equals(userYear, userMonth, userDay)) {
@@ -92,17 +80,22 @@ public class HairdresserTest {
 
                 }
             }
-
-
         }
 
-        int userSelect = sh.askNumber(31) - 1;
+        int userSelect = sh.askNumber(selNum) - 1;
 
         int timeArrayIndexLookup = indexValues.get(userSelect);
 
-        System.out.println("The user selected: " + bookingTimes.get(timeArrayIndexLookup));
 
+        String bookingDateTime = bookingTimes.get(timeArrayIndexLookup).printDateTime();
+        System.out.println("Brugeren valgte: " + bookingDateTime);
+        String customerName = sh.askQuestion("Skriv venligst navnet på kunden, der booker denne tid");
+
+        bookingTimes.get(timeArrayIndexLookup).setCustomerName(customerName);
         bookingTimes.get(timeArrayIndexLookup).setBookingStatus(true);
+        System.out.println("Du har booket en tid til " + customerName + " " + bookingDateTime);
+
+
 
 
 
@@ -111,8 +104,48 @@ public class HairdresserTest {
 
     }
 
+    public void deleteBooking() {
+
+        //ArrayList til at gemme BookingDateTime index værdier, der passer med specifik dato og booking-kriterier
+        ArrayList<Integer>indexValues = new ArrayList<Integer>();
+        int selNum = 1; //det tal som brugeren kan indtaste til at vælge den specifikke bookingtid
+        //int timeIndexValue = 0; //KAN SLETTES
+
+        //skal erstattes af bruger input
+        int userYear = 2025;
+        int userMonth = 10;
+        int userDay = 13;
+
+        //Skaber liste over dagens tidsrum, som allerede er booket
+        for(int i = 0; i < bookingTimes.size(); i++){
+            if (bookingTimes.get(i).equals(userYear, userMonth, userDay)) {
+                boolean isBooked = bookingTimes.get(i).getBookingStatus();
+
+                if(isBooked) {
+                    System.out.println(selNum + ". " + bookingTimes.get(i).printDateTime() + " Kunden er: " + bookingTimes.get(i).getCustomerName());
+                    indexValues.add(i);
+                    System.out.println("Array Index value: " + i);
+
+                    selNum++;
+
+                }
+            }
+        }
+
+        int userSelect = sh.askNumber(selNum) - 1;
+
+        int timeArrayIndexLookup = indexValues.get(userSelect);
+
+        //debug kommentar
+        System.out.println("du har valgt at slette booking for: " + bookingTimes.get(timeArrayIndexLookup));
+
+        bookingTimes.get(timeArrayIndexLookup).setBookingStatus(false);
+
+    }
+
     public void checkAvailableTimes(){
         for(BookingDateTime bt : bookingTimes){
+            if(bt.getAvailability() && !bt.getBookingStatus())
             System.out.println(bt);
         }
     }
