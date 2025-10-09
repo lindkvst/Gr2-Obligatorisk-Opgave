@@ -9,9 +9,9 @@ import java.util.Arrays;
 import java.util.List;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
-import java.io.IOException;
 
 public class FileHandler {
+
     public void writeFile(String fileInput) {
         try (BufferedWriter bw = new BufferedWriter(new FileWriter("Bookings.csv"))) {
             bw.write(fileInput);
@@ -20,7 +20,7 @@ public class FileHandler {
             System.out.println("Error writing file.");
         }
     }
-}
+
     public static final String COMMA_DELIMITER = ",";
 
     public ArrayList<BookingDateTime> createFile() {
