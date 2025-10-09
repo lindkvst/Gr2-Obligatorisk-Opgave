@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class HairdresserTest {
     FileHandler fh = new FileHandler();
     ScannerHelper sh = new ScannerHelper();
-    ArrayList<BookingDateTime> bookingTimes = fh.createFile();
+    ArrayList<BookingDateTime> bookingTimes = new ArrayList<BookingDateTime>();
 
 
 
