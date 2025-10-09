@@ -30,6 +30,7 @@ public class BookingDateTime {
     }
 
     /*
+    //Der var fejl i vores constructor
     public BookingDateTime(int year, int month, int day, int hour, int min, boolean isAvailable, boolean isBooked, String customerName, boolean isPaid) {
 
         this.year = year;

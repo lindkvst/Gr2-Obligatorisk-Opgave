@@ -43,38 +43,40 @@ public class FileHandler {
 
 
         for (List<String> readBookingTime : readBookingTimes) {
-            int fileYear = 2000 + Integer.parseInt(readBookingTime.get(0));
-            System.out.print(fileYear + "/");
+            int year = 2000 + Integer.parseInt(readBookingTime.get(0));
+            int month = Integer.parseInt(readBookingTime.get(1));
 
-            int fileMonth = Integer.parseInt(readBookingTime.get(1));
-            System.out.print(fileMonth + "/");
             //splitter day og hour ud fra mellemrum - dette muliggør, at der kan være mellemrum i customer name
             String[] dayHourSplit = readBookingTime.get(2).split(" ");
-            int fileDay = Integer.parseInt(dayHourSplit[0]);
-            System.out.print(fileDay + " ");
-            int fileHour = Integer.parseInt(dayHourSplit[1]);
-            System.out.print(fileHour + ":");
-            int fileMin = Integer.parseInt(readBookingTime.get(3));
-            System.out.print(fileMin + ",");
-            boolean fileIsAvailable = Boolean.parseBoolean(readBookingTime.get(4));
-            System.out.print(fileIsAvailable + ",");
-            boolean fileIsBooked = Boolean.parseBoolean(readBookingTime.get(5));
-            System.out.print(fileIsBooked + ",");
-            String fileCustomerName = readBookingTime.get(6);
-            if (fileCustomerName.equals("null")) {
-                fileCustomerName = null;
+            int day = Integer.parseInt(dayHourSplit[0]);
+            int hour = Integer.parseInt(dayHourSplit[1]);
+            int min = Integer.parseInt(readBookingTime.get(3));
+
+            boolean isAvailable = Boolean.parseBoolean(readBookingTime.get(4));
+            boolean isBooked = Boolean.parseBoolean(readBookingTime.get(5));
+
+            //opretter costumer med null data, hvis navn = null;
+            String customerName = readBookingTime.get(6);
+            if (customerName.equals("null")) {
+                customerName = null;
             }
-            System.out.print("CM:"+ fileCustomerName + ",");
-            boolean fileIsPaid = Boolean.parseBoolean(readBookingTime.get(7));
-            System.out.print(fileIsPaid + "|");
 
-            //BookingDateTime booking = new BookingDateTime(year, month, day, hour, min, isAvailable, isBooked, customerName, isPaid);
-           // System.out.print(booking);
-          //  bookingTimes.add(new BookingDateTime(year, month, day, hour, min));
-            bookingTimes.add(new BookingDateTime(fileYear, fileMonth, fileDay, fileHour, fileMin, fileIsAvailable, fileIsBooked, fileCustomerName, fileIsPaid));
-           // bookingTimes.add(new BookingDateTime(year, month, day, hour, min, isAvailable, isBooked, customerName, isPaid));
+            boolean isPaid = Boolean.parseBoolean(readBookingTime.get(7));
 
+            //nedenstående er debug prints
+            /*
+            System.out.print(year + "/");
+            System.out.print(month + "/");
+            System.out.print(day + " ");
+            System.out.print(hour + ":");
+            System.out.print(min + ",");
+            System.out.print(isAvailable + ",");
+            System.out.print(isBooked + ",");
+            System.out.print("CM:"+ customerName + ",");
+            System.out.print(isPaid + "|");
+            */
 
+            bookingTimes.add(new BookingDateTime(year, month, day, hour, min, isAvailable, isBooked, customerName, isPaid));
         }
 
         System.out.println(readBookingTimes);
