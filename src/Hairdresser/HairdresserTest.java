@@ -11,6 +11,7 @@ public class HairdresserTest {
 
     public static void main(String[] args) {
         HairdresserTest test = new HairdresserTest();
+        test.testArray();
         test.mainMenuProgram();
     }
 
