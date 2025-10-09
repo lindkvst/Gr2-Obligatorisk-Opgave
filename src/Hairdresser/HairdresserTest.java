@@ -5,13 +5,12 @@ import java.util.ArrayList;
 public class HairdresserTest {
     FileHandler fh = new FileHandler();
     ScannerHelper sh = new ScannerHelper();
-    ArrayList<BookingDateTime> bookingTimes = new ArrayList<BookingDateTime>();
+    ArrayList<BookingDateTime> bookingTimes = fh.createFile();
 
 
 
     public static void main(String[] args) {
         HairdresserTest test = new HairdresserTest();
-        test.testArray();
         test.mainMenuProgram();
     }
 
