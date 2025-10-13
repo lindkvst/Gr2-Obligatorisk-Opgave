@@ -17,6 +17,14 @@ public class BookingDateTime {
         this.isBooked = false;
     }
 
+    public BookingDateTime(int year, int month, int day, int hour, int min, boolean isAvailable, boolean isBooked, String customerName, boolean isPaid) {
+        this.dateTimeValue = LocalDateTime.of(year, month, day, hour, min);
+        this.customerName = customerName;
+        this.isAvailable = isAvailable;
+        this.isBooked = isBooked;
+        this.isPaid = isPaid;
+    }
+
     public LocalDateTime getDateTime() {
         return dateTimeValue;
     }
