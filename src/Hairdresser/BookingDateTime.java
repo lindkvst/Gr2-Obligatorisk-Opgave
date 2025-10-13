@@ -27,6 +27,7 @@ public class BookingDateTime {
         this.customerName = customerName;
         this.isAvailable = isAvailable;
         this.isBooked = isBooked;
+        this.isPaid = isPaid;
     }
 
     /*
