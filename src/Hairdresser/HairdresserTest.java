@@ -72,7 +72,7 @@ public class HairdresserTest {
                 ******************************
                 """);
     }
-
+    // test
     // Denne metode er så brugeren kan booke en tid i kalenderen.
     // Den anvender ScannerHelper klassen til at kunne modtage brugerinput.
     public void bookTime() {
