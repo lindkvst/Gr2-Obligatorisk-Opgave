@@ -7,8 +7,9 @@ class HairSpray extends HairProducts {
         super(productName, productType, price, stock);
         this.containsML = containsML;
     }
+    public int getContainsML(){return containsML;}
 
     @Override
 
-    public String toString(){return getProductName() + " " + getProductType() + " " + getPrice() + " " + getStock() + " " + containsML;}
+    public String toString(){return getProductName() + " " + getProductType() + " Pris i DKK: " + getPrice() + " Lager: " + getStock() + " Indeholder: " + containsML + "ml";}
 }

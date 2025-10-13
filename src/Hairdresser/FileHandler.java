@@ -20,6 +20,15 @@ public class FileHandler {
         }
     }
 
+    public void writeProductFile(String fileInput) {
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter("Products.csv"))) {
+            bw.write(fileInput);
+            System.out.println("Successfully wrote to the file.");
+        } catch (IOException e) {
+            System.out.println("Error writing file.");
+        }
+    }
+
     public static final String COMMA_DELIMITER = "[,:/]";
 
     public ArrayList<BookingDateTime> readFromFile() {
