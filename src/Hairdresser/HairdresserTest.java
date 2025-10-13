@@ -325,5 +325,8 @@ public class HairdresserTest {
         System.out.println("Du satte lagerbeholdningen til " + userChangeStock);
 
     }
+
+
+    //TEST
     }
 
