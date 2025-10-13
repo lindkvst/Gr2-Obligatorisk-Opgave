@@ -12,7 +12,7 @@ public class HairdresserTest {
 
     public static void main(String[] args) {
         HairdresserTest test = new HairdresserTest();
- //       test.testArray();
+        //       test.testArray();
         test.productArray();
         test.mainMenuProgram();
     }
@@ -21,38 +21,41 @@ public class HairdresserTest {
     public void mainMenuProgram() {
         boolean isDone = false;
 
-        while(!isDone) {
-        printMainMenu();
-        int userChoice = sh.askNumber(9);
-        switch (userChoice) {
-            case 1:
-                bookTime();
-                break;
-            case 2:
-                deleteBooking();
-                break;
-            case 3:
-                checkAvailableTimes();
-                // seeAvailableTimes();
-                break;
-            case 4:
-                saveBookings();
-                isDone = true;
-                System.out.println("Tak for i dag!");
-                break;
-            case 5:
-                checkProducts();
-                break;
-            case 6:
-                setProductStock();
-                break;
-            case 8:
-                System.out.println();
-                break;
+        while (!isDone) {
+            printMainMenu();
+            int userChoice = sh.askNumber(9);
+            switch (userChoice) {
+                case 1:
+                    bookTime();
+                    break;
+                case 2:
+                    deleteBooking();
+                    break;
+                case 3:
+                    checkAvailableTimes();
+                    // seeAvailableTimes();
+                    break;
+                case 4:
+                    saveBookings();
+                    isDone = true;
+                    System.out.println("Tak for i dag!");
+                    break;
+                case 5:
+                    checkProducts();
+                    break;
+                case 6:
+                    setProductStock();
+                    break;
+                case 7:
+                    blockDates();
+                    break;
+                case 8:
+                    System.out.println();
+                    break;
 
-            case 9:
-                saveBookings();
-        }
+                case 9:
+                    saveBookings();
+            }
         }
     }
 
@@ -68,15 +71,17 @@ public class HairdresserTest {
                 Tryk 4 for at lukke programmet.
                 Tryk 5 for at se lagerbeholdning.
                 Tryk 6 for at ændre lagerbeholdning.
+                Tryk 7 for at registrere fridag.
                 Tryk 9 for at gemme bookings.
                 ******************************
                 """);
     }
+
     // test
     // Denne metode er så brugeren kan booke en tid i kalenderen.
     // Den anvender ScannerHelper klassen til at kunne modtage brugerinput.
     public void bookTime() {
-        ArrayList<Integer>indexValues = new ArrayList<Integer>();
+        ArrayList<Integer> indexValues = new ArrayList<Integer>();
         int selNum = 1;
         int timeIndexValue = 0;
 
@@ -87,12 +92,12 @@ public class HairdresserTest {
         System.out.println("Hvilken dag vil du booke tiden til?");
         int userDay = sh.askNumber(31);
 
-        for(int i = 0; i < bookingTimes.size(); i++){
+        for (int i = 0; i < bookingTimes.size(); i++) {
             if (bookingTimes.get(i).equals(userYear, userMonth, userDay)) {
                 boolean isBooked = bookingTimes.get(i).getBookingStatus();
 
-                if(!isBooked) {
-                    System.out.println(selNum + ". " + bookingTimes.get(i) );
+                if (!isBooked) {
+                    System.out.println(selNum + ". " + bookingTimes.get(i));
                     indexValues.add(i);
                     System.out.println("Array Index value: " + i);
 
@@ -116,18 +121,12 @@ public class HairdresserTest {
         System.out.println("Du har booket en tid til " + customerName + " " + bookingDateTime);
 
 
-
-
-
-
-
-
     }
 
     public void deleteBooking() {
 
         //ArrayList til at gemme BookingDateTime index værdier, der passer med specifik dato og booking-kriterier
-        ArrayList<Integer>indexValues = new ArrayList<Integer>();
+        ArrayList<Integer> indexValues = new ArrayList<Integer>();
         int selNum = 1; //det tal som brugeren kan indtaste til at vælge den specifikke bookingtid
 /* NEDENSTÅENDE INDELER TIL DAGE
         System.out.println("Hvilket år vil du slette tiden fra?");
@@ -147,18 +146,18 @@ public class HairdresserTest {
  */
 
         //Skaber liste over dagens tidsrum, som allerede er booket
-        for(int i = 0; i < bookingTimes.size(); i++){
+        for (int i = 0; i < bookingTimes.size(); i++) {
             //if (bookingTimes.get(i).equals(userYear, userMonth, userDay)) {
-                boolean isBooked = bookingTimes.get(i).getBookingStatus();
+            boolean isBooked = bookingTimes.get(i).getBookingStatus();
 
-                if(isBooked) {
-                    System.out.println(selNum + ". " + bookingTimes.get(i).printDateTime() + " Kunden er: " + bookingTimes.get(i).getCustomerName());
-                    indexValues.add(i);
-                    System.out.println("Array Index value: " + i);
+            if (isBooked) {
+                System.out.println(selNum + ". " + bookingTimes.get(i).printDateTime() + " Kunden er: " + bookingTimes.get(i).getCustomerName());
+                indexValues.add(i);
+                System.out.println("Array Index value: " + i);
 
-                    selNum++;
+                selNum++;
 
-                }
+            }
             //}
         }
 
@@ -173,10 +172,10 @@ public class HairdresserTest {
 
     }
 
-    public void checkAvailableTimes(){
-        for(BookingDateTime bt : bookingTimes){
-            if(bt.getAvailability() && !bt.getBookingStatus())
-            System.out.println(bt);
+    public void checkAvailableTimes() {
+        for (BookingDateTime bt : bookingTimes) {
+            if (bt.getAvailability() && !bt.getBookingStatus())
+                System.out.println(bt);
         }
     }
 
@@ -184,20 +183,20 @@ public class HairdresserTest {
 
         int[] startDays = {6, 13, 20, 27};
 
-       for (int d : startDays) {
-           for (int i = 0; i<5; i++) {
-               int day = d + i;
-               bookingTimes.add( new BookingDateTime(2025,10, day,10,0) );
-               bookingTimes.add( new BookingDateTime(2025,10,day,11,0) );
-        //       bookingTimes.add( new BookingDateTime(2025,10,day,12,0)); //frokostpause
-               bookingTimes.add( new BookingDateTime(2025,10,day,13,0));
-               bookingTimes.add( new BookingDateTime(2025,10,day,14,0));
-               bookingTimes.add( new BookingDateTime(2025,10,day,15,0));
-               bookingTimes.add( new BookingDateTime(2025,10,day,16,0));
-               bookingTimes.add( new BookingDateTime(2025,10,day,17,0));
+        for (int d : startDays) {
+            for (int i = 0; i < 5; i++) {
+                int day = d + i;
+                bookingTimes.add(new BookingDateTime(2025, 10, day, 10, 0));
+                bookingTimes.add(new BookingDateTime(2025, 10, day, 11, 0));
+                //       bookingTimes.add( new BookingDateTime(2025,10,day,12,0)); //frokostpause
+                bookingTimes.add(new BookingDateTime(2025, 10, day, 13, 0));
+                bookingTimes.add(new BookingDateTime(2025, 10, day, 14, 0));
+                bookingTimes.add(new BookingDateTime(2025, 10, day, 15, 0));
+                bookingTimes.add(new BookingDateTime(2025, 10, day, 16, 0));
+                bookingTimes.add(new BookingDateTime(2025, 10, day, 17, 0));
 
-           }
-       }
+            }
+        }
 
 
 /*
@@ -243,7 +242,7 @@ public class HairdresserTest {
                 savedBookings = singleLine;
             } else {
                 savedBookings = savedBookings.concat("\n" + singleLine);
-             }
+            }
         }
 
         //debug kommentar
@@ -251,14 +250,15 @@ public class HairdresserTest {
         System.out.println(savedBookings);
         fh.writeFile(savedBookings);
     }
-    public void productArray(){
-        HairProducts conditioner1 = new Conditioner("L'Oréal Paris Elvital", ProductType.CONDITIONER, 48.5,12, 150);
-        HairProducts conditioner2 = new Conditioner("Matas Natur Nourishing", ProductType.CONDITIONER, 66.95,15, 400);
-        HairProducts conditioner3 = new Conditioner("Dikson Volume", ProductType.CONDITIONER, 199,8, 1000);
 
-        HairProducts hairnet1 = new Hairnet("Efalock", ProductType.HAIRNET,23,10, "Small");
-        HairProducts hairnet2 = new Hairnet("Efalock", ProductType.HAIRNET,23,6, "Medium");
-        HairProducts hairnet3 = new Hairnet("Efalock", ProductType.HAIRNET,23,4, "Large");
+    public void productArray() {
+        HairProducts conditioner1 = new Conditioner("L'Oréal Paris Elvital", ProductType.CONDITIONER, 48.5, 12, 150);
+        HairProducts conditioner2 = new Conditioner("Matas Natur Nourishing", ProductType.CONDITIONER, 66.95, 15, 400);
+        HairProducts conditioner3 = new Conditioner("Dikson Volume", ProductType.CONDITIONER, 199, 8, 1000);
+
+        HairProducts hairnet1 = new Hairnet("Efalock", ProductType.HAIRNET, 23, 10, "Small");
+        HairProducts hairnet2 = new Hairnet("Efalock", ProductType.HAIRNET, 23, 6, "Medium");
+        HairProducts hairnet3 = new Hairnet("Efalock", ProductType.HAIRNET, 23, 4, "Large");
 
         HairProducts hairSpray1 = new HairSpray("Rosted", ProductType.HAIRSPRAY, 169, 7, 300);
         HairProducts hairSpray2 = new HairSpray("Living Proof Flex", ProductType.HAIRSPRAY, 228, 8, 246);
@@ -268,9 +268,9 @@ public class HairdresserTest {
         HairProducts shampoo2 = new Shampoo("Yrolí", ProductType.SHAMPOO, 245, 9, 300);
         HairProducts shampoo3 = new Shampoo("Meraki", ProductType.SHAMPOO, 199.95, 6, 490);
 
-        HairProducts StylingGel1 = new StylingGel("NATULIQUE Flexible Hold", ProductType.STYLINGGEL,259, 6,100);
-        HairProducts StylingGel2 = new StylingGel("ZENZ ", ProductType.STYLINGGEL,163, 8,130);
-        HairProducts StylingGel3 = new StylingGel("Hårologi ", ProductType.STYLINGGEL,198, 7,150);
+        HairProducts StylingGel1 = new StylingGel("NATULIQUE Flexible Hold", ProductType.STYLINGGEL, 259, 6, 100);
+        HairProducts StylingGel2 = new StylingGel("ZENZ ", ProductType.STYLINGGEL, 163, 8, 130);
+        HairProducts StylingGel3 = new StylingGel("Hårologi ", ProductType.STYLINGGEL, 198, 7, 150);
 
         hairProducts.add(conditioner1);
         hairProducts.add(conditioner2);
@@ -287,28 +287,30 @@ public class HairdresserTest {
         hairProducts.add(StylingGel1);
         hairProducts.add(StylingGel2);
         hairProducts.add(StylingGel3);
-        for(HairProducts hp : hairProducts)
-            System.out.println(hp);
-}
-    public void checkProducts(){
-        for(HairProducts hp : hairProducts)
+        for (HairProducts hp : hairProducts)
             System.out.println(hp);
     }
-    public void setProductStock(){
-        for(HairProducts hp : hairProducts)
+
+    public void checkProducts() {
+        for (HairProducts hp : hairProducts)
+            System.out.println(hp);
+    }
+
+    public void setProductStock() {
+        for (HairProducts hp : hairProducts)
             System.out.println(hp);
 
         //ArrayList til at gemme BookingDateTime index værdier, der passer med specifik dato og booking-kriterier
-        ArrayList<Integer>indexValues1 = new ArrayList<Integer>();
+        ArrayList<Integer> indexValues1 = new ArrayList<Integer>();
         int selNum = 1; //det tal som brugeren kan indtaste til at vælge den specifikke bookingtid
 
         //Skaber liste over produkter
-        for(int i = 0; i < hairProducts.size(); i++){
-                System.out.println(selNum + ". " + hairProducts.get(i));
-                indexValues1.add(i);
-                System.out.println("Array Index value: " + i);
+        for (int i = 0; i < hairProducts.size(); i++) {
+            System.out.println(selNum + ". " + hairProducts.get(i));
+            indexValues1.add(i);
+            System.out.println("Array Index value: " + i);
 
-                selNum++;
+            selNum++;
         }
 
         int userSelect = sh.askNumber(selNum) - 1;
@@ -326,7 +328,24 @@ public class HairdresserTest {
 
     }
 
+    public void blockDates() {
+        System.out.println("Indtast år");
+        int userYear = sh.askNumber(3000);
+        System.out.println("Indtast måned");
+        int userMonth = sh.askNumber(12);
+        System.out.println("Indtast dag");
+        int userDay = sh.askNumber(31);
+        boolean isAvailable;
+        for (int i = 0; i < bookingTimes.size(); i++) {
+            if (bookingTimes.get(i).equals(userYear, userMonth, userDay)) {
+                isAvailable = bookingTimes.get(i).getAvailability();
 
-    //TEST
+                if (isAvailable) {
+                    bookingTimes.get(i).setAvailability(false);
+                    System.out.println("Du har sat " + bookingTimes.get(i).getDateTime() + " som fri");
+                    }
+                }
+            }
+        }
     }
 
