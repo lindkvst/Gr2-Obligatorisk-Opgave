@@ -1,5 +1,6 @@
 package Hairdresser;
 import java.time.LocalDateTime;
+import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
 
@@ -98,6 +99,32 @@ public class BookingDateTime {
     public String exportDateTimeFormat() {
         DateTimeFormatter shortDKdate = DateTimeFormatter.ofPattern("dd/MM/yy HH:mm");
         return dateTimeValue.format(shortDKdate);
+    }
+
+    public boolean compareDates(LocalDate userDate) {
+        boolean allCorrect = false;
+        boolean yearCorrect = false;
+        boolean monthCorrect = false;
+        boolean dayCorrect = false;
+
+        if (dateTimeValue.getYear() == userDate.getYear()) {
+            yearCorrect = true;
+        }
+
+        if (dateTimeValue.getMonthValue() == userDate.getMonthValue()) {
+            monthCorrect = true;
+        }
+
+        if (dateTimeValue.getDayOfMonth() == userDate.getDayOfMonth()) {
+            dayCorrect = true;
+        }
+
+        if (yearCorrect && monthCorrect && dayCorrect) {
+            allCorrect = true;
+        }
+
+        return allCorrect;
+
     }
 
 

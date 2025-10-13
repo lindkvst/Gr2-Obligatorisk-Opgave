@@ -1,10 +1,14 @@
 package Hairdresser;
 
+import java.sql.SQLOutput;
 import java.util.ArrayList;
+import java.time.*;
 
 public class HairdresserTest {
     ScannerHelper sh = new ScannerHelper();
     ArrayList<BookingDateTime> bookingTimes = new ArrayList<BookingDateTime>();
+    //LocalDate today = LocalDate.now(); //bruges i dato input validering
+    LocalDate today = LocalDate.of(2025,10,6); //bruges i dato input validering - start booking date
 
 
 
@@ -62,16 +66,20 @@ public class HairdresserTest {
         ArrayList<Integer>indexValues = new ArrayList<Integer>();
         int selNum = 1;
         int timeIndexValue = 0;
-
+/*
         System.out.println("Hvilket år vil du booke tiden til?");
         int userYear = sh.askNumber(3000);
         System.out.println("Hvilken måned vil du booke tiden til?");
         int userMonth = sh.askNumber(12);
         System.out.println("Hvilken dag vil du booke tiden til?");
         int userDay = sh.askNumber(31);
+*/
+        LocalDate userDate = inputUserDate();
+        System.out.println("test userDate" + userDate);
 
         for(int i = 0; i < bookingTimes.size(); i++){
-            if (bookingTimes.get(i).equals(userYear, userMonth, userDay)) {
+            if (bookingTimes.get(i).compareDates(userDate)) {
+            //if (bookingTimes.get(i).equals(userYear, userMonth, userDay)) {
                 boolean isBooked = bookingTimes.get(i).getBookingStatus();
 
                 if(!isBooked) {
@@ -225,30 +233,101 @@ public class HairdresserTest {
 
     }
 
-    /*
-    static LocalDate inputUserDate(String userStringDate) {
+
+    static LocalDate inputUserDate() {
+        //Problemer med at static metoder ikke kan tilgå de "generelle" variable fra toppen"
         ScannerHelper sh = new ScannerHelper();
+        //LocalDate today = LocalDate.now(); //bruges i dato input validering
+        LocalDate today = LocalDate.of(2025,10,6); //bruges i dato input validering - start booking date
+
         boolean inputCorrect = false;
-        int year;
-        int month;
-        int day;
+        boolean yearCorrect = false;
+        boolean monthCorrect = false;
+        boolean dayCorrect = false;
+        //LocalDate today = LocalDate.now();
+        int year = 0;
+        int month = 0;
+        int day = 0;
         LocalDate userDate;
         userDate = LocalDate.of(2025, 10, 6);
+        String userStringDate = "";
+        System.out.println();
+
         while (!inputCorrect) {
+            userStringDate = sh.askQuestion("Venligst indtast datoen");
+
+            //hvis første char i brugerindtastningen er et bogstav, så er dato ikke korrekt
             if (Character.isLetter(userStringDate.charAt(0))) {
-                userStringDate = sh.askQuestion("En dato skal starter med et tal i formatet DD/MM/YY. Prøv igen");
-            } else if (!userStringDate.contains("/")) {
-                userStringDate = sh.askQuestion("Ikke en gyldig dato i formatet DD/MM/YY. Prøv igen");
+                System.out.println("En dato skal starter med et tal i formatet DD/MM/YY. Prøv igen. ");
+            //der skal minimum være én / i brugerindtastningen
             } else {
-                inputCorrect = true;
+                //finder ud af hvor mange / der er i min string
+                int count = userStringDate.length() - userStringDate.replace("/","").length();
+                if (count == 0) { // ikke gyldig - gentag
+                    System.out.println("Ikke en gyldig dato i formatet DD/MM/YY");
+                } else if (count == 1 || count == 2) {
+                    String[] values = userStringDate.trim().split("/");
+
+                    //Nedenstående gemmer dagen
+                    try {
+                        day = Integer.parseInt(values[0]);
+                        if (day > 31) {
+                            System.out.println("FEJL DAG - dag større end 31");
+                            break;
+                        }
+                    } catch (NumberFormatException e) {
+                        System.out.println("Dag forkert indtastet. Prøv igen");
+                        break;
+                    }
+
+                    //Nedenstående gemmer måneden
+                    try {
+                        month = Integer.parseInt(values[1]);
+                        if (month > 12) {
+                            System.out.println("FEJL MÅNED - måned større end 12");
+                            break;
+                        }
+                    } catch (NumberFormatException e) {
+                        System.out.println("Måned forkert indtastet. Prøv igen");
+                        break;
+                    }
+
+                    //Nedenstående gemmer året
+
+                    //hvis count == 1 er året det aktuelle år
+                    if (count == 1) {
+                        year = today.getYear();
+                        inputCorrect = true;
+                    } else if (count == 2) {
+                        try {
+                            year = Integer.parseInt(values[2]);
+                            if (year < today.getYear()) {
+                                System.out.println("FEJL ÅR - det skal være en fremtidig dato");
+                            } else {
+                                inputCorrect = true;
+                            }
+                        } catch (NumberFormatException e) {
+                            System.out.println("År forkert indtastet. Prøv igen");
+                            break;
+                        }
+
+
+                    }
+                } else if (count > 2) {
+                    System.out.println("Ikke en gyldig dato i formatet DD/MM/YY");
+                }
+
             }
+
+
         }
 
 
-        String[] values = userStringDate.trim().split("/-");
-        day = Integer.parseInt(values[0]);
-        month = Integer.parseInt(values[1]);
-        year = Integer.parseInt(values[2]);
+
+
+
+
+
         System.out.print(year + "/");
         System.out.print(month + "/");
         System.out.print(day + " ");
@@ -258,9 +337,9 @@ public class HairdresserTest {
 
         try {
             userDate = LocalDate.of(year, month, day);
-            System.out.println("Du var valgt datoer");
-        } catch (NumberFormatException) {
-            System.out.println("ERROR: ");
+            System.out.println("Du har valgt korrekte datoer");
+        } catch (NumberFormatException e) {
+            System.out.println("ERROR: " + e);
         }
 
 
@@ -270,6 +349,6 @@ public class HairdresserTest {
 
 
     }
-*/
+
 
 }
