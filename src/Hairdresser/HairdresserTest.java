@@ -225,4 +225,51 @@ public class HairdresserTest {
 
     }
 
+    /*
+    static LocalDate inputUserDate(String userStringDate) {
+        ScannerHelper sh = new ScannerHelper();
+        boolean inputCorrect = false;
+        int year;
+        int month;
+        int day;
+        LocalDate userDate;
+        userDate = LocalDate.of(2025, 10, 6);
+        while (!inputCorrect) {
+            if (Character.isLetter(userStringDate.charAt(0))) {
+                userStringDate = sh.askQuestion("En dato skal starter med et tal i formatet DD/MM/YY. Prøv igen");
+            } else if (!userStringDate.contains("/")) {
+                userStringDate = sh.askQuestion("Ikke en gyldig dato i formatet DD/MM/YY. Prøv igen");
+            } else {
+                inputCorrect = true;
+            }
+        }
+
+
+        String[] values = userStringDate.trim().split("/-");
+        day = Integer.parseInt(values[0]);
+        month = Integer.parseInt(values[1]);
+        year = Integer.parseInt(values[2]);
+        System.out.print(year + "/");
+        System.out.print(month + "/");
+        System.out.print(day + " ");
+        System.out.println();
+
+
+
+        try {
+            userDate = LocalDate.of(year, month, day);
+            System.out.println("Du var valgt datoer");
+        } catch (NumberFormatException) {
+            System.out.println("ERROR: ");
+        }
+
+
+
+        System.out.println("du har indtastet noget korrekt");
+        return userDate;
+
+
+    }
+*/
+
 }
