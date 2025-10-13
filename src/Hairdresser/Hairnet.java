@@ -7,8 +7,9 @@ class Hairnet extends HairProducts {
         super(productName, productType, price, stock);
         this.size = size;
     }
+    public String getSize(){return size;}
 
     @Override
 
-    public String toString(){return getProductName() + " " + getProductType() + " " + getPrice() + " " + getStock() + " " + size;}
+    public String toString(){return getProductName() + " " + getProductType() + " Pris i DKK: " + getPrice() + " Lager: " + getStock() + " Størrelse: " + size;}
 }

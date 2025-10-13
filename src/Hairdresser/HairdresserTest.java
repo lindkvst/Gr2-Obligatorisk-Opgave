@@ -8,11 +8,12 @@ public class HairdresserTest {
     //ArrayList<BookingDateTime> bookingTimes = new ArrayList<BookingDateTime>();
 
     ArrayList<BookingDateTime> bookingTimes = fh.readFromFile();
-
+    ArrayList<HairProducts> hairProducts = new ArrayList<HairProducts>();
 
     public static void main(String[] args) {
         HairdresserTest test = new HairdresserTest();
  //       test.testArray();
+        test.productArray();
         test.mainMenuProgram();
     }
 
@@ -39,9 +40,14 @@ public class HairdresserTest {
                 isDone = true;
                 System.out.println("Tak for i dag!");
                 break;
-
+            case 5:
+                checkProducts();
+                break;
+            case 6:
+                setProductStock();
+                break;
             case 8:
-   //             System.out.println(bookingTimesTest.get(0));
+                System.out.println();
                 break;
 
             case 9:
@@ -60,6 +66,8 @@ public class HairdresserTest {
                 Tryk 2 for at slette en tid.
                 Tryk 3 for at se ledige tider.
                 Tryk 4 for at lukke programmet.
+                Tryk 5 for at se lagerbeholdning.
+                Tryk 6 for at ændre lagerbeholdning.
                 Tryk 9 for at gemme bookings.
                 ******************************
                 """);
@@ -243,5 +251,79 @@ public class HairdresserTest {
         System.out.println(savedBookings);
         fh.writeFile(savedBookings);
     }
+    public void productArray(){
+        HairProducts conditioner1 = new Conditioner("L'Oréal Paris Elvital", ProductType.CONDITIONER, 48.5,12, 150);
+        HairProducts conditioner2 = new Conditioner("Matas Natur Nourishing", ProductType.CONDITIONER, 66.95,15, 400);
+        HairProducts conditioner3 = new Conditioner("Dikson Volume", ProductType.CONDITIONER, 199,8, 1000);
 
+        HairProducts hairnet1 = new Hairnet("Efalock", ProductType.HAIRNET,23,10, "Small");
+        HairProducts hairnet2 = new Hairnet("Efalock", ProductType.HAIRNET,23,6, "Medium");
+        HairProducts hairnet3 = new Hairnet("Efalock", ProductType.HAIRNET,23,4, "Large");
+
+        HairProducts hairSpray1 = new HairSpray("Rosted", ProductType.HAIRSPRAY, 169, 7, 300);
+        HairProducts hairSpray2 = new HairSpray("Living Proof Flex", ProductType.HAIRSPRAY, 228, 8, 246);
+        HairProducts hairSpray3 = new HairSpray("HH Simonsen", ProductType.HAIRSPRAY, 150, 4, 250);
+
+        HairProducts shampoo1 = new Shampoo("Dikson Energy", ProductType.SHAMPOO, 189, 14, 1000);
+        HairProducts shampoo2 = new Shampoo("Yrolí", ProductType.SHAMPOO, 245, 9, 300);
+        HairProducts shampoo3 = new Shampoo("Meraki", ProductType.SHAMPOO, 199.95, 6, 490);
+
+        HairProducts StylingGel1 = new StylingGel("NATULIQUE Flexible Hold", ProductType.STYLINGGEL,259, 6,100);
+        HairProducts StylingGel2 = new StylingGel("ZENZ ", ProductType.STYLINGGEL,163, 8,130);
+        HairProducts StylingGel3 = new StylingGel("Hårologi ", ProductType.STYLINGGEL,198, 7,150);
+
+        hairProducts.add(conditioner1);
+        hairProducts.add(conditioner2);
+        hairProducts.add(conditioner3);
+        hairProducts.add(hairnet1);
+        hairProducts.add(hairnet2);
+        hairProducts.add(hairnet3);
+        hairProducts.add(hairSpray1);
+        hairProducts.add(hairSpray2);
+        hairProducts.add(hairSpray3);
+        hairProducts.add(shampoo1);
+        hairProducts.add(shampoo2);
+        hairProducts.add(shampoo3);
+        hairProducts.add(StylingGel1);
+        hairProducts.add(StylingGel2);
+        hairProducts.add(StylingGel3);
+        for(HairProducts hp : hairProducts)
+            System.out.println(hp);
 }
+    public void checkProducts(){
+        for(HairProducts hp : hairProducts)
+            System.out.println(hp);
+    }
+    public void setProductStock(){
+        for(HairProducts hp : hairProducts)
+            System.out.println(hp);
+
+        //ArrayList til at gemme BookingDateTime index værdier, der passer med specifik dato og booking-kriterier
+        ArrayList<Integer>indexValues1 = new ArrayList<Integer>();
+        int selNum = 1; //det tal som brugeren kan indtaste til at vælge den specifikke bookingtid
+
+        //Skaber liste over produkter
+        for(int i = 0; i < hairProducts.size(); i++){
+                System.out.println(selNum + ". " + hairProducts.get(i));
+                indexValues1.add(i);
+                System.out.println("Array Index value: " + i);
+
+                selNum++;
+        }
+
+        int userSelect = sh.askNumber(selNum) - 1;
+
+        int productArrayIndexLookup = indexValues1.get(userSelect);
+
+        System.out.println("Du vil gerne ændre lagerbeholdningen for: " + hairProducts.get(productArrayIndexLookup));
+        System.out.println("Indtast venligst den nye lagerbeholdning: ");
+
+        int userChangeStock = sh.askNumber(1000);
+
+        hairProducts.get(productArrayIndexLookup).setStock(userChangeStock);
+
+        System.out.println("Du satte lagerbeholdningen til " + userChangeStock);
+
+    }
+    }
+
