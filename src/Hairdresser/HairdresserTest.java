@@ -186,7 +186,7 @@ public class HairdresserTest {
 
         int timeArrayIndexLookup = indexValues.get(userSelect);
 
-        //debug kommentar
+        //debug kommentar - skrevet lidt mere
         System.out.println("du har valgt at slette booking for: " + bookingTimes.get(timeArrayIndexLookup));
 
         bookingTimes.get(timeArrayIndexLookup).setBookingStatus(false);
