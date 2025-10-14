@@ -361,15 +361,55 @@ public class HairdresserTest {
     public void openDates() {
         ArrayList<String> openDates = new ArrayList<String>();
         String openDate = null;
-        boolean isAvailable;
+        boolean isTimeAvailable;
+        boolean isDayAvailable;
         String dateString;
         String openStatus;
         LocalDate dateDelimiter = null;
+        boolean dateCreated = false;
+
+
 
         for (int i = 0; i < bookingTimes.size(); i++) {
+            isDayAvailable = false;
+            BookingDateTime thisBookingTime = bookingTimes.get(i);
+            LocalDateTime thisDateTime = thisBookingTime.getDateTime();
+            LocalDate thisDate = thisDateTime.toLocalDate();
             if (dateDelimiter == null) {
-                dateDelimiter = bookingTimes.get(i).getDate();
-            } else if (!bookingTimes.get(i).compareDates(dateDelimiter)) {
+                dateDelimiter = thisDate;
+                System.out.println("for loop i=" + i + ". test: dateDelimiter: " + dateDelimiter + "objAvailable: " + );
+                dateCreated = true;
+                dateString = thisBookingTime.printDate();
+                isTimeAvailable = thisBookingTime.getAvailability();
+                if (isTimeAvailable) {
+                    isDayAvailable = true;
+                }
+                /*
+                if (isDayAvailable) {
+                    openStatus = "Salon har åbent.";
+                } else {
+                    openStatus = "Salon har lukket.";
+                }
+                */
+                /*
+                openDates.add(dateString);
+                */
+            } else if (!thisBookingTime.compareDates(dateDelimiter) && dateCreated) {
+
+
+
+                dateDelimiter = thisDate;
+                System.out.println("for loop i=" + i + ". test: dateDelimiter: " + dateDelimiter);
+                dateCreated = true;
+                dateString = thisBookingTime.printDate();
+                isTimeAvailable = thisBookingTime.getAvailability();
+                if (!isTimeAvailable) {
+                    isDayAvailable = false;
+                }
+
+            }
+
+
                 dateDelimiter = bookingTimes.get(i).getDate();
                 dateString = bookingTimes.get(i).printDate();
                 isAvailable = bookingTimes.get(i).getAvailability();
