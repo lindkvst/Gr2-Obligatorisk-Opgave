@@ -11,17 +11,8 @@ import java.io.FileWriter;
 
 public class FileHandler {
 
-    public void writeFile(String fileInput) {
-        try (BufferedWriter bw = new BufferedWriter(new FileWriter("Bookings.csv"))) {
-            bw.write(fileInput);
-            System.out.println("Successfully wrote to the file.");
-        } catch (IOException e) {
-            System.out.println("Error writing file.");
-        }
-    }
-
-    public void writeProductFile(String fileInput) {
-        try (BufferedWriter bw = new BufferedWriter(new FileWriter("Products.csv"))) {
+    public void writeFile(String fileInput, String fileName) {
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(fileName))) {
             bw.write(fileInput);
             System.out.println("Successfully wrote to the file.");
         } catch (IOException e) {
