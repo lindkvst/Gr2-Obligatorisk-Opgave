@@ -88,6 +88,7 @@ public class HairdresserTest {
         ArrayList<Integer> indexValues = new ArrayList<Integer>();
         int selNum = 1;
         int timeIndexValue = 0;
+        //Test til pull Request
 /*
         System.out.println("Hvilket år vil du booke tiden til?");
         int userYear = sh.askNumber(3000);
