@@ -1,140 +1,141 @@
-25/10/06 10:00,true,true,Lisa,false
-25/10/06 11:00,true,true,Bjarn,false
-25/10/06 13:00,true,false,null,false
-25/10/06 14:00,true,false,null,false
-25/10/06 15:00,true,false,null,false
-25/10/06 16:00,true,true,Karo,false
-25/10/06 17:00,true,false,null,false
-25/10/07 10:00,true,true,Lisa,false
-25/10/07 11:00,true,false,null,false
-25/10/07 13:00,true,false,null,false
-25/10/07 14:00,true,false,null,false
-25/10/07 15:00,true,false,null,false
-25/10/07 16:00,true,false,null,false
-25/10/07 17:00,true,false,null,false
-25/10/08 10:00,true,false,null,false
-25/10/08 11:00,true,false,null,false
-25/10/08 13:00,true,false,null,false
-25/10/08 14:00,true,true,Rasmus,false
-25/10/08 15:00,true,false,null,false
-25/10/08 16:00,true,false,null,false
-25/10/08 17:00,true,false,null,false
-25/10/09 10:00,true,false,null,false
-25/10/09 11:00,true,false,null,false
-25/10/09 13:00,true,false,null,false
-25/10/09 14:00,true,false,null,false
-25/10/09 15:00,true,false,null,false
-25/10/09 16:00,true,false,null,false
-25/10/09 17:00,true,false,null,false
-25/10/10 10:00,true,false,null,false
-25/10/10 11:00,true,false,null,false
-25/10/10 13:00,true,false,null,false
-25/10/10 14:00,true,false,null,false
-25/10/10 15:00,true,false,null,false
-25/10/10 16:00,true,false,null,false
-25/10/10 17:00,true,false,null,false
-25/10/13 10:00,true,true,Abdul,false
-25/10/13 11:00,true,false,null,false
-25/10/13 13:00,true,false,null,false
-25/10/13 14:00,true,false,null,false
-25/10/13 15:00,true,false,null,false
-25/10/13 16:00,true,false,null,false
-25/10/13 17:00,true,false,null,false
-25/10/14 10:00,true,false,null,false
-25/10/14 11:00,true,false,null,false
-25/10/14 13:00,true,false,null,false
-25/10/14 14:00,true,false,null,false
-25/10/14 15:00,true,false,null,false
-25/10/14 16:00,true,false,null,false
-25/10/14 17:00,true,false,null,false
-25/10/15 10:00,true,false,null,false
-25/10/15 11:00,true,false,null,false
-25/10/15 13:00,true,false,null,false
-25/10/15 14:00,true,false,null,false
-25/10/15 15:00,true,false,null,false
-25/10/15 16:00,true,false,null,false
-25/10/15 17:00,true,false,null,false
-25/10/16 10:00,true,false,null,false
-25/10/16 11:00,true,false,null,false
-25/10/16 13:00,true,false,null,false
-25/10/16 14:00,true,false,null,false
-25/10/16 15:00,true,false,null,false
-25/10/16 16:00,true,false,null,false
-25/10/16 17:00,true,false,null,false
-25/10/17 10:00,true,false,null,false
-25/10/17 11:00,true,false,null,false
-25/10/17 13:00,true,false,null,false
-25/10/17 14:00,true,false,null,false
-25/10/17 15:00,true,false,null,false
-25/10/17 16:00,true,false,null,false
-25/10/17 17:00,true,false,null,false
-25/10/20 10:00,true,false,null,false
-25/10/20 11:00,true,false,null,false
-25/10/20 13:00,true,false,null,false
-25/10/20 14:00,true,false,null,false
-25/10/20 15:00,true,false,null,false
-25/10/20 16:00,true,false,null,false
-25/10/20 17:00,true,false,null,false
-25/10/21 10:00,true,false,null,false
-25/10/21 11:00,true,false,null,false
-25/10/21 13:00,true,false,null,false
-25/10/21 14:00,true,false,null,false
-25/10/21 15:00,true,false,null,false
-25/10/21 16:00,true,false,null,false
-25/10/21 17:00,true,false,null,false
-25/10/22 10:00,true,false,null,false
-25/10/22 11:00,true,false,null,false
-25/10/22 13:00,true,false,null,false
-25/10/22 14:00,true,false,null,false
-25/10/22 15:00,true,false,null,false
-25/10/22 16:00,true,false,null,false
-25/10/22 17:00,true,false,null,false
-25/10/23 10:00,true,false,null,false
-25/10/23 11:00,true,false,null,false
-25/10/23 13:00,true,false,null,false
-25/10/23 14:00,true,false,null,false
-25/10/23 15:00,true,false,null,false
-25/10/23 16:00,true,false,null,false
-25/10/23 17:00,true,false,null,false
-25/10/24 10:00,true,false,null,false
-25/10/24 11:00,true,false,null,false
-25/10/24 13:00,true,false,null,false
-25/10/24 14:00,true,false,null,false
-25/10/24 15:00,true,false,null,false
-25/10/24 16:00,true,false,null,false
-25/10/24 17:00,true,false,null,false
-25/10/27 10:00,true,false,null,false
-25/10/27 11:00,true,false,null,false
-25/10/27 13:00,true,false,null,false
-25/10/27 14:00,true,false,null,false
-25/10/27 15:00,true,false,null,false
-25/10/27 16:00,true,false,null,false
-25/10/27 17:00,true,false,null,false
-25/10/28 10:00,true,false,null,false
-25/10/28 11:00,true,false,null,false
-25/10/28 13:00,true,false,null,false
-25/10/28 14:00,true,false,null,false
-25/10/28 15:00,true,false,null,false
-25/10/28 16:00,true,false,null,false
-25/10/28 17:00,true,false,null,false
-25/10/29 10:00,true,false,null,false
-25/10/29 11:00,true,false,null,false
-25/10/29 13:00,true,false,null,false
-25/10/29 14:00,true,false,null,false
-25/10/29 15:00,true,false,null,false
-25/10/29 16:00,true,true,Lars Krimi,false
-25/10/29 17:00,true,false,null,false
-25/10/30 10:00,true,false,null,false
-25/10/30 11:00,true,false,null,false
-25/10/30 13:00,true,false,null,false
-25/10/30 14:00,true,false,null,false
-25/10/30 15:00,true,false,null,false
-25/10/30 16:00,true,false,null,false
-25/10/30 17:00,true,false,null,false
-25/10/31 10:00,true,false,null,false
-25/10/31 11:00,true,false,null,false
-25/10/31 13:00,true,false,null,false
-25/10/31 14:00,true,false,null,false
-25/10/31 15:00,true,false,null,false
-25/10/31 16:00,true,false,null,false
-25/10/31 17:00,true,false,null,false
+DATETIME;isAvailable;isBooked;CustomerName;isPaid
+25/10/13 10:00;true;true;Abdul;false
+25/10/06 11:00;true;true;Bjarne O;true
+25/10/06 16:00;true;true;Karo;false
+25/10/29 16:00;true;true;Lars K;true
+25/10/06 10:00;true;true;Lisa;false
+25/10/07 10:00;true;true;Simone;false
+25/10/06 13:00;true;true;Abdul;false
+25/10/06 14:00;true;true;Søren K;true
+25/10/06 15:00;true;true;John D;false
+25/10/06 17:00;true;true;Lars Krimi;false
+25/10/07 11:00;true;true;Frank H;true
+25/10/07 13:00;true;true;Brian;true
+25/10/07 16:00;true;false;null;false
+25/10/07 17:00;true;false;null;false
+25/10/08 10:00;true;false;null;false
+25/10/07 14:00;true;true;John F;false
+25/10/07 15:00;true;true;Bjarne S;false
+25/10/08 11:00;true;true;Frank J;true
+25/10/08 13:00;true;true;Lars W;false
+25/10/08 15:00;true;true;Mona;true
+25/10/08 16:00;true;true;Peter E;true
+25/10/08 17:00;true;true;Line P;true
+25/10/09 10:00;true;true;Søren L;false
+25/10/09 11:00;true;true;Ole L;true
+25/10/09 13:00;true;true;Ole J;false
+25/10/09 14:00;true;true;Åse T;true
+25/10/09 15:00;true;true;Rasmus L;true
+25/10/09 17:00;true;false;null;false
+25/10/10 10:00;true;false;null;false
+25/10/10 11:00;true;false;null;false
+25/10/10 13:00;true;false;null;false
+25/10/09 16:00;true;true;Dagmar W;true
+25/10/10 14:00;true;true;Lars K;false
+25/10/10 15:00;true;true;Peter R;false
+25/10/10 16:00;true;true;Hans C;true
+25/10/10 17:00;true;true;Lisette;true
+25/10/13 11:00;true;true;Bent B;false
+25/10/13 13:00;true;true;Jakob L;true
+25/10/13 14:00;true;true;Ib;false
+25/10/13 15:00;true;true;Kasper;false
+25/10/13 16:00;true;true;Hans P;true
+25/10/13 17:00;true;true;Eva;true
+25/10/14 10:00;true;true;Maja;false
+25/10/14 11:00;true;true;Poul;false
+25/10/14 13:00;true;true;Victoria;true
+25/10/14 14:00;true;false;null;false
+25/10/14 15:00;true;false;null;false
+25/10/14 16:00;true;false;null;false
+25/10/14 17:00;true;false;null;false
+25/10/15 10:00;true;false;null;false
+25/10/15 11:00;true;false;null;false
+25/10/15 13:00;true;false;null;false
+25/10/15 14:00;true;false;null;false
+25/10/15 15:00;true;false;null;false
+25/10/15 16:00;true;false;null;false
+25/10/15 17:00;true;false;null;false
+25/10/16 10:00;true;false;null;false
+25/10/16 11:00;true;false;null;false
+25/10/16 13:00;true;false;null;false
+25/10/16 14:00;true;false;null;false
+25/10/16 15:00;true;false;null;false
+25/10/16 16:00;true;false;null;false
+25/10/16 17:00;true;false;null;false
+25/10/17 10:00;true;false;null;false
+25/10/17 11:00;true;false;null;false
+25/10/17 13:00;true;false;null;false
+25/10/17 14:00;true;false;null;false
+25/10/17 15:00;true;false;null;false
+25/10/17 16:00;true;false;null;false
+25/10/17 17:00;true;false;null;false
+25/10/20 10:00;true;false;null;false
+25/10/20 11:00;true;false;null;false
+25/10/20 13:00;true;true;Sofie K;true
+25/10/20 14:00;true;true;William D;true
+25/10/20 15:00;true;true;Nikolaj G;true
+25/10/20 16:00;true;true;Emma R;true
+25/10/20 17:00;true;true;Johan;false
+25/10/21 10:00;true;true;Alberte D;true
+25/10/21 11:00;true;true;Alberte J;false
+25/10/21 13:00;true;true;Brian;false
+25/10/21 14:00;true;true;Sofia;true
+25/10/21 15:00;true;true;Benjamin;true
+25/10/21 16:00;true;true;Lars K;false
+25/10/21 17:00;true;true;Victor;true
+25/10/22 10:00;true;true;Anton;false
+25/10/22 11:00;true;true;Tobias J;false
+25/10/22 13:00;true;true;Lasse O;true
+25/10/22 14:00;true;true;Julie F;true
+25/10/22 15:00;true;true;Oliver B;false
+25/10/22 16:00;true;true;Josefine;true
+25/10/22 17:00;true;true;Abdul;false
+25/10/23 10:00;true;true;Alma;true
+25/10/23 11:00;true;true;Karla;false
+25/10/23 13:00;true;true;Valdemar;true
+25/10/23 14:00;true;true;Ludvig;true
+25/10/23 15:00;true;true;Rasmus L;false
+25/10/23 16:00;true;true;Ulrik;true
+25/10/23 17:00;true;false;null;false
+25/10/24 10:00;true;false;null;false
+25/10/24 11:00;true;false;null;false
+25/10/24 13:00;true;false;null;false
+25/10/24 14:00;true;false;null;false
+25/10/24 15:00;true;false;null;false
+25/10/24 16:00;true;false;null;false
+25/10/24 17:00;true;false;null;false
+25/10/27 10:00;true;false;null;false
+25/10/27 11:00;true;false;null;false
+25/10/27 13:00;true;false;null;false
+25/10/27 14:00;true;false;null;false
+25/10/27 15:00;true;false;null;false
+25/10/27 16:00;true;false;null;false
+25/10/27 17:00;true;false;null;false
+25/10/28 10:00;true;false;null;false
+25/10/28 11:00;true;false;null;false
+25/10/28 13:00;true;false;null;false
+25/10/28 14:00;true;false;null;false
+25/10/28 15:00;true;false;null;false
+25/10/28 16:00;true;false;null;false
+25/10/28 17:00;true;false;null;false
+25/10/29 10:00;true;true;Ellen;false
+25/10/29 11:00;true;true;Jonas;false
+25/10/29 13:00;true;true;Nora;false
+25/10/29 14:00;true;true;Mohammed;false
+25/10/29 15:00;true;true;Erik;false
+25/10/29 17:00;true;true;Tamir;false
+25/10/30 10:00;true;true;Mathilde;false
+25/10/30 11:00;true;true;Asger;false
+25/10/30 13:00;true;true;Lukas;false
+25/10/30 14:00;true;true;Agnes;false
+25/10/30 15:00;true;true;Noah;false
+25/10/30 16:00;true;true;Andreas;false
+25/10/30 17:00;true;true;Bjarne S;false
+25/10/31 10:00;true;true;Lisa;false
+25/10/31 11:00;true;true;Olivia;false
+25/10/31 13:00;true;true;Elliot;false
+25/10/31 14:00;true;true;Alfred;false
+25/10/08 14:00;true;true;Rasmus B;false
+25/10/31 15:00;true;false;null;false
+25/10/31 16:00;true;false;null;false
+25/10/31 17:00;true;false;null;false
