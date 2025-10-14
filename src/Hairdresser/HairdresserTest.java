@@ -190,16 +190,46 @@ public class HairdresserTest {
         System.out.println("du har valgt at slette booking for: " + bookingTimes.get(timeArrayIndexLookup));
 
         bookingTimes.get(timeArrayIndexLookup).setBookingStatus(false);
+        bookingTimes.get(timeArrayIndexLookup).setCustomerName(null);
 
     }
 
     public void checkAvailableTimes() {
-        for (BookingDateTime bt : bookingTimes) {
-            if (bt.getAvailability() && !bt.getBookingStatus())
-                System.out.println(bt);
-        }
-    }
+        LocalDate userDate;
+        boolean userDateCorrect = false;
+        ArrayList<Integer> indexValues = new ArrayList<Integer>();
+        int selNum = 1;
+    //    int numOfDaysLookup = 4;
+        while(!userDateCorrect) {
+            userDate = inputUserDate();
+            System.out.println("test userDate: " + userDate);
+            if (userDate.isBefore(today)) {
+                System.out.println("Du kan kun se fremtidige ledige tider. Prøv igen. ");
+            } else {
+                for (int i = 0; i < bookingTimes.size(); i++) {
+                    BookingDateTime thisTime = bookingTimes.get(i);
+                    if(thisTime.fallsWithinDays(userDate, 4)) {
+                        if (thisTime.getAvailability() && !thisTime.getBookingStatus()) {
+                            System.out.println(selNum + ". " + thisTime.printDateTime());
+                            indexValues.add(i);
+                            //System.out.println("Array Index value: " + i);
 
+                            selNum++;
+                        }
+                    }
+                }
+            }
+            if(indexValues.isEmpty()) {
+                System.out.println("Der er ingen ledige tider på pågældende dato. Prøv igen. ");
+            } else {
+                userDateCorrect = true;
+            }
+        }
+
+
+
+    }
+/*
     public void testArray() {
 
         int[] startDays = {6, 13, 20, 27};
@@ -220,27 +250,9 @@ public class HairdresserTest {
         }
 
 
-/*
-        BookingDateTime b1 = new BookingDateTime(2025,10,8,10,0);
-        BookingDateTime b2 = new BookingDateTime(2025,10,8,11,0);
-        BookingDateTime b3 = new BookingDateTime(2025,10,8,12,0);
-        BookingDateTime b4 = new BookingDateTime(2025,10,8,13,0);
-        BookingDateTime b5 = new BookingDateTime(2025,10,8,14,0);
-        BookingDateTime b6 = new BookingDateTime(2025,10,8,15,0);
-        BookingDateTime b7 = new BookingDateTime(2025,10,8,16,0);
-        BookingDateTime b8 = new BookingDateTime(2025,10,8,17,0);
-        bookingTimes.add(b1);
-        bookingTimes.add(b2);
-        bookingTimes.add(b3);
-        bookingTimes.add(b4);
-        bookingTimes.add(b5);
-        bookingTimes.add(b6);
-        bookingTimes.add(b7);
-        bookingTimes.add(b8);
-
- */
     }
 
+    */
     public void saveBookings() {
         String savedBookings = null;
         String dateString;
