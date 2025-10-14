@@ -8,7 +8,7 @@ public class HairdresserTest {
     FileHandler fh = new FileHandler();
     ScannerHelper sh = new ScannerHelper();
     //LocalDate today = LocalDate.now(); //bruges i dato input validering
-    LocalDate today = LocalDate.of(2025,10,6); //bruges i dato input validering - start booking date
+    LocalDate today = LocalDate.of(2025,10,1); //bruges i dato input validering - start booking date
 
 
     ArrayList<BookingDateTime> bookingTimes = fh.readFromFile();
@@ -87,7 +87,7 @@ public class HairdresserTest {
     public void bookTime() {
         ArrayList<Integer> indexValues = new ArrayList<Integer>();
         int selNum = 1;
-        int timeIndexValue = 0;
+        //int timeIndexValue = 0;
         //Test til pull Request
 /*
         System.out.println("Hvilket år vil du booke tiden til?");
@@ -149,44 +149,44 @@ public class HairdresserTest {
         //ArrayList til at gemme BookingDateTime index værdier, der passer med specifik dato og booking-kriterier
         ArrayList<Integer> indexValues = new ArrayList<Integer>();
         int selNum = 1; //det tal som brugeren kan indtaste til at vælge den specifikke bookingtid
-/* NEDENSTÅENDE INDELER TIL DAGE
-        System.out.println("Hvilket år vil du slette tiden fra?");
-        int userYear = sh.askNumber(3000);
-        System.out.println("Hvilken måned vil du slette tiden fra?");
-        int userMonth = sh.askNumber(12);
-        System.out.println("Hvilken dag vil du slette tiden fra?");
-        int userDay = sh.askNumber(31);
 
- */
-/*
-        //skal erstattes af bruger input
-        int userYear = 2025;
-        int userMonth = 10;
-        int userDay = 13;
 
- */
+        LocalDate userDate;
+        boolean userDateCorrect = false;
+        while(!userDateCorrect) {
+            userDate = inputUserDate();
+            System.out.println("test userDate: " + userDate);
+            if (userDate.isBefore(today)) {
+                System.out.println("Du kan ikke slette tider før dags dato. Prøv igen. ");
+            } else {
+                //Skaber liste over dagens tidsrum, som allerede er booket
+                for (int i = 0; i < bookingTimes.size(); i++) {
+                    if (bookingTimes.get(i).compareDates(userDate)) {
+                    boolean isBooked = bookingTimes.get(i).getBookingStatus();
 
-        //Skaber liste over dagens tidsrum, som allerede er booket
-        for (int i = 0; i < bookingTimes.size(); i++) {
-            //if (bookingTimes.get(i).equals(userYear, userMonth, userDay)) {
-            boolean isBooked = bookingTimes.get(i).getBookingStatus();
+                        if (isBooked) {
+                            System.out.println(selNum + ". " + bookingTimes.get(i).printDateTime() + " Kunden er: " + bookingTimes.get(i).getCustomerName());
+                            indexValues.add(i);
+                            System.out.println("Array Index value: " + i);
 
-            if (isBooked) {
-                System.out.println(selNum + ". " + bookingTimes.get(i).printDateTime() + " Kunden er: " + bookingTimes.get(i).getCustomerName());
-                indexValues.add(i);
-                System.out.println("Array Index value: " + i);
+                            selNum++;
 
-                selNum++;
-
+                        }
+                    }
+                }
+                if (indexValues.isEmpty()) {
+                    System.out.println("Der er ingen bookede tider på pågældende dato. Prøv igen. ");
+                } else {
+                    userDateCorrect = true;
+                }
             }
-            //}
         }
 
         int userSelect = sh.askNumber(selNum) - 1;
 
         int timeArrayIndexLookup = indexValues.get(userSelect);
 
-        //debug kommentar
+        //debug kommentar - skrevet lidt mere
         System.out.println("du har valgt at slette booking for: " + bookingTimes.get(timeArrayIndexLookup));
 
         bookingTimes.get(timeArrayIndexLookup).setBookingStatus(false);
