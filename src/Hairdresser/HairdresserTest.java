@@ -7,7 +7,6 @@ import java.time.*;
 public class HairdresserTest {
     FileHandler fh = new FileHandler();
     ScannerHelper sh = new ScannerHelper();
-    ArrayList<BookingDateTime> bookingTimes = new ArrayList<BookingDateTime>();
     //LocalDate today = LocalDate.now(); //bruges i dato input validering
     LocalDate today = LocalDate.of(2025,10,6); //bruges i dato input validering - start booking date
 
@@ -356,7 +355,6 @@ public class HairdresserTest {
                 }
             }
         }
-    }
 
 
     static LocalDate inputUserDate() {
@@ -498,5 +496,4 @@ public class HairdresserTest {
         System.out.println("du har indtastet noget korrekt");
         return userDate;
     }
-
 }
