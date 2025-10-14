@@ -1,11 +1,16 @@
 package Hairdresser;
 
+import java.sql.SQLOutput;
 import java.util.ArrayList;
+import java.time.*;
 
 public class HairdresserTest {
     FileHandler fh = new FileHandler();
     ScannerHelper sh = new ScannerHelper();
-    //ArrayList<BookingDateTime> bookingTimes = new ArrayList<BookingDateTime>();
+    ArrayList<BookingDateTime> bookingTimes = new ArrayList<BookingDateTime>();
+    //LocalDate today = LocalDate.now(); //bruges i dato input validering
+    LocalDate today = LocalDate.of(2025,10,6); //bruges i dato input validering - start booking date
+
 
     ArrayList<BookingDateTime> bookingTimes = fh.readFromFile();
     ArrayList<HairProducts> hairProducts = new ArrayList<HairProducts>();
@@ -84,16 +89,20 @@ public class HairdresserTest {
         ArrayList<Integer> indexValues = new ArrayList<Integer>();
         int selNum = 1;
         int timeIndexValue = 0;
-
+/*
         System.out.println("Hvilket år vil du booke tiden til?");
         int userYear = sh.askNumber(3000);
         System.out.println("Hvilken måned vil du booke tiden til?");
         int userMonth = sh.askNumber(12);
         System.out.println("Hvilken dag vil du booke tiden til?");
         int userDay = sh.askNumber(31);
+*/
+        LocalDate userDate = inputUserDate();
+        System.out.println("test userDate: " + userDate);
 
-        for (int i = 0; i < bookingTimes.size(); i++) {
-            if (bookingTimes.get(i).equals(userYear, userMonth, userDay)) {
+        for(int i = 0; i < bookingTimes.size(); i++){
+            if (bookingTimes.get(i).compareDates(userDate)) {
+            //if (bookingTimes.get(i).equals(userYear, userMonth, userDay)) {
                 boolean isBooked = bookingTimes.get(i).getBookingStatus();
 
                 if (!isBooked) {
@@ -349,3 +358,145 @@ public class HairdresserTest {
         }
     }
 
+
+    static LocalDate inputUserDate() {
+        //Problemer med at static metoder ikke kan tilgå de "generelle" variable fra toppen"
+        ScannerHelper sh = new ScannerHelper();
+        //LocalDate today = LocalDate.now(); //bruges i dato input validering
+        LocalDate today = LocalDate.of(2025,10,6); //bruges i dato input validering - start booking date
+
+        boolean inputCorrect = false;
+        boolean yearCorrect = false;
+        boolean monthCorrect = false;
+        boolean dayCorrect = false;
+        //LocalDate today = LocalDate.now();
+        int count;
+        int year = 0;
+        int month = 0;
+        int day = 0;
+        LocalDate userDate = null;
+        //userDate = LocalDate.of(2025, 10, 6);
+        String userStringDate = "";
+        System.out.println();
+
+        while (!inputCorrect) {
+            dayCorrect = false;
+            monthCorrect = false;
+            yearCorrect = false;
+            userStringDate = sh.askQuestion("Venligst indtast datoen");
+
+            //hvis første char i brugerindtastningen er et bogstav, så er dato ikke korrekt
+            if (Character.isLetter(userStringDate.charAt(0))) {
+                System.out.println("En dato skal starter med et tal i formatet DD/MM/YY. Prøv igen. ");
+            //der skal minimum være én / i brugerindtastningen
+            } else {
+                //finder ud af hvor mange / der er i min string
+                count = userStringDate.length() - userStringDate.replace("/","").length();
+                if (count == 0) { // ikke gyldig - gentag
+                    System.out.println("Ikke en gyldig dato i formatet DD/MM/YY");
+
+                } else if (count == 1 || count == 2) {
+                    String[] values = userStringDate.trim().split("/");
+
+                    //Nedenstående gemmer dagen
+                    try {
+                        day = Integer.parseInt(values[0]);
+                        if (day > 31) {
+                            System.out.println("FEJL DAG - dag større end 31");
+                        } else {
+                            dayCorrect = true;
+                        }
+                    } catch (NumberFormatException e) {
+                        System.out.println("Dag forkert indtastet. Prøv igen");
+                    }
+
+                    //Nedenstående gemmer måneden
+                    try {
+                        month = Integer.parseInt(values[1]);
+                        if (month > 12 && dayCorrect) {
+                            System.out.println("FEJL MÅNED - måned større end 12");
+                        } else {
+                            monthCorrect = true;
+                        }
+                    } catch (NumberFormatException e) {
+                        System.out.println("Måned forkert indtastet. Prøv igen");
+                    } catch (ArrayIndexOutOfBoundsException e) {
+                        System.out.println("fejl i måned indtastning. Prøv igen");
+                    }
+                    //Nedenstående gemmer året
+
+                    if (count == 1 && dayCorrect && monthCorrect) {
+                        year = today.getYear();
+                        yearCorrect = true;
+                     //   inputCorrect = true;
+                    } else if (count == 2 && dayCorrect && monthCorrect) {
+                        try {
+                            year = 2000 + Integer.parseInt(values[2]);
+                            yearCorrect = true;
+                     //       inputCorrect = true;
+                        } catch (NumberFormatException e) {
+                            System.out.println("År forkert indtastet. Prøv igen");
+                        } catch (ArrayIndexOutOfBoundsException e) {
+                            System.out.println("fejl i år indtastning. Prøv igen");
+                        }
+                    } else if (count > 2 && dayCorrect && monthCorrect) {
+                        System.out.println("FOR STOR. Ikke en gyldig dato i formatet DD/MM/YY");
+                    }
+                }
+            }
+
+            if (dayCorrect && monthCorrect && yearCorrect) {
+                try {
+                    System.out.print(year + "/");
+                    System.out.print(month + "/");
+                    System.out.print(day + " ");
+                    System.out.println();
+
+                    userDate = LocalDate.of(year, month, day);
+                    System.out.println("Du har valgt et korrekt dato-format");
+                    if (userDate.isBefore(today)) {
+                        System.out.println("Dato er før dags dato. Prøv igen.");
+                    }
+                    if (userDate.equals(today) || userDate.isAfter(today) ) {
+                        inputCorrect = true;
+                    }
+
+                } catch (NumberFormatException e) {
+                    System.out.println("ERROR: " + e);
+                } catch (DateTimeException e) {
+                    System.out.println("FEJL dato" + e);
+                }
+            }
+        }
+
+/*
+        System.out.print(year + "/");
+        System.out.print(month + "/");
+        System.out.print(day + " ");
+        System.out.println();
+
+        try {
+            userDate = LocalDate.of(year, month, day);
+            System.out.println("Du har valgt korrekte datoer");
+        } catch (NumberFormatException e) {
+            System.out.println("ERROR: " + e);
+            inputUserDate();
+        } catch (DateTimeException e) {
+            System.out.println("FEJL dato" + e);
+            inputUserDate();
+        }
+
+        if (userDate.isBefore(today)) {
+            System.out.println("Dato er før dags dato. Prøv igen.");
+            inputUserDate();
+        }
+
+
+
+*/
+
+        System.out.println("du har indtastet noget korrekt");
+        return userDate;
+    }
+
+}

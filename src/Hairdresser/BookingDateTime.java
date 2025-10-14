@@ -1,5 +1,6 @@
 package Hairdresser;
 import java.time.LocalDateTime;
+import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
 
@@ -29,23 +30,6 @@ public class BookingDateTime {
         this.isBooked = isBooked;
         this.isPaid = isPaid;
     }
-
-    /*
-    //Der var fejl i vores constructor
-    public BookingDateTime(int year, int month, int day, int hour, int min, boolean isAvailable, boolean isBooked, String customerName, boolean isPaid) {
-
-        this.year = year;
-        this.month = month;
-        this.day = day;
-        this.hour = hour;
-        this.min = min;
-        this.isAvailable = isAvailable;
-        this.isBooked = isBooked;
-        this.customerName = customerName;
-        this.isPaid = isPaid;
-    }
-    */
-
 
     public LocalDateTime getDateTime() {
         return dateTimeValue;
@@ -129,6 +113,32 @@ public class BookingDateTime {
     public String exportDateTimeFormat() {
         DateTimeFormatter shortDKdate = DateTimeFormatter.ofPattern("yy/MM/dd HH:mm");
         return dateTimeValue.format(shortDKdate);
+    }
+
+    public boolean compareDates(LocalDate userDate) {
+        boolean allCorrect = false;
+        boolean yearCorrect = false;
+        boolean monthCorrect = false;
+        boolean dayCorrect = false;
+
+        if (dateTimeValue.getYear() == userDate.getYear()) {
+            yearCorrect = true;
+        }
+
+        if (dateTimeValue.getMonthValue() == userDate.getMonthValue()) {
+            monthCorrect = true;
+        }
+
+        if (dateTimeValue.getDayOfMonth() == userDate.getDayOfMonth()) {
+            dayCorrect = true;
+        }
+
+        if (yearCorrect && monthCorrect && dayCorrect) {
+            allCorrect = true;
+        }
+
+        return allCorrect;
+
     }
 
 

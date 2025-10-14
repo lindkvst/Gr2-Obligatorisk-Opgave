@@ -117,6 +117,11 @@ public class ScannerHelper {
     public String askQuestion(String question) {
         System.out.print(question + ": ");
         String answer = sc.nextLine();
+        if (answer.isEmpty()) {
+            System.out.println("Ups - den fik jeg ikke. Prøv igen.");
+            System.out.print(question + ": ");
+            answer = sc.nextLine();
+        }
         return answer;
     }
 
