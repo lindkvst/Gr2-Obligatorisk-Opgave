@@ -40,24 +40,23 @@ public class HairdresserTest {
                     checkAvailableTimes();
                     break;
                 case 4:
+                    checkBookedTime();
+                    break;
+                case 5:
                     saveBookings();
                     saveProductStock();
                     isDone = true;
                     System.out.println("Tak for i dag!");
                     break;
-                case 5:
+                case 6:
                     checkProducts();
                     break;
-                case 6:
+                case 7:
                     setProductStock();
                     break;
-                case 7:
+                case 8:
                     blockDates();
                     break;
-                case 8:
-                    System.out.println();
-                    break;
-
                 case 9:
                     saveBookings();
             }
@@ -73,10 +72,11 @@ public class HairdresserTest {
                 Tryk 1 for at booke en ny tid.
                 Tryk 2 for at slette en tid.
                 Tryk 3 for at se ledige tider.
-                Tryk 4 for at lukke programmet.
-                Tryk 5 for at se lagerbeholdning.
-                Tryk 6 for at ændre lagerbeholdning.
-                Tryk 7 for at registrere fridag.
+                Tryk 4 for at se bookede tider for én dag.
+                Tryk 5 for at lukke programmet.
+                Tryk 6 for at se lagerbeholdning.
+                Tryk 7 for at ændre lagerbeholdning.
+                Tryk 8 for at registrere fridag.
                 Tryk 9 for at gemme bookings.
                 ******************************
                 """);
@@ -143,6 +143,45 @@ public class HairdresserTest {
         System.out.println("Du har booket en tid til " + customerName + " " + bookingDateTime);
 
 
+    }
+    public void checkBookedTime() {
+        ArrayList<Integer> indexValues2 = new ArrayList<Integer>();
+        int selNum = 1;
+        int timeIndexValue = 0;
+/*
+        System.out.println("Hvilket år vil du booke tiden til?");
+        int userYear = sh.askNumber(3000);
+        System.out.println("Hvilken måned vil du booke tiden til?");
+        int userMonth = sh.askNumber(12);
+        System.out.println("Hvilken dag vil du booke tiden til?");
+        int userDay = sh.askNumber(31);
+*/
+        LocalDate userDate = inputUserDate();
+        System.out.println("test userDate: " + userDate);
+
+        for(int i = 0; i < bookingTimes.size(); i++){
+            if (bookingTimes.get(i).compareDates(userDate)) {
+                //if (bookingTimes.get(i).equals(userYear, userMonth, userDay)) {
+                boolean isBooked = bookingTimes.get(i).getBookingStatus();
+
+                if (isBooked) {
+                    System.out.println(selNum + ". " + bookingTimes.get(i));
+                    indexValues2.add(i);
+                    System.out.println("Array Index value: " + i);
+
+                    selNum++;
+
+                }
+            }
+        }
+
+        int userSelect = sh.askNumber(selNum) - 1;
+
+        int timeArrayIndexLookup = indexValues2.get(userSelect);
+
+
+        String bookingDateTime = bookingTimes.get(timeArrayIndexLookup).printDateTime();
+        System.out.println("Brugeren valgte: " + bookingDateTime);
     }
 
     public void deleteBooking() {
@@ -274,7 +313,7 @@ public class HairdresserTest {
         fh.writeFile(savedBookings, fileName);
     }
 
-    public void productArray() {
+    /* public void productArray() {
         HairProducts conditioner1 = new Conditioner("L'Oréal Paris Elvital", ProductType.CONDITIONER, 48.5, 12, 150);
         HairProducts conditioner2 = new Conditioner("Matas Natur Nourishing", ProductType.CONDITIONER, 66.95, 15, 400);
         HairProducts conditioner3 = new Conditioner("Dikson Volume", ProductType.CONDITIONER, 199, 8, 1000);
@@ -312,7 +351,7 @@ public class HairdresserTest {
         hairProducts.add(StylingGel3);
         for (HairProducts hp : hairProducts)
             System.out.println(hp);
-    }
+    } */
 
     public void checkProducts() {
 
