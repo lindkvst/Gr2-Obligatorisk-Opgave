@@ -3,6 +3,7 @@ package Hairdresser;
 import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.time.*;
+import java.util.Collections;
 
 public class HairdresserTest {
     FileHandler fh = new FileHandler();
@@ -12,12 +13,12 @@ public class HairdresserTest {
 
 
     ArrayList<BookingDateTime> bookingTimes = fh.readFromFile();
-    ArrayList<HairProducts> hairProducts = new ArrayList<HairProducts>();
+    ArrayList<HairProducts> hairProducts = fh.readFromProductFile();
 
     public static void main(String[] args) {
         HairdresserTest test = new HairdresserTest();
         //       test.testArray();
-        test.productArray();
+         // test.productArray();
         test.mainMenuProgram();
     }
 
@@ -37,10 +38,10 @@ public class HairdresserTest {
                     break;
                 case 3:
                     checkAvailableTimes();
-                    // seeAvailableTimes();
                     break;
                 case 4:
                     saveBookings();
+                    saveProductStock();
                     isDone = true;
                     System.out.println("Tak for i dag!");
                     break;
@@ -269,7 +270,8 @@ public class HairdresserTest {
         //debug kommentar
         System.out.println("String som sendes til BufferedWriter");
         System.out.println(savedBookings);
-        fh.writeFile(savedBookings);
+        String fileName = "Bookings.csv";
+        fh.writeFile(savedBookings, fileName);
     }
 
     public void productArray() {
@@ -313,6 +315,12 @@ public class HairdresserTest {
     }
 
     public void checkProducts() {
+
+        // Bruger HairProductsStockComparator til at sortere efter stock
+        Collections.sort(hairProducts, new HairProductsStockComparator());
+        System.out.println("Sorterer produkter efter lagerbeholdning.");
+
+        // Printer hvert produkt på en nye linje
         for (HairProducts hp : hairProducts)
             System.out.println(hp);
     }
@@ -346,8 +354,65 @@ public class HairdresserTest {
         hairProducts.get(productArrayIndexLookup).setStock(userChangeStock);
 
         System.out.println("Du satte lagerbeholdningen til " + userChangeStock);
-
     }
+
+    public void saveProductStock() {
+        String savedProducts = null;
+        String productName;
+        Enum productType;
+        double price;
+        int stock;
+        int containsML;
+        String size;
+        String singleLine = "";
+
+
+        for (int i = 0; i < hairProducts.size(); i++) {
+            productName = hairProducts.get(i).getProductName();
+            productType = hairProducts.get(i).getProductType();
+            price = hairProducts.get(i).getPrice();
+            stock = hairProducts.get(i).getStock();
+
+            if (hairProducts.get(i) instanceof Conditioner) {
+                Conditioner conditioner = (Conditioner) hairProducts.get(i);
+                containsML = conditioner.getContainsML();
+                singleLine = productName + "," + productType + "," + price + "," + stock + "," + containsML + "," + "null";
+
+            } else if (hairProducts.get(i) instanceof HairSpray) {
+                HairSpray hairSpray = (HairSpray) hairProducts.get(i);
+                containsML = hairSpray.getContainsML();
+                singleLine = productName + "," + productType + "," + price + "," + stock + "," + containsML + "," + "null";
+
+            } else if (hairProducts.get(i) instanceof Shampoo) {
+                Shampoo shampoo = (Shampoo) hairProducts.get(i);
+                containsML = shampoo.getContainsML();
+                singleLine = productName + "," + productType + "," + price + "," + stock + "," + containsML + "," + "null";
+
+            } else if (hairProducts.get(i) instanceof StylingGel) {
+                StylingGel stylingGel = (StylingGel) hairProducts.get(i);
+                containsML = stylingGel.getContainsML();
+                singleLine = productName + "," + productType + "," + price + "," + stock + "," + containsML + "," + "null";
+
+            } else if (hairProducts.get(i) instanceof Hairnet) {
+                Hairnet hairnet = (Hairnet) hairProducts.get(i);
+                size = hairnet.getSize();
+                singleLine = productName + "," + productType + "," + price + "," + stock + "," + 0 + "," + size; }
+
+
+            if (i == 0) {
+                savedProducts = singleLine;
+            } else {
+                savedProducts = savedProducts.concat("\n" + singleLine);
+            }
+        }
+
+        //debug kommentar
+        System.out.println("String som sendes til BufferedWriter");
+        System.out.println(savedProducts);
+        String fileName = "Products.csv";
+        fh.writeFile(savedProducts, fileName);
+    }
+
 
     public void blockDates() {
         System.out.println("Indtast år");

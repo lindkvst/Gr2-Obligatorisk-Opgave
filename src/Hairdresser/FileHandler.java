@@ -11,8 +11,8 @@ import java.io.FileWriter;
 
 public class FileHandler {
 
-    public void writeFile(String fileInput) {
-        try (BufferedWriter bw = new BufferedWriter(new FileWriter("Bookings.csv"))) {
+    public void writeFile(String fileInput, String fileName) {
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(fileName))) {
             bw.write(fileInput);
             System.out.println("Successfully wrote to the file.");
         } catch (IOException e) {
@@ -20,14 +20,6 @@ public class FileHandler {
         }
     }
 
-    public void writeProductFile(String fileInput) {
-        try (BufferedWriter bw = new BufferedWriter(new FileWriter("Products.csv"))) {
-            bw.write(fileInput);
-            System.out.println("Successfully wrote to the file.");
-        } catch (IOException e) {
-            System.out.println("Error writing file.");
-        }
-    }
 
     public static final String COMMA_DELIMITER = "[,:/]";
 
@@ -39,7 +31,7 @@ public class FileHandler {
             //nedenstående er comment: vi vil kun have første linje ind
             while ((line = br.readLine()) != null) {
                 String[] values = line.trim().split(COMMA_DELIMITER);
-// meh gucci gang
+
                 for (int i = 0; i < values.length; i++) {
                     values[i] = values[i].trim();
                 }
@@ -90,6 +82,53 @@ public class FileHandler {
 
         System.out.println(readBookingTimes);
         return bookingTimes;
+
+    }
+    public ArrayList<HairProducts> readFromProductFile() {
+        ArrayList<HairProducts> hairProducts = new ArrayList<>();
+        ArrayList<List<String>> readHairProducts = new ArrayList<>();
+        try (BufferedReader br = new BufferedReader(new FileReader("Products.csv"))) {
+            String line;
+            //nedenstående er comment: vi vil kun have første linje ind
+            while ((line = br.readLine()) != null) {
+                String[] values = line.trim().split(COMMA_DELIMITER);
+
+                for (int i = 0; i < values.length; i++) {
+                    values[i] = values[i].trim();
+                }
+                readHairProducts.add(Arrays.asList(values));
+            }
+        } catch (IOException e) {
+            System.out.println("error message" + e);
+        }
+
+        for (List<String> readHairProduct : readHairProducts) {
+            String productName = readHairProduct.get(0);
+            ProductType productType = ProductType.valueOf(readHairProduct.get(1));
+            double price = Double.parseDouble(readHairProduct.get(2));
+            int stock = Integer.parseInt(readHairProduct.get(3));
+            int containsML = Integer.parseInt(readHairProduct.get(4));
+            String size = readHairProduct.get(5);
+
+            if(productType == productType.CONDITIONER) {
+                hairProducts.add(new Conditioner (productName, productType, price, stock, containsML));
+
+            } else if(productType == productType.HAIRSPRAY) {
+                hairProducts.add(new HairSpray (productName, productType, price, stock, containsML));
+
+            } else if(productType == productType.SHAMPOO) {
+                hairProducts.add(new Shampoo (productName, productType, price, stock, containsML));
+
+            } else if(productType == productType.STYLINGGEL) {
+            hairProducts.add(new StylingGel (productName, productType, price, stock, containsML));
+
+            } else if(productType == productType.HAIRNET) {
+            hairProducts.add(new Hairnet (productName, productType, price, stock, size));
+        }
+        }
+
+        System.out.println(readHairProducts);
+        return hairProducts;
 
     }
 }
