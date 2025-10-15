@@ -118,7 +118,12 @@ public class BookingDateTime {
         DateTimeFormatter shortDKdate = DateTimeFormatter.ofPattern("EE 'd.' dd/MM/yy");
         return dateTimeValue.format(shortDKdate);
     }
-
+/*
+    static String printSimpleDate(LocalDate dateInput) {
+        DateTimeFormatter shortDKdate = DateTimeFormatter.ofPattern("EE 'd.' dd/MM/yy");
+        return dateInput.format(shortDKdate);
+    }
+*/
     public String exportDateTimeFormat() {
         DateTimeFormatter shortDKdate = DateTimeFormatter.ofPattern("yy/MM/dd HH:mm");
         return dateTimeValue.format(shortDKdate);

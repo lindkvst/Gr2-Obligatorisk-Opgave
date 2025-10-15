@@ -1,6 +1,5 @@
 package Hairdresser;
 
-import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.time.*;
 
@@ -359,99 +358,70 @@ public class HairdresserTest {
     }
 
     public void openDates() {
-        ArrayList<String> openDates = new ArrayList<String>();
-        String openDate = null;
-        boolean isTimeAvailable;
-        boolean isDayAvailable;
-        String dateString;
-        String openStatus;
+        String allOpenDates = "";
+        String singleOpenDate = "";
+        boolean isTimeAvailable = false;
+        boolean isDayAvailable = false;
+        String dateString = null;
+        String openStatus = null;
         LocalDate dateDelimiter = null;
-        boolean dateCreated = false;
-
-
-
+        //boolean dateCreated = false;
         for (int i = 0; i < bookingTimes.size(); i++) {
-            isDayAvailable = false;
             BookingDateTime thisBookingTime = bookingTimes.get(i);
             LocalDateTime thisDateTime = thisBookingTime.getDateTime();
             LocalDate thisDate = thisDateTime.toLocalDate();
             if (dateDelimiter == null) {
+                isDayAvailable = false;
                 dateDelimiter = thisDate;
-                System.out.println("for loop i=" + i + ". test: dateDelimiter: " + dateDelimiter + "objAvailable: " + );
-                dateCreated = true;
+                //System.out.println("for loop i=" + i + ". test: dateDelimiter: " + dateDelimiter + ", objAvailable: " + isTimeAvailable + ", dayAvailable: " + isDayAvailable);
                 dateString = thisBookingTime.printDate();
                 isTimeAvailable = thisBookingTime.getAvailability();
                 if (isTimeAvailable) {
                     isDayAvailable = true;
                 }
-                /*
-                if (isDayAvailable) {
-                    openStatus = "Salon har åbent.";
-                } else {
-                    openStatus = "Salon har lukket.";
+                //System.out.println("for loop i=" + i + ". test: dateDelimiter: " + dateDelimiter + ", objAvailable: " + isTimeAvailable + ", dayAvailable: " + isDayAvailable);
+
+                //nedenstående: for alle de samme tider på samme dag
+            } else if (thisBookingTime.compareDates(dateDelimiter)) {
+                //System.out.println("will not be exported: for loop i=" + i + ". test: dateDelimiter: " + dateDelimiter + ", objAvailable: " + isTimeAvailable + ", dayAvailable: " + isDayAvailable);
+                if (isTimeAvailable) {
+                    isDayAvailable = true;
                 }
-                */
-                /*
-                openDates.add(dateString);
-                */
-            } else if (!thisBookingTime.compareDates(dateDelimiter) && dateCreated) {
+                //nedenstående: der skiftes til ny dag
+            } else if (!thisBookingTime.compareDates(dateDelimiter)) {
+                //følgende tilføjer den aggregerede information hvorvidt isDayAvailable om dateDelimiter dvs "den gamle dag"
+                if (isDayAvailable) {
+                    openStatus = ": Salon har åbent.";
+                } else {
+                    openStatus = ": Salon har lukket.";
+                }
+                singleOpenDate = dateString + openStatus;
+                //System.out.println(singleOpenDate);
+                allOpenDates = allOpenDates.concat(singleOpenDate + "\n");
 
+                //vi nulstiller og gør klar til at samle information om den nye dag.
 
-
+                isDayAvailable = false;
                 dateDelimiter = thisDate;
-                System.out.println("for loop i=" + i + ". test: dateDelimiter: " + dateDelimiter);
-                dateCreated = true;
+                //System.out.println("for loop i=" + i + ". test: dateDelimiter: " + dateDelimiter + ", objAvailable: " + isTimeAvailable + ", dayAvailable: " + isDayAvailable);
                 dateString = thisBookingTime.printDate();
                 isTimeAvailable = thisBookingTime.getAvailability();
-                if (!isTimeAvailable) {
-                    isDayAvailable = false;
+                if (isTimeAvailable) {
+                    isDayAvailable = true;
                 }
-
+                //System.out.println("for loop i=" + i + ". test: dateDelimiter: " + dateDelimiter + ", objAvailable: " + isTimeAvailable + ", dayAvailable: " + isDayAvailable);
             }
-
-
-                dateDelimiter = bookingTimes.get(i).getDate();
-                dateString = bookingTimes.get(i).printDate();
-                isAvailable = bookingTimes.get(i).getAvailability();
-                if (isAvailable) {
-                    openStatus = "Salon har åbent.";
-                } else {
-                    openStatus = "Salon har lukket.";
-                }
-            } else {
-                isAvailable = bookingTimes.get(i).getAvailability();
-                if (isAvailable) {
-                    isAvailable = bookingTimes.get(i).getAvailability();
-                }
-
-
-                dateString = bookingTimes.get(i).printDate();
-            }
-
-
-            isAvailable = bookingTimes.get(i).getAvailability();
-            dateString = bookingTimes.get(i).printDate();
-
-            if (isAvailable) {
-                openStatus = "Salon har åbent.";
-            } else {
-                openStatus = "Salon har lukket.";
-            }
-            String singleLine = dateString + ": " + openStatus;
-
-            if (i == 0) {
-                openDate = singleLine;
-            } else {
-                openDate = openDate.concat("\n" + singleLine);
-            }
-
+        }
 
 
             System.out.println("String som sendes til BufferedWriter");
-            System.out.println(openDate);
+            System.out.println(allOpenDates);
             String filename = "openDates.csv";
-            fh.writeFile(openDate, filename);
-        }
+            fh.writeFile(allOpenDates, filename);
+
+
+
+
     }
 
     static LocalDate inputUserDate() {
