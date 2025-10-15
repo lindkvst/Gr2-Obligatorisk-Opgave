@@ -3,6 +3,10 @@ package Hairdresser;
 import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.time.*;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Comparator.*;
+import java.util.List;
 
 public class HairdresserTest {
     FileHandler fh = new FileHandler();
@@ -13,10 +17,12 @@ public class HairdresserTest {
 
     ArrayList<BookingDateTime> bookingTimes = fh.readFromFile();
     ArrayList<HairProducts> hairProducts = new ArrayList<HairProducts>();
+    ArrayList<LocalTime> openHours = new ArrayList<LocalTime>();
 
     public static void main(String[] args) {
         HairdresserTest test = new HairdresserTest();
         //       test.testArray();
+        test.hourArray();
         test.productArray();
         test.mainMenuProgram();
     }
@@ -27,7 +33,7 @@ public class HairdresserTest {
 
         while (!isDone) {
             printMainMenu();
-            int userChoice = sh.askNumber(9);
+            int userChoice = sh.askNumber(10);
             switch (userChoice) {
                 case 1:
                     bookTime();
@@ -59,6 +65,9 @@ public class HairdresserTest {
 
                 case 9:
                     saveBookings();
+
+                case 10:
+                    showBigCalender();
             }
         }
     }
@@ -496,4 +505,46 @@ public class HairdresserTest {
         System.out.println("du har indtastet noget korrekt");
         return userDate;
     }
+
+    public void hourArray() {
+        openHours.add(LocalTime.of(10, 0));
+        openHours.add(LocalTime.of(11, 0));
+        openHours.add(LocalTime.of(13, 0));
+        openHours.add(LocalTime.of(14, 0));
+        openHours.add(LocalTime.of(15, 0));
+        openHours.add(LocalTime.of(16, 0));
+        openHours.add(LocalTime.of(17, 0));
+    }
+
+    public void showBigCalender() {
+        System.out.println("Hvor mange ugers data vil du vise?");
+        int numOfWeeks = sh.askNumber(52);
+        LocalDate startDate = today;
+        LocalDate endDate = today.plusWeeks(numOfWeeks);
+        bookingTimes.sort(Comparator.comparing(BookingDateTime::getDateTime));
+
+        int numOfDays = Period.between(startDate, endDate).getDays();
+        for (int i = 0; i <= numOfDays; i++) {
+            LocalDate currentDate = startDate.plusDays(i);
+            System.out.println(startDate);
+            for (LocalTime h : openHours ) {
+                LocalDateTime lookupDateTime = LocalDateTime.of(currentDate, h);
+                BookingDateTime lookup = new BookingDateTime(lookupDateTime);
+                int index = Collections.binarySearch(bookingTimes, lookup);
+                if(index>= 0) {
+                    System.out.println("Fandt følgende: " + bookingTimes.get(index).printDateTime());
+                } else {
+                    System.out.println(lookupDateTime + " this is a test");
+                }
+
+
+            }
+
+        }
+
+
+
+    }
+
+
 }

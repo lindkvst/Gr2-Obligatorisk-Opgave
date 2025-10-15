@@ -4,7 +4,8 @@ import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
 
-public class BookingDateTime {
+public class BookingDateTime implements Comparable<BookingDateTime> {
+//public class BookingDateTime {
     private LocalDateTime dateTimeValue;
     private boolean isAvailable;
     private boolean isBooked;
@@ -21,6 +22,13 @@ public class BookingDateTime {
         this.dateTimeValue = LocalDateTime.of(year, month, day, hour, min);
         this.isAvailable = true;
         this.isBooked = false;
+    }
+
+
+    public BookingDateTime(LocalDateTime dateTime) {
+        this.dateTimeValue = dateTime;
+       // this.isAvailable = true;
+       // this.isBooked = false;
     }
 
     public BookingDateTime(int year, int month, int day, int hour, int min, boolean isAvailable, boolean isBooked, String customerName, boolean isPaid) {
@@ -140,6 +148,25 @@ public class BookingDateTime {
         return allCorrect;
 
     }
+/*
+    public boolean compareTime(LocalTime userTime) {
+        boolean allCorrect = false;
+        boolean HourCorrect = false;
+        boolean minuteCorrect = false;
+        if (dateTimeValue.toLocalTime().compareTo(userTime) == 0) {
+            allCorrect = true;
+        }
+
+        return allCorrect;
+    }
+*/
+    @Override
+    public int compareTo(BookingDateTime other) {
+        return this.dateTimeValue.compareTo(other.dateTimeValue);
+
+    }
+
+
 
 
 
