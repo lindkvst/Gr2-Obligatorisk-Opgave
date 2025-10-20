@@ -11,5 +11,5 @@ class Hairnet extends HairProducts {
 
     @Override
 
-    public String toString(){return getProductName() + " " + getProductType() + " Pris i DKK: " + getPrice() + " Lager: " + getStock() + " Størrelse: " + size;}
+    public String toString(){return getProductName() + " " + getProductType() + " Pris i DKK: " + getPrice() + " Størrelse: " + size + " Lager: " + getStock();}
 }
