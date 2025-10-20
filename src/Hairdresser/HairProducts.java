@@ -1,20 +1,18 @@
 package Hairdresser;
-
-import java.util.Comparator;
-
+//Abstrakt superklasse
 abstract class HairProducts {
     private String productName;
     private ProductType productType;
     double price;
     int stock;
-
+//Constructor
     public HairProducts(String productName, ProductType productType, double price, int stock) {
         this.productName = productName;
         this.productType = productType;
         this.price = price;
         this.stock = stock;
     }
-
+//Getters og setters
     public String getProductName() {return productName;}
 
     public ProductType getProductType() {return productType;}
@@ -39,7 +37,7 @@ abstract class HairProducts {
         this.stock = stock;
     }
 
+    //ToString til at returnere attributter
     @Override
-
     public String toString(){return productName + " " + productType + " " + price + " " + stock;}
 }
