@@ -10,7 +10,7 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 
 public class FileHandler {
-
+    //Metode til at skrive til fil med en try/catch
     public void writeFile(String fileInput, String fileName) {
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(fileName))) {
             bw.write(fileInput);
@@ -21,7 +21,7 @@ public class FileHandler {
     }
 
     public static final String COMMA_DELIMITER = "[,:;/]";
-
+    //Metode med ArrayList til at læse fra med en try/catch og while- og for-loop.
     public ArrayList<BookingDateTime> readFromFile() {
         ArrayList<BookingDateTime> bookingTimes = new ArrayList<>();
         ArrayList<List<String>> readBookingTimes = new ArrayList<>();
@@ -40,8 +40,7 @@ public class FileHandler {
             System.out.println("error message" + e);
         }
 
-
-
+        //For-loop til at læse igennem ArrayListen
         for (List<String> readBookingTime : readBookingTimes) {
             int year = 2000 + Integer.parseInt(readBookingTime.get(0));
             int month = Integer.parseInt(readBookingTime.get(1));
@@ -83,6 +82,8 @@ public class FileHandler {
         return bookingTimes;
 
     }
+
+    //ArrayList til at læse produkter fra fil med try/catch, while- og for-loop
     public ArrayList<HairProducts> readFromProductFile() {
         ArrayList<HairProducts> hairProducts = new ArrayList<>();
         ArrayList<List<String>> readHairProducts = new ArrayList<>();
@@ -101,6 +102,7 @@ public class FileHandler {
             System.out.println("error message" + e);
         }
 
+        //For-loop til at læse igennem ArrayListen med produkt og udskriver de forskellige attributter
         for (List<String> readHairProduct : readHairProducts) {
             String productName = readHairProduct.get(0);
             ProductType productType = ProductType.valueOf(readHairProduct.get(1));
@@ -109,6 +111,7 @@ public class FileHandler {
             int containsML = Integer.parseInt(readHairProduct.get(4));
             String size = readHairProduct.get(5);
 
+            //If-statements til at tilføje til ArrayListen
             if(productType == productType.CONDITIONER) {
                 hairProducts.add(new Conditioner (productName, productType, price, stock, containsML));
 
@@ -126,6 +129,7 @@ public class FileHandler {
         }
         }
 
+        //Udskriver og returnerer readHairProducts/hairProducts
         System.out.println(readHairProducts);
         return hairProducts;
 

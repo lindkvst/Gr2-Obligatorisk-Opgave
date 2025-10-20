@@ -4,12 +4,14 @@ import java.time.*;
 import java.time.format.DateTimeFormatter;
 
 public class BookingDateTime {
+    //Attributter oprettes
     private LocalDateTime dateTimeValue;
     private boolean isAvailable;
     private boolean isBooked;
     private String customerName;
     private boolean isPaid;
 
+    //Constructor oprettes
     public BookingDateTime(int year, int month, int day, int hour, int min, boolean isAvailable, boolean isBooked, String customerName, boolean isPaid) {
         this.dateTimeValue = LocalDateTime.of(year, month, day, hour, min);
         this.customerName = customerName;
@@ -18,6 +20,7 @@ public class BookingDateTime {
         this.isPaid = isPaid;
     }
 
+    //Getters og setters oprettes
     public LocalDateTime getDateTime() {
         return dateTimeValue;
     }
@@ -62,6 +65,7 @@ public class BookingDateTime {
         this.isPaid = isPaid;
     }
 
+    //ToString metode oprettes med formattering af DateTime og returnerer attributter + tekst
     @Override
     public String toString() {
         DateTimeFormatter shortDKdate = DateTimeFormatter.ofPattern("E dd/MM/yy HH:mm");
@@ -69,11 +73,12 @@ public class BookingDateTime {
     }
 
     //@Override
-    public boolean equals(int year, int month, int day) {
+    /* public boolean equals(int year, int month, int day) {
         boolean allCorrect = false;
         boolean yearCorrect = false;
         boolean monthCorrect = false;
         boolean dayCorrect = false;
+
 
         if (dateTimeValue.getYear() == year) {
             yearCorrect = true;
@@ -93,23 +98,28 @@ public class BookingDateTime {
 
         return allCorrect;
     }
-
+    */
+    //Metode til at returnere dateTimeValue formateret dag + dato + tid
     public String printDateTime() {
         DateTimeFormatter shortDKdate = DateTimeFormatter.ofPattern("EE 'd.' dd/MM/yy 'kl.' HH:mm");
         return dateTimeValue.format(shortDKdate);
-
-
     }
 
+    //Metode til at printe kun dato
     public String printDate() {
         DateTimeFormatter shortDKdate = DateTimeFormatter.ofPattern("EE 'd.' dd/MM/yy");
         return dateTimeValue.format(shortDKdate);
     }
 
+    //Metode til at returnerer dato + tid
     public String exportDateTimeFormat() {
         DateTimeFormatter shortDKdate = DateTimeFormatter.ofPattern("yy/MM/dd HH:mm");
         return dateTimeValue.format(shortDKdate);
     }
+
+    /*Metode til at sammenligne datoer med boolean attributter,
+    if statements til at returnere dag, måned og år hvis attributterne er = true
+    */
 
     public boolean compareDates(LocalDate userDate) {
         boolean allCorrect = false;
@@ -137,6 +147,7 @@ public class BookingDateTime {
 
     }
 
+    //Metode der tjekker om en given dato ligger i en bestemt periode
     public boolean fallsWithinDays(LocalDate userDateStart, int numOfDaysLookup) {
         boolean fallsWithin = false;
         LocalDate thisDate = dateTimeValue.toLocalDate();
@@ -149,9 +160,5 @@ public class BookingDateTime {
 
 
     }
-
-
-
-
 
 }
