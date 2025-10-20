@@ -3,18 +3,19 @@ package Hairdresser;
 import java.util.ArrayList;
 import java.time.*;
 import java.util.Collections;
-
+//Test klasse
 public class HairdresserTest {
+    //Bruger scannerhelper metoderne
     FileHandler fh = new FileHandler();
     ScannerHelper sh = new ScannerHelper();
     //LocalDate today = LocalDate.now(); //bruges i dato input validering
     LocalDate today = LocalDate.of(2025, 10, 6); //bruges i dato input validering - start booking date
 
-
+    //ArrayLister for bookingTimes og hairProducts
     ArrayList<BookingDateTime> bookingTimes = fh.readFromFile();
     ArrayList<HairProducts> hairProducts = fh.readFromProductFile();
 
-
+    //Main metoden
     public static void main(String[] args) {
         HairdresserTest test = new HairdresserTest();
         //       test.testArray();
@@ -22,7 +23,7 @@ public class HairdresserTest {
         test.mainMenuProgram();
     }
 
-    // Denne metoder kører programmet og er "hub" for metoderne.
+    // Denne metode kører programmet og er "hub" for metoderne.
     public void mainMenuProgram() {
         boolean isDone = false;
 
@@ -149,6 +150,7 @@ public class HairdresserTest {
 
 
     }
+    //Metoden her tjekker en booked tid
     public void checkBookedTime() {
         ArrayList<Integer> indexValues2 = new ArrayList<Integer>();
         int selNum = 1;
@@ -189,6 +191,7 @@ public class HairdresserTest {
         System.out.println("Brugeren valgte: " + bookingDateTime);
     }
 
+    //Metoden her sletter booking
     public void deleteBooking() {
 
         //ArrayList til at gemme BookingDateTime index værdier, der passer med specifik dato og booking-kriterier
@@ -239,6 +242,7 @@ public class HairdresserTest {
 
     }
 
+    //Metoden her tjekker ledige tider
     public void checkAvailableTimes() {
         LocalDate userDate;
         boolean userDateCorrect = false;
@@ -298,6 +302,7 @@ public class HairdresserTest {
     }
 
     */
+    //Metoden her gemmer bookings
     public void saveBookings() {
         String savedBookings = null;
         String dateString;
@@ -370,6 +375,7 @@ public class HairdresserTest {
             System.out.println(hp);
     } */
 
+    //Metoden her checker produkter sorteret efter lagerbeholdning
     public void checkProducts() {
 
         // Bruger HairProductsStockComparator til at sortere efter stock
@@ -381,6 +387,7 @@ public class HairdresserTest {
             System.out.println(hp);
     }
 
+    //Metoden her ændrer lagerbeholdningen
     public void setProductStock() {
         for (HairProducts hp : hairProducts)
             System.out.println(hp);
@@ -412,6 +419,7 @@ public class HairdresserTest {
         System.out.println("Du satte lagerbeholdningen til " + userChangeStock);
     }
 
+    //Metoden her gemmer lagerbeholdningen til en CSV-fil
     public void saveProductStock() {
         String savedProducts = null;
         String productName;
@@ -470,6 +478,7 @@ public class HairdresserTest {
     }
 
 
+    //Metoden her bruges til at sætte en dag fri, ændrer isAvailable = false
     public void blockDates() {
         //Block dates comment
         ArrayList<Integer> indexValues = new ArrayList<Integer>();
@@ -524,6 +533,7 @@ public class HairdresserTest {
         }
     }
 */
+    //Metoden her bruges til at tjekke hvilke dage der er åbent i salonen
     public void openDates() {
         String allOpenDates = "";
         String singleOpenDate = "";
@@ -591,6 +601,7 @@ public class HairdresserTest {
 
     }
 
+    //Metoden her er input validering af datoer
     static LocalDate inputUserDate() {
         //Problemer med at static metoder ikke kan tilgå de "generelle" variable fra toppen"
         ScannerHelper sh = new ScannerHelper();
