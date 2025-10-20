@@ -1,6 +1,5 @@
 package Hairdresser;
 
-import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.time.*;
 import java.util.Collections;
