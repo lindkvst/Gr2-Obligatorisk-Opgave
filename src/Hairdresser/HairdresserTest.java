@@ -13,6 +13,7 @@ public class HairdresserTest {
     //ArrayLister for bookingTimes og hairProducts
     ArrayList<BookingDateTime> bookingTimes = fh.readFromFile();
     ArrayList<HairProducts> hairProducts = fh.readFromProductFile();
+    ArrayList<itemsSold> productSales = new ArrayList<itemsSold>();
 
     //Main metoden
     public static void main(String[] args) {
@@ -26,7 +27,7 @@ public class HairdresserTest {
 
         while (!isDone) {
             printMainMenu();
-            int userChoice = sh.askNumber(9);
+            int userChoice = sh.askNumber(11);
             switch (userChoice) {
                 case 1:
                     bookTime();
@@ -56,6 +57,9 @@ public class HairdresserTest {
                     saveBookings();
                     break;
                 case 10:
+                    registerSale();
+                    break;
+                case 11:
                     saveBookings();
                     saveProductStock();
                     isDone = true;
@@ -80,7 +84,8 @@ public class HairdresserTest {
                 Tryk 7 for at registrere fridag.
                 Tryk 8 for at se hvilke dage salonen har åbent.
                 Tryk 9 for at gemme bookings.
-                Tryk 10 for at lukke programmet
+                Tryk 10 for at registrere salg.
+                Tryk 11 for at lukke programmet.
                 ******************************
                 """);
     }
@@ -487,6 +492,85 @@ public class HairdresserTest {
 
     }
 
+    public void registerSale() {
+
+        System.out.println("Du er i gang med at registere et salg");
+        ArrayList<Integer> indexValues = new ArrayList<Integer>();
+        int selNum = 1;
+
+        LocalDate userDate = inputUserDate();
+
+
+        for (int i = 0; i < bookingTimes.size(); i++) {
+            if (bookingTimes.get(i).fallsWithinDays(userDate, 0)) {
+                boolean isBooked = bookingTimes.get(i).getBookingStatus();
+
+                if (isBooked) {
+                    System.out.println(selNum + ". " + bookingTimes.get(i));
+                    indexValues.add(i);
+                    //System.out.println("Array Index value: " + i);
+
+                    selNum++;
+
+                }
+            }
+        }
+
+        int userSelect = sh.askNumber(selNum) - 1;
+
+        int timeArrayIndexLookup = indexValues.get(userSelect);
+
+
+        BookingDateTime bookingDateTime = bookingTimes.get(timeArrayIndexLookup);
+
+        System.out.println("Brugeren valgte: " + bookingDateTime.printDateTime());
+
+        System.out.println("Du skal nu registere solgte produkter. Vælg et produkt til salg");
+
+
+        selNum = 1;
+
+        ArrayList<Integer> indexValuesProducts = new ArrayList<Integer>();
+        // Printer hvert produkt på en nye linje
+        for (int i = 0; i < hairProducts.size(); i++) {
+            System.out.println(selNum + ". " + hairProducts.get(i));
+            //debug kommentar
+            //System.out.println("index value: " + i);
+            indexValuesProducts.add(i);
+            selNum++;
+        }
+        userSelect = sh.askNumber(selNum) - 1;
+
+        int ProductArrayIndexLookup = indexValuesProducts.get(userSelect);
+
+        HairProducts productToBuy = hairProducts.get(ProductArrayIndexLookup);
+        int productStock = productToBuy.getStock();
+
+        System.out.println("Hvor mange " +productToBuy.getProductName() + " " + productToBuy.getProductType() +
+                " vil du købe til " + productToBuy.getPrice() + " DKK per styk?. " +
+                "Der er " + productStock + " stk på lager.");
+        int quantityToBuy = sh.askNumber(productStock);
+
+        productSales.add(new itemsSold(bookingDateTime, productToBuy, quantityToBuy) );
+
+        System.out.println("Er orden betalt? Vælg venligst: \n1. Ordren er betalt. \n2. Ordren er ikke betalt");
+
+        userSelect = sh.askNumber(2);
+
+        if (userSelect == 1) {
+            bookingDateTime.setPaymentStatus(true);
+        } else if (userSelect == 2) {
+            bookingDateTime.setPaymentStatus(false);
+        }
+
+
+
+        for (itemsSold lineItem : productSales) {
+            System.out.println(lineItem);
+        }
+
+    }
+                           
     //Metoden her er input validering af datoer
     static LocalDate inputUserDate() {
         //Problemer med at static metoder ikke kan tilgå de "generelle" variable fra toppen"
