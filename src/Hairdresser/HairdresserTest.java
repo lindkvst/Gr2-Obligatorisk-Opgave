@@ -362,6 +362,7 @@ public class HairdresserTest {
     }
 
     public void blockDates() {
+        //Block dates comment
         ArrayList<Integer> indexValues = new ArrayList<Integer>();
         LocalDate userDate;
         boolean userDateCorrect = false;
