@@ -2,7 +2,6 @@ package Hairdresser;
 import java.time.LocalDateTime;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
-import java.time.format.FormatStyle;
 
 public class BookingDateTime {
     private LocalDateTime dateTimeValue;
@@ -16,7 +15,7 @@ public class BookingDateTime {
  //   private int day;
  //   private int hour;
  //  private int min;
-
+//Nedenstående konstructor kan slettes, når testArray() metode slettes
     public BookingDateTime(int year, int month, int day, int hour, int min) {
         this.dateTimeValue = LocalDateTime.of(year, month, day, hour, min);
         this.isAvailable = true;
@@ -152,6 +151,19 @@ public class BookingDateTime {
         }
 
         return allCorrect;
+
+    }
+
+    public boolean fallsWithinDays(LocalDate userDateStart, int numOfDaysLookup) {
+        boolean fallsWithin = false;
+        LocalDate thisDate = dateTimeValue.toLocalDate();
+        LocalDate userDateEnd = userDateStart.plusDays(numOfDaysLookup);
+        //Period periodLookup = Period.between(userDateStart, userDateEnd);
+
+        fallsWithin = !thisDate.isBefore(userDateStart) && !thisDate.isAfter(userDateEnd);
+
+        return fallsWithin;
+
 
     }
 

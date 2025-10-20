@@ -2,6 +2,7 @@ package Hairdresser;
 
 import java.util.ArrayList;
 import java.time.*;
+import java.util.Collections;
 
 public class HairdresserTest {
     FileHandler fh = new FileHandler();
@@ -11,13 +12,13 @@ public class HairdresserTest {
 
 
     ArrayList<BookingDateTime> bookingTimes = fh.readFromFile();
-    ArrayList<HairProducts> hairProducts = new ArrayList<HairProducts>();
+    ArrayList<HairProducts> hairProducts = fh.readFromProductFile();
 
 
     public static void main(String[] args) {
         HairdresserTest test = new HairdresserTest();
         //       test.testArray();
-        test.productArray();
+         // test.productArray();
         test.mainMenuProgram();
     }
 
@@ -37,21 +38,21 @@ public class HairdresserTest {
                     break;
                 case 3:
                     checkAvailableTimes();
-                    // seeAvailableTimes();
                     break;
                 case 4:
+                    checkBookedTime();
+                    break;
+                case 5:
                     saveBookings();
+                    saveProductStock();
                     isDone = true;
                     System.out.println("Tak for i dag!");
                     break;
-                case 5:
+                case 6:
                     checkProducts();
                     break;
-                case 6:
-                    setProductStock();
-                    break;
                 case 7:
-                    blockDates();
+                    setProductStock();
                     break;
                 case 8:
                     openDates();
@@ -87,7 +88,8 @@ public class HairdresserTest {
     public void bookTime() {
         ArrayList<Integer> indexValues = new ArrayList<Integer>();
         int selNum = 1;
-        int timeIndexValue = 0;
+        //int timeIndexValue = 0;
+        //Test til pull Request
 /*
         System.out.println("Hvilket år vil du booke tiden til?");
         int userYear = sh.askNumber(3000);
@@ -96,21 +98,33 @@ public class HairdresserTest {
         System.out.println("Hvilken dag vil du booke tiden til?");
         int userDay = sh.askNumber(31);
 */
-        LocalDate userDate = inputUserDate();
-        System.out.println("test userDate: " + userDate);
+        LocalDate userDate;
+        boolean userDateCorrect = false;
+        while(!userDateCorrect) {
+            userDate = inputUserDate();
+            System.out.println("test userDate: " + userDate);
+            if (userDate.isBefore(today)) {
+                System.out.println("Du kan ikke booke tider før dags dato. Prøv igen. ");
+            } else {
+                for (int i = 0; i < bookingTimes.size(); i++) {
+                    if (bookingTimes.get(i).compareDates(userDate)) {
+                        boolean isBooked = bookingTimes.get(i).getBookingStatus();
 
-        for (int i = 0; i < bookingTimes.size(); i++) {
-            if (bookingTimes.get(i).compareDates(userDate)) {
-                //if (bookingTimes.get(i).equals(userYear, userMonth, userDay)) {
-                boolean isBooked = bookingTimes.get(i).getBookingStatus();
+                        if (!isBooked) {
+                            System.out.println(selNum + ". " + bookingTimes.get(i));
+                            indexValues.add(i);
+                            System.out.println("Array Index value: " + i);
 
-                if (!isBooked) {
-                    System.out.println(selNum + ". " + bookingTimes.get(i));
-                    indexValues.add(i);
-                    System.out.println("Array Index value: " + i);
+                            selNum++;
 
-                    selNum++;
+                        }
+                    }
 
+                }
+                if(indexValues.isEmpty()) {
+                    System.out.println("Der er ingen ledige tider på pågældende dato. Prøv igen. ");
+                } else {
+                    userDateCorrect = true;
                 }
             }
         }
@@ -130,63 +144,132 @@ public class HairdresserTest {
 
 
     }
+    public void checkBookedTime() {
+        ArrayList<Integer> indexValues2 = new ArrayList<Integer>();
+        int selNum = 1;
+        int timeIndexValue = 0;
+/*
+        System.out.println("Hvilket år vil du booke tiden til?");
+        int userYear = sh.askNumber(3000);
+        System.out.println("Hvilken måned vil du booke tiden til?");
+        int userMonth = sh.askNumber(12);
+        System.out.println("Hvilken dag vil du booke tiden til?");
+        int userDay = sh.askNumber(31);
+*/
+        LocalDate userDate = inputUserDate();
+        System.out.println("test userDate: " + userDate);
+
+        for (int i = 0; i < bookingTimes.size(); i++) {
+            if (bookingTimes.get(i).compareDates(userDate)) {
+                //if (bookingTimes.get(i).equals(userYear, userMonth, userDay)) {
+                boolean isBooked = bookingTimes.get(i).getBookingStatus();
+
+                if (isBooked) {
+                    System.out.println(selNum + ". " + bookingTimes.get(i));
+                    indexValues2.add(i);
+                    System.out.println("Array Index value: " + i);
+
+                    selNum++;
+
+                }
+            }
+        }
+
+        int userSelect = sh.askNumber(selNum) - 1;
+
+        int timeArrayIndexLookup = indexValues2.get(userSelect);
+
+
+        String bookingDateTime = bookingTimes.get(timeArrayIndexLookup).printDateTime();
+        System.out.println("Brugeren valgte: " + bookingDateTime);
+    }
 
     public void deleteBooking() {
 
         //ArrayList til at gemme BookingDateTime index værdier, der passer med specifik dato og booking-kriterier
         ArrayList<Integer> indexValues = new ArrayList<Integer>();
         int selNum = 1; //det tal som brugeren kan indtaste til at vælge den specifikke bookingtid
-/* NEDENSTÅENDE INDELER TIL DAGE
-        System.out.println("Hvilket år vil du slette tiden fra?");
-        int userYear = sh.askNumber(3000);
-        System.out.println("Hvilken måned vil du slette tiden fra?");
-        int userMonth = sh.askNumber(12);
-        System.out.println("Hvilken dag vil du slette tiden fra?");
-        int userDay = sh.askNumber(31);
 
- */
-/*
-        //skal erstattes af bruger input
-        int userYear = 2025;
-        int userMonth = 10;
-        int userDay = 13;
 
- */
+        LocalDate userDate;
+        boolean userDateCorrect = false;
+        while(!userDateCorrect) {
+            userDate = inputUserDate();
+            System.out.println("test userDate: " + userDate);
+            if (userDate.isBefore(today)) {
+                System.out.println("Du kan ikke slette tider før dags dato. Prøv igen. ");
+            } else {
+                //Skaber liste over dagens tidsrum, som allerede er booket
+                for (int i = 0; i < bookingTimes.size(); i++) {
+                    if (bookingTimes.get(i).compareDates(userDate)) {
+                    boolean isBooked = bookingTimes.get(i).getBookingStatus();
 
-        //Skaber liste over dagens tidsrum, som allerede er booket
-        for (int i = 0; i < bookingTimes.size(); i++) {
-            //if (bookingTimes.get(i).equals(userYear, userMonth, userDay)) {
-            boolean isBooked = bookingTimes.get(i).getBookingStatus();
+                        if (isBooked) {
+                            System.out.println(selNum + ". " + bookingTimes.get(i).printDateTime() + " Kunden er: " + bookingTimes.get(i).getCustomerName());
+                            indexValues.add(i);
+                            System.out.println("Array Index value: " + i);
 
-            if (isBooked) {
-                System.out.println(selNum + ". " + bookingTimes.get(i).printDateTime() + " Kunden er: " + bookingTimes.get(i).getCustomerName());
-                indexValues.add(i);
-                System.out.println("Array Index value: " + i);
+                            selNum++;
 
-                selNum++;
-
+                        }
+                    }
+                }
+                if (indexValues.isEmpty()) {
+                    System.out.println("Der er ingen bookede tider på pågældende dato. Prøv igen. ");
+                } else {
+                    userDateCorrect = true;
+                }
             }
-            //}
         }
 
         int userSelect = sh.askNumber(selNum) - 1;
 
         int timeArrayIndexLookup = indexValues.get(userSelect);
 
-        //debug kommentar
+        //debug kommentar - skrevet lidt mere
         System.out.println("du har valgt at slette booking for: " + bookingTimes.get(timeArrayIndexLookup));
 
         bookingTimes.get(timeArrayIndexLookup).setBookingStatus(false);
+        bookingTimes.get(timeArrayIndexLookup).setCustomerName(null);
 
     }
 
     public void checkAvailableTimes() {
-        for (BookingDateTime bt : bookingTimes) {
-            if (bt.getAvailability() && !bt.getBookingStatus())
-                System.out.println(bt);
-        }
-    }
+        LocalDate userDate;
+        boolean userDateCorrect = false;
+        ArrayList<Integer> indexValues = new ArrayList<Integer>();
+        int selNum = 1;
+    //    int numOfDaysLookup = 4;
+        while(!userDateCorrect) {
+            userDate = inputUserDate();
+            System.out.println("test userDate: " + userDate);
+            if (userDate.isBefore(today)) {
+                System.out.println("Du kan kun se fremtidige ledige tider. Prøv igen. ");
+            } else {
+                for (int i = 0; i < bookingTimes.size(); i++) {
+                    BookingDateTime thisTime = bookingTimes.get(i);
+                    if(thisTime.fallsWithinDays(userDate, 4)) {
+                        if (thisTime.getAvailability() && !thisTime.getBookingStatus()) {
+                            System.out.println(selNum + ". " + thisTime.printDateTime());
+                            indexValues.add(i);
+                            //System.out.println("Array Index value: " + i);
 
+                            selNum++;
+                        }
+                    }
+                }
+            }
+            if(indexValues.isEmpty()) {
+                System.out.println("Der er ingen ledige tider på pågældende dato. Prøv igen. ");
+            } else {
+                userDateCorrect = true;
+            }
+        }
+
+
+
+    }
+/*
     public void testArray() {
 
         int[] startDays = {6, 13, 20, 27};
@@ -207,27 +290,9 @@ public class HairdresserTest {
         }
 
 
-/*
-        BookingDateTime b1 = new BookingDateTime(2025,10,8,10,0);
-        BookingDateTime b2 = new BookingDateTime(2025,10,8,11,0);
-        BookingDateTime b3 = new BookingDateTime(2025,10,8,12,0);
-        BookingDateTime b4 = new BookingDateTime(2025,10,8,13,0);
-        BookingDateTime b5 = new BookingDateTime(2025,10,8,14,0);
-        BookingDateTime b6 = new BookingDateTime(2025,10,8,15,0);
-        BookingDateTime b7 = new BookingDateTime(2025,10,8,16,0);
-        BookingDateTime b8 = new BookingDateTime(2025,10,8,17,0);
-        bookingTimes.add(b1);
-        bookingTimes.add(b2);
-        bookingTimes.add(b3);
-        bookingTimes.add(b4);
-        bookingTimes.add(b5);
-        bookingTimes.add(b6);
-        bookingTimes.add(b7);
-        bookingTimes.add(b8);
-
- */
     }
 
+    */
     public void saveBookings() {
         String savedBookings = null;
         String dateString;
@@ -260,7 +325,7 @@ public class HairdresserTest {
         fh.writeFile(savedBookings, fileName);
     }
 
-    public void productArray() {
+    /* public void productArray() {
         HairProducts conditioner1 = new Conditioner("L'Oréal Paris Elvital", ProductType.CONDITIONER, 48.5, 12, 150);
         HairProducts conditioner2 = new Conditioner("Matas Natur Nourishing", ProductType.CONDITIONER, 66.95, 15, 400);
         HairProducts conditioner3 = new Conditioner("Dikson Volume", ProductType.CONDITIONER, 199, 8, 1000);
@@ -298,9 +363,15 @@ public class HairdresserTest {
         hairProducts.add(StylingGel3);
         for (HairProducts hp : hairProducts)
             System.out.println(hp);
-    }
+    } */
 
     public void checkProducts() {
+
+        // Bruger HairProductsStockComparator til at sortere efter stock
+        Collections.sort(hairProducts, new HairProductsStockComparator());
+        System.out.println("Sorterer produkter efter lagerbeholdning.");
+
+        // Printer hvert produkt på en nye linje
         for (HairProducts hp : hairProducts)
             System.out.println(hp);
     }
@@ -334,16 +405,70 @@ public class HairdresserTest {
         hairProducts.get(productArrayIndexLookup).setStock(userChangeStock);
 
         System.out.println("Du satte lagerbeholdningen til " + userChangeStock);
-
     }
 
+    public void saveProductStock() {
+        String savedProducts = null;
+        String productName;
+        Enum productType;
+        double price;
+        int stock;
+        int containsML;
+        String size;
+        String singleLine = "";
+
+
+        for (int i = 0; i < hairProducts.size(); i++) {
+            productName = hairProducts.get(i).getProductName();
+            productType = hairProducts.get(i).getProductType();
+            price = hairProducts.get(i).getPrice();
+            stock = hairProducts.get(i).getStock();
+
+            if (hairProducts.get(i) instanceof Conditioner) {
+                Conditioner conditioner = (Conditioner) hairProducts.get(i);
+                containsML = conditioner.getContainsML();
+                singleLine = productName + "," + productType + "," + price + "," + stock + "," + containsML + "," + "null";
+
+            } else if (hairProducts.get(i) instanceof HairSpray) {
+                HairSpray hairSpray = (HairSpray) hairProducts.get(i);
+                containsML = hairSpray.getContainsML();
+                singleLine = productName + "," + productType + "," + price + "," + stock + "," + containsML + "," + "null";
+
+            } else if (hairProducts.get(i) instanceof Shampoo) {
+                Shampoo shampoo = (Shampoo) hairProducts.get(i);
+                containsML = shampoo.getContainsML();
+                singleLine = productName + "," + productType + "," + price + "," + stock + "," + containsML + "," + "null";
+
+            } else if (hairProducts.get(i) instanceof StylingGel) {
+                StylingGel stylingGel = (StylingGel) hairProducts.get(i);
+                containsML = stylingGel.getContainsML();
+                singleLine = productName + "," + productType + "," + price + "," + stock + "," + containsML + "," + "null";
+
+            } else if (hairProducts.get(i) instanceof Hairnet) {
+                Hairnet hairnet = (Hairnet) hairProducts.get(i);
+                size = hairnet.getSize();
+                singleLine = productName + "," + productType + "," + price + "," + stock + "," + 0 + "," + size; }
+
+
+            if (i == 0) {
+                savedProducts = singleLine;
+            } else {
+                savedProducts = savedProducts.concat("\n" + singleLine);
+            }
+        }
+
+        //debug kommentar
+        System.out.println("String som sendes til BufferedWriter");
+        System.out.println(savedProducts);
+        String fileName = "Products.csv";
+        fh.writeFile(savedProducts, fileName);
+    }
+
+
     public void blockDates() {
-        System.out.println("Indtast år");
-        int userYear = sh.askNumber(3000);
-        System.out.println("Indtast måned");
-        int userMonth = sh.askNumber(12);
-        System.out.println("Indtast dag");
-        int userDay = sh.askNumber(31);
+        ArrayList<Integer> indexValues = new ArrayList<Integer>();
+        LocalDate userDate;
+        boolean userDateCorrect = false;
         boolean isAvailable;
         for (int i = 0; i < bookingTimes.size(); i++) {
             if (bookingTimes.get(i).equals(userYear, userMonth, userDay)) {
@@ -352,6 +477,11 @@ public class HairdresserTest {
                 if (isAvailable) {
                     bookingTimes.get(i).setAvailability(false);
                     System.out.println("Du har sat " + bookingTimes.get(i).getDateTime() + " som fri");
+                }
+                if(indexValues.isEmpty()) {
+                    System.out.println("Der er ingen tider på pågældende dato. Prøv igen. ");
+                } else {
+                    userDateCorrect = true;
                 }
             }
         }
