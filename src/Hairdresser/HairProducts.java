@@ -1,5 +1,7 @@
 package Hairdresser;
 
+import java.util.Comparator;
+
 abstract class HairProducts {
     private String productName;
     private ProductType productType;
