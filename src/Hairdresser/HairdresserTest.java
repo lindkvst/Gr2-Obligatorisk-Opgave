@@ -43,22 +43,26 @@ public class HairdresserTest {
                     checkBookedTime();
                     break;
                 case 5:
-                    saveBookings();
-                    saveProductStock();
-                    isDone = true;
-                    System.out.println("Tak for i dag!");
-                    break;
-                case 6:
                     checkProducts();
                     break;
-                case 7:
+                case 6:
                     setProductStock();
+                    break;
+                case 7:
+                    blockDates();
                     break;
                 case 8:
                     openDates();
                     break;
                 case 9:
                     saveBookings();
+                    break;
+                case 10:
+                    saveBookings();
+                    saveProductStock();
+                    isDone = true;
+                    System.out.println("Tak for i dag!");
+                    break;
             }
         }
     }
@@ -72,12 +76,13 @@ public class HairdresserTest {
                 Tryk 1 for at booke en ny tid.
                 Tryk 2 for at slette en tid.
                 Tryk 3 for at se ledige tider.
-                Tryk 4 for at lukke programmet.
+                Tryk 4 for at se bookede tider.
                 Tryk 5 for at se lagerbeholdning.
                 Tryk 6 for at ændre lagerbeholdning.
                 Tryk 7 for at registrere fridag.
                 Tryk 8 for at se hvilke dage salonen har åbent.
                 Tryk 9 for at gemme bookings.
+                Tryk 10 for at lukke programmet
                 ******************************
                 """);
     }
@@ -466,6 +471,38 @@ public class HairdresserTest {
 
 
     public void blockDates() {
+        //Block dates comment
+        ArrayList<Integer> indexValues = new ArrayList<Integer>();
+        LocalDate userDate;
+        boolean userDateCorrect = false;
+        boolean isAvailable;
+        while(!userDateCorrect) {
+            userDate = inputUserDate();
+            if (userDate.isBefore(today)) {
+                System.out.println("Du kan ikke booke tider før dags dato. Prøv igen. ");
+            } else {
+                for (int i = 0; i < bookingTimes.size(); i++) {
+                    if (bookingTimes.get(i).compareDates(userDate)) {
+                        isAvailable = bookingTimes.get(i).getAvailability();
+
+                        if (isAvailable) {
+                            bookingTimes.get(i).setAvailability(false);
+                            indexValues.add(i);
+                            System.out.println("Du har sat " + bookingTimes.get(i).printDateTime() + " som fri");
+                        }
+                    }
+                }
+                if(indexValues.isEmpty()) {
+                    System.out.println("Der er ingen tider på pågældende dato. Prøv igen. ");
+                } else {
+                    userDateCorrect = true;
+                }
+            }
+        }
+    }
+
+    /*
+    public void blockDates() {
         ArrayList<Integer> indexValues = new ArrayList<Integer>();
         LocalDate userDate;
         boolean userDateCorrect = false;
@@ -486,7 +523,7 @@ public class HairdresserTest {
             }
         }
     }
-
+*/
     public void openDates() {
         String allOpenDates = "";
         String singleOpenDate = "";
