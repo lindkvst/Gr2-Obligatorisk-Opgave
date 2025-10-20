@@ -16,7 +16,6 @@ class Shampoo extends HairProducts {
 
     @Override
     //toString metode som returnerer getters + tekst + containsML
-    public String toString() {
-        return getProductName() + " " + getProductType() + " Pris i DKK: " + getPrice() + " Lager: " + getStock() + " Indeholder: " + containsML + "ml";
-    }
+
+    public String toString(){return getProductName() + " " + getProductType() + " Pris i DKK: " + getPrice() + " Indeholder: " + containsML + "ml" + " Lager: " + getStock();}
 }

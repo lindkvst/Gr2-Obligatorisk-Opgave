@@ -12,5 +12,6 @@ class Hairnet extends HairProducts {
 
     @Override
     //toString metode som returnerer getters + tekst + containsML
-    public String toString(){return getProductName() + " " + getProductType() + " Pris i DKK: " + getPrice() + " Lager: " + getStock() + " Størrelse: " + size;}
+
+    public String toString(){return getProductName() + " " + getProductType() + " Pris i DKK: " + getPrice() + " Størrelse: " + size + " Lager: " + getStock();}
 }
