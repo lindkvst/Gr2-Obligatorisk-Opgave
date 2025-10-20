@@ -9,18 +9,6 @@ public class BookingDateTime {
     private boolean isBooked;
     private String customerName;
     private boolean isPaid;
-    //har fjernet nedenstående - der skal kun ligge en LocalDateTime attribut
- //   private int year;
- //   private int month;
- //   private int day;
- //   private int hour;
- //  private int min;
-//Nedenstående konstructor kan slettes, når testArray() metode slettes
-    public BookingDateTime(int year, int month, int day, int hour, int min) {
-        this.dateTimeValue = LocalDateTime.of(year, month, day, hour, min);
-        this.isAvailable = true;
-        this.isBooked = false;
-    }
 
     public BookingDateTime(int year, int month, int day, int hour, int min, boolean isAvailable, boolean isBooked, String customerName, boolean isPaid) {
         this.dateTimeValue = LocalDateTime.of(year, month, day, hour, min);
@@ -117,12 +105,7 @@ public class BookingDateTime {
         DateTimeFormatter shortDKdate = DateTimeFormatter.ofPattern("EE 'd.' dd/MM/yy");
         return dateTimeValue.format(shortDKdate);
     }
-/*
-    static String printSimpleDate(LocalDate dateInput) {
-        DateTimeFormatter shortDKdate = DateTimeFormatter.ofPattern("EE 'd.' dd/MM/yy");
-        return dateInput.format(shortDKdate);
-    }
-*/
+
     public String exportDateTimeFormat() {
         DateTimeFormatter shortDKdate = DateTimeFormatter.ofPattern("yy/MM/dd HH:mm");
         return dateTimeValue.format(shortDKdate);
