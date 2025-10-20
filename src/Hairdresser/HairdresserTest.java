@@ -281,8 +281,7 @@ public class HairdresserTest {
             }
         }
 
-        //debug kommentar
-        System.out.println("String som sendes til BufferedWriter");
+        //debug kommentar System.out.println("String som sendes til BufferedWriter");
         System.out.println(savedBookings);
         String fileName = "Bookings.csv";
         fh.writeFile(savedBookings, fileName);
