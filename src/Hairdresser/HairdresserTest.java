@@ -8,11 +8,12 @@ public class HairdresserTest {
     FileHandler fh = new FileHandler();
     ScannerHelper sh = new ScannerHelper();
     //LocalDate today = LocalDate.now(); //bruges i dato input validering
-    LocalDate today = LocalDate.of(2025,10,1); //bruges i dato input validering - start booking date
+    LocalDate today = LocalDate.of(2025, 10, 6); //bruges i dato input validering - start booking date
 
 
     ArrayList<BookingDateTime> bookingTimes = fh.readFromFile();
     ArrayList<HairProducts> hairProducts = fh.readFromProductFile();
+
 
     public static void main(String[] args) {
         HairdresserTest test = new HairdresserTest();
@@ -54,7 +55,7 @@ public class HairdresserTest {
                     setProductStock();
                     break;
                 case 8:
-                    blockDates();
+                    openDates();
                     break;
                 case 9:
                     saveBookings();
@@ -71,11 +72,11 @@ public class HairdresserTest {
                 Tryk 1 for at booke en ny tid.
                 Tryk 2 for at slette en tid.
                 Tryk 3 for at se ledige tider.
-                Tryk 4 for at se bookede tider for én dag.
-                Tryk 5 for at lukke programmet.
-                Tryk 6 for at se lagerbeholdning.
-                Tryk 7 for at ændre lagerbeholdning.
-                Tryk 8 for at registrere fridag.
+                Tryk 4 for at lukke programmet.
+                Tryk 5 for at se lagerbeholdning.
+                Tryk 6 for at ændre lagerbeholdning.
+                Tryk 7 for at registrere fridag.
+                Tryk 8 for at se hvilke dage salonen har åbent.
                 Tryk 9 for at gemme bookings.
                 ******************************
                 """);
@@ -158,7 +159,7 @@ public class HairdresserTest {
         LocalDate userDate = inputUserDate();
         System.out.println("test userDate: " + userDate);
 
-        for(int i = 0; i < bookingTimes.size(); i++){
+        for (int i = 0; i < bookingTimes.size(); i++) {
             if (bookingTimes.get(i).compareDates(userDate)) {
                 //if (bookingTimes.get(i).equals(userYear, userMonth, userDay)) {
                 boolean isBooked = bookingTimes.get(i).getBookingStatus();
@@ -469,21 +470,13 @@ public class HairdresserTest {
         LocalDate userDate;
         boolean userDateCorrect = false;
         boolean isAvailable;
-        while(!userDateCorrect) {
-            userDate = inputUserDate();
-            if (userDate.isBefore(today)) {
-                System.out.println("Du kan ikke booke tider før dags dato. Prøv igen. ");
-            } else {
-                for (int i = 0; i < bookingTimes.size(); i++) {
-                    if (bookingTimes.get(i).compareDates(userDate)) {
-                        isAvailable = bookingTimes.get(i).getAvailability();
+        for (int i = 0; i < bookingTimes.size(); i++) {
+            if (bookingTimes.get(i).equals(userYear, userMonth, userDay)) {
+                isAvailable = bookingTimes.get(i).getAvailability();
 
-                        if (isAvailable) {
-                            bookingTimes.get(i).setAvailability(false);
-                            indexValues.add(i);
-                            System.out.println("Du har sat " + bookingTimes.get(i).printDateTime() + " som fri");
-                        }
-                    }
+                if (isAvailable) {
+                    bookingTimes.get(i).setAvailability(false);
+                    System.out.println("Du har sat " + bookingTimes.get(i).getDateTime() + " som fri");
                 }
                 if(indexValues.isEmpty()) {
                     System.out.println("Der er ingen tider på pågældende dato. Prøv igen. ");
@@ -494,15 +487,78 @@ public class HairdresserTest {
         }
     }
 
+    public void openDates() {
+        String allOpenDates = "";
+        String singleOpenDate = "";
+        boolean isTimeAvailable = false;
+        boolean isDayAvailable = false;
+        String dateString = null;
+        String openStatus = null;
+        LocalDate dateDelimiter = null;
+        //boolean dateCreated = false;
+        for (int i = 0; i < bookingTimes.size(); i++) {
+            BookingDateTime thisBookingTime = bookingTimes.get(i);
+            LocalDateTime thisDateTime = thisBookingTime.getDateTime();
+            LocalDate thisDate = thisDateTime.toLocalDate();
+            if (dateDelimiter == null) {
+                isDayAvailable = false;
+                dateDelimiter = thisDate;
+                //System.out.println("for loop i=" + i + ". test: dateDelimiter: " + dateDelimiter + ", objAvailable: " + isTimeAvailable + ", dayAvailable: " + isDayAvailable);
+                dateString = thisBookingTime.printDate();
+                isTimeAvailable = thisBookingTime.getAvailability();
+                if (isTimeAvailable) {
+                    isDayAvailable = true;
+                }
+                //System.out.println("for loop i=" + i + ". test: dateDelimiter: " + dateDelimiter + ", objAvailable: " + isTimeAvailable + ", dayAvailable: " + isDayAvailable);
+
+                //nedenstående: for alle de samme tider på samme dag
+            } else if (thisBookingTime.compareDates(dateDelimiter)) {
+                //System.out.println("will not be exported: for loop i=" + i + ". test: dateDelimiter: " + dateDelimiter + ", objAvailable: " + isTimeAvailable + ", dayAvailable: " + isDayAvailable);
+                if (isTimeAvailable) {
+                    isDayAvailable = true;
+                }
+                //nedenstående: der skiftes til ny dag
+            } else if (!thisBookingTime.compareDates(dateDelimiter)) {
+                //følgende tilføjer den aggregerede information hvorvidt isDayAvailable om dateDelimiter dvs "den gamle dag"
+                if (isDayAvailable) {
+                    openStatus = ": Salon har åbent.";
+                } else {
+                    openStatus = ": Salon har lukket.";
+                }
+                singleOpenDate = dateString + openStatus;
+                //System.out.println(singleOpenDate);
+                allOpenDates = allOpenDates.concat(singleOpenDate + "\n");
+
+                //vi nulstiller og gør klar til at samle information om den nye dag.
+
+                isDayAvailable = false;
+                dateDelimiter = thisDate;
+                //System.out.println("for loop i=" + i + ". test: dateDelimiter: " + dateDelimiter + ", objAvailable: " + isTimeAvailable + ", dayAvailable: " + isDayAvailable);
+                dateString = thisBookingTime.printDate();
+                isTimeAvailable = thisBookingTime.getAvailability();
+                if (isTimeAvailable) {
+                    isDayAvailable = true;
+                }
+                //System.out.println("for loop i=" + i + ". test: dateDelimiter: " + dateDelimiter + ", objAvailable: " + isTimeAvailable + ", dayAvailable: " + isDayAvailable);
+            }
+        }
+
+
+            System.out.println("String som sendes til BufferedWriter");
+            System.out.println(allOpenDates);
+            String filename = "openDates.csv";
+            fh.writeFile(allOpenDates, filename);
 
 
 
+
+    }
 
     static LocalDate inputUserDate() {
         //Problemer med at static metoder ikke kan tilgå de "generelle" variable fra toppen"
         ScannerHelper sh = new ScannerHelper();
         //LocalDate today = LocalDate.now(); //bruges i dato input validering
-        LocalDate today = LocalDate.of(2025,10,6); //bruges i dato input validering - start booking date
+        LocalDate today = LocalDate.of(2025, 10, 6); //bruges i dato input validering - start booking date
 
         boolean inputCorrect = false;
         boolean yearCorrect = false;
@@ -527,10 +583,10 @@ public class HairdresserTest {
             //hvis første char i brugerindtastningen er et bogstav, så er dato ikke korrekt
             if (Character.isLetter(userStringDate.charAt(0))) {
                 System.out.println("En dato skal starter med et tal i formatet DD/MM/YY. Prøv igen. ");
-            //der skal minimum være én / i brugerindtastningen
+                //der skal minimum være én / i brugerindtastningen
             } else {
                 //finder ud af hvor mange / der er i min string
-                count = userStringDate.length() - userStringDate.replace("/","").length();
+                count = userStringDate.length() - userStringDate.replace("/", "").length();
                 if (count == 0) { // ikke gyldig - gentag
                     System.out.println("Ikke en gyldig dato i formatet DD/MM/YY");
 
@@ -567,12 +623,12 @@ public class HairdresserTest {
                     if (count == 1 && dayCorrect && monthCorrect) {
                         year = today.getYear();
                         yearCorrect = true;
-                     //   inputCorrect = true;
+                        //   inputCorrect = true;
                     } else if (count == 2 && dayCorrect && monthCorrect) {
                         try {
                             year = 2000 + Integer.parseInt(values[2]);
                             yearCorrect = true;
-                     //       inputCorrect = true;
+                            //       inputCorrect = true;
                         } catch (NumberFormatException e) {
                             System.out.println("År forkert indtastet. Prøv igen");
                         } catch (ArrayIndexOutOfBoundsException e) {
@@ -596,7 +652,7 @@ public class HairdresserTest {
                     if (userDate.isBefore(today)) {
                         System.out.println("Dato er før dags dato. Prøv igen.");
                     }
-                    if (userDate.equals(today) || userDate.isAfter(today) ) {
+                    if (userDate.equals(today) || userDate.isAfter(today)) {
                         inputCorrect = true;
                     }
 

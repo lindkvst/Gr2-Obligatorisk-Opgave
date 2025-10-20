@@ -34,6 +34,10 @@ public class BookingDateTime {
         return dateTimeValue;
     }
 
+    public LocalDate getDate() {
+        return dateTimeValue.toLocalDate();
+    }
+
     public boolean getAvailability() {
         return isAvailable;
     }
@@ -109,6 +113,16 @@ public class BookingDateTime {
 
     }
 
+    public String printDate() {
+        DateTimeFormatter shortDKdate = DateTimeFormatter.ofPattern("EE 'd.' dd/MM/yy");
+        return dateTimeValue.format(shortDKdate);
+    }
+/*
+    static String printSimpleDate(LocalDate dateInput) {
+        DateTimeFormatter shortDKdate = DateTimeFormatter.ofPattern("EE 'd.' dd/MM/yy");
+        return dateInput.format(shortDKdate);
+    }
+*/
     public String exportDateTimeFormat() {
         DateTimeFormatter shortDKdate = DateTimeFormatter.ofPattern("yy/MM/dd HH:mm");
         return dateTimeValue.format(shortDKdate);

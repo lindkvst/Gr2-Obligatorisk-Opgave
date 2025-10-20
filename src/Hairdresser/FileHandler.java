@@ -20,7 +20,6 @@ public class FileHandler {
         }
     }
 
-
     public static final String COMMA_DELIMITER = "[,:;/]";
 
     public ArrayList<BookingDateTime> readFromFile() {
