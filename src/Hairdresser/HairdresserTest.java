@@ -13,7 +13,7 @@ public class HairdresserTest {
     //ArrayLister for bookingTimes og hairProducts
     ArrayList<BookingDateTime> bookingTimes = fh.readFromFile();
     ArrayList<HairProducts> hairProducts = fh.readFromProductFile();
-    ArrayList<itemsSold> productSales = new ArrayList<itemsSold>();
+    ArrayList<ItemsSold> productSales = new ArrayList<ItemsSold>();
 
     //Main metoden
     public static void main(String[] args) {
@@ -54,7 +54,8 @@ public class HairdresserTest {
                     openDates();
                     break;
                 case 9:
-                    saveBookings();
+                    //saveBookings();
+                    saveItemsSold();
                     break;
                 case 10:
                     registerSale();
@@ -62,6 +63,7 @@ public class HairdresserTest {
                 case 11:
                     saveBookings();
                     saveProductStock();
+                    saveItemsSold();
                     isDone = true;
                     System.out.println("Tak for i dag!");
                     break;
@@ -392,6 +394,91 @@ public class HairdresserTest {
     }
 
 
+    //Metoden her gemmer lagerbeholdningen til en CSV-fil
+    public void saveItemsSold() {
+        int bookingIndex = 0;
+        BookingDateTime bookingDateTimeObj = null;
+        String bookingDateTimeString = null;
+        int productIndex = 0;
+        HairProducts hairProductObj = null;
+        String productNameString;
+        String productType;
+        int quantitySold;
+        double pricePerItem;
+        double totalPrice;
+        boolean isPaid;
+        String customerName = "";
+        String paymentStatus = "";
+        String savedItemSale = "";
+        String size;
+        String singleLine = "";
+
+
+        System.out.println("Du er ved at gemme liste over solgte produkter.");
+
+        //looper igennem alle salg og bygger singleLine string til CSV
+        for (ItemsSold lineItem : productSales) {
+            bookingDateTimeObj = lineItem.getBookingDateTime();
+            bookingDateTimeString = bookingDateTimeObj.printDateTime();
+            hairProductObj = lineItem.getHairProductItem();
+            productType = hairProductObj.getProductName() + " " + hairProductObj.getProductType();
+
+            //Looper igennem bookingTimes array og finder index værdi på bookingDateTimeObj
+            for (int i = 0; i < bookingTimes.size(); i++) {
+                if (bookingTimes.get(i) == bookingDateTimeObj) {
+                    bookingIndex = i;
+                    //debug kommentar
+                    System.out.println("Du fandt den rigtige booking på index: " + i);
+                    break;
+                }
+            }
+            singleLine = bookingIndex + ";" + bookingDateTimeString;
+
+            //Looper igennem productSales array og finder index værdi på hairProductObj
+            for (int i = 0; i < hairProducts.size(); i++) {
+                if (hairProducts.get(i) == hairProductObj) {
+                    productIndex = i;
+                    //debug kommentar
+                    System.out.println("Du fandt det rigtige produkt på index: " + i);
+                    break;
+                }
+            }
+
+
+            singleLine = singleLine + ";" + productIndex + ";" + productType;
+
+            quantitySold = lineItem.getQuantitySold();
+            pricePerItem = lineItem.getPricePerItem();
+            totalPrice = lineItem.getTotalPrice();
+            customerName = lineItem.getBookingDateTime().getCustomerName();
+            isPaid = lineItem.getBookingDateTime().getPaymentStatus();
+            if (isPaid) {
+                paymentStatus = "Ordren er betalt";
+            } else if (!isPaid) {
+                paymentStatus = "Ordren er ikke betalt";
+            }
+
+            singleLine = singleLine + ";" + quantitySold + ";" + pricePerItem + ";" + totalPrice + ";" + customerName + ";" + paymentStatus;
+
+            savedItemSale = savedItemSale.concat(singleLine + "\n");
+
+
+
+
+
+
+        }
+
+        // Debug kommentar
+        System.out.println("String som sendes til BufferedWriter");
+        System.out.println(savedItemSale);
+        String fileName = "Sales.csv";
+        fh.writeFile(savedItemSale, fileName);
+    }
+
+
+
+
     //Metoden her bruges til at sætte en dag fri, ændrer isAvailable = false
     public void blockDates() {
         ArrayList<Integer> indexValues = new ArrayList<Integer>();
@@ -551,7 +638,7 @@ public class HairdresserTest {
                 "Der er " + productStock + " stk på lager.");
         int quantityToBuy = sh.askNumber(productStock);
 
-        productSales.add(new itemsSold(bookingDateTime, productToBuy, quantityToBuy) );
+        productSales.add(new ItemsSold(bookingDateTime, productToBuy, quantityToBuy) );
 
         System.out.println("Er orden betalt? Vælg venligst: \n1. Ordren er betalt. \n2. Ordren er ikke betalt");
 
@@ -565,7 +652,7 @@ public class HairdresserTest {
 
 
 
-        for (itemsSold lineItem : productSales) {
+        for (ItemsSold lineItem : productSales) {
             System.out.println(lineItem);
         }
 

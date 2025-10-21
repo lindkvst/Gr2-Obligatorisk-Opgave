@@ -1,6 +1,6 @@
 package Hairdresser;
 
-public class itemsSold {
+public class ItemsSold {
     private BookingDateTime bookingDateTime;
     private HairProducts hairProductItem;
     private int quantitySold;
@@ -8,7 +8,7 @@ public class itemsSold {
     private double totalPrice;
 
     //Konstruktør til oprettelse af salg - henter selv pris og opdaterer stock
-    public itemsSold(BookingDateTime bookingDateTime, HairProducts hairProductItem, int quantitySold) {
+    public ItemsSold(BookingDateTime bookingDateTime, HairProducts hairProductItem, int quantitySold) {
         this.bookingDateTime = bookingDateTime;
         this.hairProductItem = hairProductItem;
         this.quantitySold = quantitySold;
