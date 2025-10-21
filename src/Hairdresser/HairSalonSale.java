@@ -26,6 +26,9 @@ abstract class HairSalonSale {
 
     public void setPrice(double price) {this.price = price;}
 
+    //abstrakt metode til at registerer salg - Overrides på subklasser HairProducts og Haircuts, så Haircut ikke påvirker varelager
+    public abstract void registerSale(int quantity);
+
     //ToString til at returnere attributter
     @Override
     public String toString(){return productName + " " + productType + " " + price;}

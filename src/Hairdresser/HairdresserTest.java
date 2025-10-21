@@ -19,8 +19,8 @@ public class HairdresserTest {
     //Main metoden
     public static void main(String[] args) {
         HairdresserTest test = new HairdresserTest();
-        test.createSalesData();
         test.createHairCutTypes();
+        test.createSalesData();
         test.mainMenuProgram();
     }
 
@@ -403,7 +403,7 @@ public class HairdresserTest {
         BookingDateTime bookingDateTimeObj = null;
         String bookingDateTimeString = null;
         int productIndex = 0;
-        HairProducts hairProductObj = null;
+        HairSalonSale hairSalonSaleObj = null;
         String productNameString;
         String productType;
         int quantitySold;
@@ -423,8 +423,8 @@ public class HairdresserTest {
         for (ItemsSold lineItem : productSales) {
             bookingDateTimeObj = lineItem.getBookingDateTime();
             bookingDateTimeString = bookingDateTimeObj.printDateTime();
-            hairProductObj = lineItem.getHairProductItem();
-            productType = hairProductObj.getProductName() + " " + hairProductObj.getProductType();
+            hairSalonSaleObj = lineItem.getHairSalonItem();
+            productType = hairSalonSaleObj.getProductName() + " " + hairSalonSaleObj.getProductType();
 
             //Looper igennem bookingTimes array og finder index værdi på bookingDateTimeObj
             for (int i = 0; i < bookingTimes.size(); i++) {
@@ -439,7 +439,7 @@ public class HairdresserTest {
 
             //Looper igennem productSales array og finder index værdi på hairProductObj
             for (int i = 0; i < hairProducts.size(); i++) {
-                if (hairProducts.get(i) == hairProductObj) {
+                if (hairProducts.get(i) == hairSalonSaleObj) {
                     productIndex = i;
                     //debug kommentar
                     System.out.println("Du fandt det rigtige produkt på index: " + i);
@@ -590,18 +590,15 @@ public class HairdresserTest {
 
         LocalDate userDate = inputUserDate();
 
-
         for (int i = 0; i < bookingTimes.size(); i++) {
             if (bookingTimes.get(i).fallsWithinDays(userDate, 0)) {
                 boolean isBooked = bookingTimes.get(i).getBookingStatus();
 
                 if (isBooked) {
-                    System.out.println(selNum + ". " + bookingTimes.get(i));
+                    System.out.println(selNum + ". " + bookingTimes.get(i).printDateTimeCustomer());
                     indexValues.add(i);
                     //System.out.println("Array Index value: " + i);
-
                     selNum++;
-
                 }
             }
         }
@@ -609,52 +606,126 @@ public class HairdresserTest {
         int userSelect = sh.askNumber(selNum) - 1;
 
         int timeArrayIndexLookup = indexValues.get(userSelect);
-
-
         BookingDateTime bookingDateTime = bookingTimes.get(timeArrayIndexLookup);
+        String customerName = bookingDateTime.getCustomerName();
 
         System.out.println("Brugeren valgte: " + bookingDateTime.printDateTime());
 
-        System.out.println("Du skal nu registere solgte produkter. Vælg et produkt til salg");
+        int numOfHairCuts = 0;
+        int indexHairCut = 0;
 
-
-        selNum = 1;
-
-        ArrayList<Integer> indexValuesProducts = new ArrayList<Integer>();
-        // Printer hvert produkt på en nye linje
-        for (int i = 0; i < hairProducts.size(); i++) {
-            System.out.println(selNum + ". " + hairProducts.get(i));
-            //debug kommentar
-            //System.out.println("index value: " + i);
-            indexValuesProducts.add(i);
-            selNum++;
-        }
-        userSelect = sh.askNumber(selNum) - 1;
-
-        int ProductArrayIndexLookup = indexValuesProducts.get(userSelect);
-
-        HairProducts productToBuy = hairProducts.get(ProductArrayIndexLookup);
-        int productStock = productToBuy.getStock();
-
-        System.out.println("Hvor mange " +productToBuy.getProductName() + " " + productToBuy.getProductType() +
-                " vil du købe til " + productToBuy.getPrice() + " DKK per styk?. " +
-                "Der er " + productStock + " stk på lager.");
-        int quantityToBuy = sh.askNumber(productStock);
-
-        productSales.add(new ItemsSold(bookingDateTime, productToBuy, quantityToBuy) );
-
-        System.out.println("Er orden betalt? Vælg venligst: \n1. Ordren er betalt. \n2. Ordren er ikke betalt");
-
-        userSelect = sh.askNumber(2);
-
-        if (userSelect == 1) {
-            bookingDateTime.setPaymentStatus(true);
-        } else if (userSelect == 2) {
-            bookingDateTime.setPaymentStatus(false);
+        for (int i = 0; i< productSales.size(); i++) {
+            if (bookingDateTime == productSales.get(i).getBookingDateTime()) {
+                indexHairCut = i;
+                numOfHairCuts++;
+            }
         }
 
+        if (numOfHairCuts == 0) {
+            System.out.println("Du skal nu registere hvilken klipning, du har foretaget.");
+            System.out.println("Hvilken klipning har " + customerName + " fået?");
+
+            selNum = 1;
+
+            //ArrayList<Integer> indexValuesProducts = new ArrayList<Integer>();
+            // Printer hvert produkt på en nye linje
+
+            for (int i = 0; i < hairCuts.size(); i++) {
+                System.out.println(selNum + ". " + hairCuts.get(i));
+                //debug kommentar
+                //System.out.println("index value: " + i);
+                selNum++;
+            }
+
+            userSelect = sh.askNumber(selNum);
+
+            switch (userSelect) {
+                case 1: // Herreklip
+                    productSales.add(new ItemsSold(bookingDateTime, hairCuts.get(0), 1));
+                    break;
+                case 2: // Dameklip
+                    productSales.add(new ItemsSold(bookingDateTime, hairCuts.get(1), 1));
+                    break;
+                case 3: // Børneklip
+                    productSales.add(new ItemsSold(bookingDateTime, hairCuts.get(2), 1));
+                    break;
+            }
+        } else { //hvis der allerede er registeret en klipning
+
+            System.out.println("Du kan kun registere én klipning per kunde. " + customerName + " er allerede registeret med et stk " + productSales.get(indexHairCut).getHairSalonItem().getProductName());
+        }
 
 
+
+        //while loop til registering af tilkøb
+        boolean isDone = false;
+        int numOfRounds = 1;
+
+        while (!isDone) {
+            if (numOfRounds == 1) {
+                System.out.println("Vil du registere tilkøb på " + bookingDateTime.getCustomerName() + "s klipning?");
+            } else {
+                System.out.println("Vil du registere flere tilkøb på "+ bookingDateTime.getCustomerName() + "s klipning?");
+            }
+
+            System.out.println("1. Ja\n2. Nej");
+            userSelect = sh.askNumber(2);
+
+            if (userSelect == 2) {
+                isDone = true;
+                break;
+            }
+
+            System.out.println("Du skal nu registere solgte produkter. Vælg et produkt til salg");
+
+            selNum = 1;
+
+            ArrayList<Integer> indexValuesProducts = new ArrayList<Integer>();
+            //ArrayList<Integer> indexBoughtProducts = new ArrayList<Integer>();
+            // Printer hvert produkt på en nye linje
+
+            for (int i = 0; i < hairProducts.size(); i++) {
+                System.out.println(selNum + ". " + hairProducts.get(i));
+                //debug kommentar
+                //System.out.println("index value: " + i);
+                indexValuesProducts.add(i);
+                selNum++;
+            }
+            userSelect = sh.askNumber(selNum) - 1;
+
+            int ProductArrayIndexLookup = indexValuesProducts.get(userSelect);
+
+            HairProducts productToBuy = hairProducts.get(ProductArrayIndexLookup);
+            int productStock = productToBuy.getStock();
+
+            System.out.println("Hvor mange " +productToBuy.getProductName() + " " + productToBuy.getProductType() +
+                    " vil du købe til " + productToBuy.getPrice() + " DKK per styk?. " +
+                    "Der er " + productStock + " stk på lager.");
+            int quantityToBuy = sh.askNumber(productStock);
+
+            productSales.add(new ItemsSold(bookingDateTime, productToBuy, quantityToBuy) );
+            numOfRounds++;
+        }
+
+
+    System.out.println("Er orden betalt? Vælg venligst: \n1. Ordren er betalt \n2. Ordren er ikke betalt");
+
+    userSelect = sh.askNumber(2);
+
+
+
+    if (userSelect == 1) {
+        bookingDateTime.setPaymentStatus(true);
+    } else if (userSelect == 2) {
+        bookingDateTime.setPaymentStatus(false);
+    }
+
+
+
+
+
+
+//Debug print af ItemsSold
         for (ItemsSold lineItem : productSales) {
             System.out.println(lineItem);
         }
@@ -777,11 +848,25 @@ public class HairdresserTest {
     }
 
     public void createSalesData() {
+        productSales.add(new ItemsSold(bookingTimes.get(0), hairCuts.get(1), 1));
+
+        productSales.add(new ItemsSold(bookingTimes.get(1), hairCuts.get(0), 1));
+        productSales.add(new ItemsSold(bookingTimes.get(2), hairCuts.get(0), 1));
+        productSales.add(new ItemsSold(bookingTimes.get(3), hairCuts.get(2), 1));
+        productSales.add(new ItemsSold(bookingTimes.get(4), hairCuts.get(0), 1));
+        productSales.add(new ItemsSold(bookingTimes.get(5), hairCuts.get(1), 1));
+        productSales.add(new ItemsSold(bookingTimes.get(6), hairCuts.get(0), 1));
+        productSales.add(new ItemsSold(bookingTimes.get(7), hairCuts.get(1), 1));
+
+        productSales.add(new ItemsSold(bookingTimes.get(0), hairProducts.get(5), 1));
+        productSales.add(new ItemsSold(bookingTimes.get(3), hairProducts.get(3), 2));
 
 
     }
 
     public void createHairCutTypes() {
-
+        hairCuts.add(new HairCut("Herreklip", ProductType.HAIRCUT,250));
+        hairCuts.add(new HairCut("Dameklip", ProductType.HAIRCUT,400));
+        hairCuts.add(new HairCut("Børneklip", ProductType.HAIRCUT,150));
     }
 }

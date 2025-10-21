@@ -105,6 +105,12 @@ public class BookingDateTime {
         return dateTimeValue.format(shortDKdate);
     }
 
+    public String printDateTimeCustomer() {
+        DateTimeFormatter shortDKdate = DateTimeFormatter.ofPattern("EE 'd.' dd/MM/yy 'kl.' HH:mm");
+        return dateTimeValue.format(shortDKdate) + ". Kunde: " + getCustomerName();
+    }
+
+
     //Metode til at printe kun dato
     public String printDate() {
         DateTimeFormatter shortDKdate = DateTimeFormatter.ofPattern("EE 'd.' dd/MM/yy");
