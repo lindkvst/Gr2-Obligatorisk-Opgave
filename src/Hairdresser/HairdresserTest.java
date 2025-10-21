@@ -13,11 +13,14 @@ public class HairdresserTest {
     //ArrayLister for bookingTimes og hairProducts
     ArrayList<BookingDateTime> bookingTimes = fh.readFromFile();
     ArrayList<HairProducts> hairProducts = fh.readFromProductFile();
+    ArrayList<HairCut> hairCuts = new ArrayList<HairCut>();
     ArrayList<ItemsSold> productSales = new ArrayList<ItemsSold>();
 
     //Main metoden
     public static void main(String[] args) {
         HairdresserTest test = new HairdresserTest();
+        test.createSalesData();
+        test.createHairCutTypes();
         test.mainMenuProgram();
     }
 
@@ -771,5 +774,14 @@ public class HairdresserTest {
 
         // BRUGES TIL AT DEBUGGE: System.out.println("du har indtastet noget korrekt");
         return userDate;
+    }
+
+    public void createSalesData() {
+
+
+    }
+
+    public void createHairCutTypes() {
+
     }
 }
