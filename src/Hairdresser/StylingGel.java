@@ -1,8 +1,10 @@
 package Hairdresser;
+
 //Subklasse som der inheriter fra abstrakt superklasse HairProducts
 class StylingGel extends HairProducts {
     private int containsML;
-//Constructor
+
+    //Constructor
     public StylingGel(String productName, ProductType productType, double price, int stock, int containsML) {
         super(productName, productType, price, stock);
         this.containsML = containsML;

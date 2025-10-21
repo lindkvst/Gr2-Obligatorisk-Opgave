@@ -11,7 +11,7 @@ public class ScannerHelper {
         this.sc = new Scanner(System.in);
     }
 
-    //Metode til at lave user inputs hvor user skal indtaste et tal for at komme videre i konsollen
+    //Metode til at få int fra scanner input
     public int askNumber(int intMax) {
         boolean numCorrect = false;
         int selectInt = 0;
@@ -40,8 +40,7 @@ public class ScannerHelper {
         }
         return selectInt;
     }
-
-//Metode til at fange forkert input
+    //Metode til at få String fra scanner input
     public String askQuestion(String question) {
         System.out.print(question + ": ");
         String answer = sc.nextLine();
