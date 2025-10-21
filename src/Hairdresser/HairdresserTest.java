@@ -614,8 +614,9 @@ public class HairdresserTest {
         int numOfHairCuts = 0;
         int indexHairCut = 0;
 
-        for (int i = 0; i< productSales.size(); i++) {
-            if (bookingDateTime == productSales.get(i).getBookingDateTime()) {
+        for (int i = 0; i < productSales.size(); i++) {
+            if (bookingDateTime == productSales.get(i).getBookingDateTime() &&
+                productSales.get(i).getHairSalonItem().compareType("haircut") ) {
                 indexHairCut = i;
                 numOfHairCuts++;
             }
@@ -656,7 +657,6 @@ public class HairdresserTest {
         }
 
 
-
         //while loop til registering af tilkøb
         boolean isDone = false;
         int numOfRounds = 1;
@@ -665,7 +665,7 @@ public class HairdresserTest {
             if (numOfRounds == 1) {
                 System.out.println("Vil du registere tilkøb på " + bookingDateTime.getCustomerName() + "s klipning?");
             } else {
-                System.out.println("Vil du registere flere tilkøb på "+ bookingDateTime.getCustomerName() + "s klipning?");
+                System.out.println("Vil du registere flere tilkøb på " + bookingDateTime.getCustomerName() + "s klipning?");
             }
 
             System.out.println("1. Ja\n2. Nej");
@@ -681,7 +681,7 @@ public class HairdresserTest {
             selNum = 1;
 
             ArrayList<Integer> indexValuesProducts = new ArrayList<Integer>();
-            //ArrayList<Integer> indexBoughtProducts = new ArrayList<Integer>();
+
             // Printer hvert produkt på en nye linje
 
             for (int i = 0; i < hairProducts.size(); i++) {
@@ -698,39 +698,63 @@ public class HairdresserTest {
             HairProducts productToBuy = hairProducts.get(ProductArrayIndexLookup);
             int productStock = productToBuy.getStock();
 
-            System.out.println("Hvor mange " +productToBuy.getProductName() + " " + productToBuy.getProductType() +
+            System.out.println("Hvor mange " + productToBuy.getProductName() + " " + productToBuy.getProductType() +
                     " vil du købe til " + productToBuy.getPrice() + " DKK per styk?. " +
                     "Der er " + productStock + " stk på lager.");
             int quantityToBuy = sh.askNumber(productStock);
 
-            productSales.add(new ItemsSold(bookingDateTime, productToBuy, quantityToBuy) );
+            productSales.add(new ItemsSold(bookingDateTime, productToBuy, quantityToBuy));
             numOfRounds++;
         }
 
+        System.out.println("Er orden betalt? Vælg venligst: \n1. Ordren er betalt \n2. Ordren er ikke betalt");
 
-    System.out.println("Er orden betalt? Vælg venligst: \n1. Ordren er betalt \n2. Ordren er ikke betalt");
+        userSelect = sh.askNumber(2);
 
-    userSelect = sh.askNumber(2);
+        if (userSelect == 1) {
+            bookingDateTime.setPaymentStatus(true);
+        } else if (userSelect == 2) {
+            bookingDateTime.setPaymentStatus(false);
+        }
+
+    //Kundens køb vises
+    double totalPrice = 0;
+
+        System.out.println(
+                "**************\n" +
+                "**KVITTERING**\n" +
+                "**************" +
+                "\n");
+
+        System.out.println(customerName + " har købt:");
+    ArrayList<Integer> indexBoughtProducts = new ArrayList<Integer>();
+        for (int i = 0; i < productSales.size(); i++) {
+            if (bookingDateTime == productSales.get(i).getBookingDateTime()) {
+                ItemsSold lineItem = productSales.get(i);
+                double lineItemTotalPrice = lineItem.getTotalPrice();
+                totalPrice = totalPrice + lineItemTotalPrice;
+                System.out.println(lineItem.printLineItem());
+
+                //   indexBoughtProducts.add(i);
+            }
+        }
 
 
 
-    if (userSelect == 1) {
-        bookingDateTime.setPaymentStatus(true);
-    } else if (userSelect == 2) {
-        bookingDateTime.setPaymentStatus(false);
-    }
-
-
-
-
+        System.out.println("\nSamlet pris: " + totalPrice + " DKK.\n\n");
 
 
 //Debug print af ItemsSold
+        /*
         for (ItemsSold lineItem : productSales) {
             System.out.println(lineItem);
         }
 
+
+         */
     }
+
+
                            
     //Metoden her er input validering af datoer
     static LocalDate inputUserDate() {

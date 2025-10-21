@@ -33,4 +33,12 @@ abstract class HairSalonSale {
     @Override
     public String toString(){return productName + " " + productType + " " + price;}
 
+    public boolean compareType(String input) {
+        boolean compareCorrect = false;
+        if (productType.name().equalsIgnoreCase(input) ) {
+            compareCorrect = true;
+        }
+        return compareCorrect;
+    }
+
 }

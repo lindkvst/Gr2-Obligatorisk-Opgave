@@ -46,4 +46,11 @@ public class ItemsSold {
                 ". Samlet pris: " + totalPrice + ". " + paymentStatus;
     }
 
+    public String printLineItem() {
+        return quantitySold + " stk " + hairSalonItem.getProductName() + ". Enhedspris: " + pricePerItem +
+                ". Samlet pris: " + totalPrice;
+    }
+
+
+
 }
