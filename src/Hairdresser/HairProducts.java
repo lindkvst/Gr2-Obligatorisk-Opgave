@@ -1,18 +1,20 @@
 package Hairdresser;
+
 //Abstrakt superklasse
 abstract class HairProducts {
     private String productName;
     private ProductType productType;
     double price;
     int stock;
-//Constructor
+
+    //Constructor
     public HairProducts(String productName, ProductType productType, double price, int stock) {
         this.productName = productName;
         this.productType = productType;
         this.price = price;
         this.stock = stock;
     }
-//Getters og setters
+    //Getters og setters
     public String getProductName() {return productName;}
 
     public ProductType getProductType() {return productType;}

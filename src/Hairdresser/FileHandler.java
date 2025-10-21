@@ -8,8 +8,9 @@ import java.util.Arrays;
 import java.util.List;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
-
+// FileHandler klasse der styrer al filhåndtering
 public class FileHandler {
+
     //Metode til at skrive til fil med en try/catch
     public void writeFile(String fileInput, String fileName) {
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(fileName))) {
@@ -20,16 +21,18 @@ public class FileHandler {
         }
     }
 
-    public static final String COMMA_DELIMITER = "[,:;/]";
+    // Opdeler linjer i komma, kolon, semikolon og skråstreg
+    public static final String DELIMITER = "[,:;/]";
+
     //Metode med ArrayList til at læse fra med en try/catch og while- og for-loop.
-    public ArrayList<BookingDateTime> readFromFile() {
+    public ArrayList<BookingDateTime> readFromBookingFile() {
         ArrayList<BookingDateTime> bookingTimes = new ArrayList<>();
         ArrayList<List<String>> readBookingTimes = new ArrayList<>();
         try (BufferedReader br = new BufferedReader(new FileReader("Bookings.csv"))) {
             String line;
-            //nedenstående er comment: vi vil kun have første linje ind
+            // Vi vil kun have første linje ind
             while ((line = br.readLine()) != null) {
-                String[] values = line.trim().split(COMMA_DELIMITER);
+                String[] values = line.trim().split(DELIMITER);
 
                 for (int i = 0; i < values.length; i++) {
                     values[i] = values[i].trim();
@@ -40,7 +43,7 @@ public class FileHandler {
             System.out.println("error message" + e);
         }
 
-        //For-loop til at læse igennem ArrayListen
+        // For-loop til at læse igennem ArrayListen
         for (List<String> readBookingTime : readBookingTimes) {
             int year = 2000 + Integer.parseInt(readBookingTime.get(0));
             int month = Integer.parseInt(readBookingTime.get(1));
@@ -54,7 +57,7 @@ public class FileHandler {
             boolean isAvailable = Boolean.parseBoolean(readBookingTime.get(4));
             boolean isBooked = Boolean.parseBoolean(readBookingTime.get(5));
 
-            //opretter costumer med null data, hvis navn = null;
+            // Opretter costumer med null data, hvis navn = null;
             String customerName = readBookingTime.get(6);
             if (customerName.equals("null")) {
                 customerName = null;
@@ -62,7 +65,7 @@ public class FileHandler {
 
             boolean isPaid = Boolean.parseBoolean(readBookingTime.get(7));
 
-            //nedenstående er debug prints
+            // Nedenstående er debug prints
             /*
             System.out.print(year + "/");
             System.out.print(month + "/");
@@ -78,7 +81,7 @@ public class FileHandler {
             bookingTimes.add(new BookingDateTime(year, month, day, hour, min, isAvailable, isBooked, customerName, isPaid));
         }
 
-        System.out.println(readBookingTimes);
+        // DEBUG FUNKTION: System.out.println(readBookingTimes);
         return bookingTimes;
 
     }
@@ -89,9 +92,9 @@ public class FileHandler {
         ArrayList<List<String>> readHairProducts = new ArrayList<>();
         try (BufferedReader br = new BufferedReader(new FileReader("Products.csv"))) {
             String line;
-            //nedenstående er comment: vi vil kun have første linje ind
+            // Vi vil kun have første linje ind
             while ((line = br.readLine()) != null) {
-                String[] values = line.trim().split(COMMA_DELIMITER);
+                String[] values = line.trim().split(DELIMITER);
 
                 for (int i = 0; i < values.length; i++) {
                     values[i] = values[i].trim();
@@ -102,7 +105,7 @@ public class FileHandler {
             System.out.println("error message" + e);
         }
 
-        //For-loop til at læse igennem ArrayListen med produkt og udskriver de forskellige attributter
+        // For-loop til at læse igennem ArrayListen med produkter og udskrive de forskellige attributter
         for (List<String> readHairProduct : readHairProducts) {
             String productName = readHairProduct.get(0);
             ProductType productType = ProductType.valueOf(readHairProduct.get(1));
@@ -111,7 +114,7 @@ public class FileHandler {
             int containsML = Integer.parseInt(readHairProduct.get(4));
             String size = readHairProduct.get(5);
 
-            //If-statements til at tilføje til ArrayListen
+            // If-statements til at tilføje til ArrayListen og oprette HairProducts efter productType
             if(productType == productType.CONDITIONER) {
                 hairProducts.add(new Conditioner (productName, productType, price, stock, containsML));
 
@@ -129,8 +132,8 @@ public class FileHandler {
         }
         }
 
-        //Udskriver og returnerer readHairProducts/hairProducts
-        System.out.println(readHairProducts);
+        // Udskriver og returnerer readHairProducts/hairProducts
+        // DEBUG FUNKTION: System.out.println(readHairProducts);
         return hairProducts;
 
     }
