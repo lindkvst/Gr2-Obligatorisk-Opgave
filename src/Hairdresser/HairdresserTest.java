@@ -136,7 +136,7 @@ public class HairdresserTest {
 
         String bookingDateTime = bookingTimes.get(timeArrayIndexLookup).printDateTime();
         // BRUGES TIL AT DEBUGGE: System.out.println("Brugeren valgte: " + bookingDateTime);
-        String customerName = sh.askQuestion("Skriv venligst navnet på kunden, der booker denne tid:");
+        String customerName = sh.askQuestion("Skriv venligst navnet på kunden, der booker denne tid");
 
         bookingTimes.get(timeArrayIndexLookup).setCustomerName(customerName);
         bookingTimes.get(timeArrayIndexLookup).setBookingStatus(true);
