@@ -6,4 +6,5 @@ public enum ProductType {
     CONDITIONER,
     HAIRNET,
     STYLINGGEL,
+    HAIRCUT,
 }

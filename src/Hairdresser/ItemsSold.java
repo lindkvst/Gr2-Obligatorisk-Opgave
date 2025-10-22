@@ -1,30 +1,28 @@
 package Hairdresser;
 
-public class itemsSold {
+public class ItemsSold {
     private BookingDateTime bookingDateTime;
-    private HairProducts hairProductItem;
+    private HairSalonSale hairSalonItem;
     private int quantitySold;
     private double pricePerItem;
     private double totalPrice;
 
     //Konstruktør til oprettelse af salg - henter selv pris og opdaterer stock
-    public itemsSold(BookingDateTime bookingDateTime, HairProducts hairProductItem, int quantitySold) {
+    public ItemsSold(BookingDateTime bookingDateTime, HairSalonSale hairSalonItem, int quantitySold) {
         this.bookingDateTime = bookingDateTime;
-        this.hairProductItem = hairProductItem;
+        this.hairSalonItem = hairSalonItem;
         this.quantitySold = quantitySold;
-        double itemPrice = hairProductItem.getPrice();
+        double itemPrice = hairSalonItem.getPrice();
         this.pricePerItem = itemPrice;
         this.totalPrice = itemPrice * quantitySold;
-        int itemStock = hairProductItem.getStock();
-        itemStock = itemStock - quantitySold;
-        hairProductItem.setStock(itemStock);
+        hairSalonItem.registerSale(quantitySold); // polymorft kald af registerSale metoden
     }
 
 
     //alle getters
     public BookingDateTime getBookingDateTime() {return bookingDateTime;}
 
-    public HairProducts getHairProductItem() {return hairProductItem;}
+    public HairSalonSale getHairSalonItem() {return hairSalonItem;}
 
     public int getQuantitySold() {return quantitySold;}
 
@@ -44,8 +42,15 @@ public class itemsSold {
             paymentStatus = "Er ikke betalt";
         }
         return "Booking: "+ bookingDateTime.printDateTime() + " Kunde: " + bookingDateTime.getCustomerName() + ". Købt "
-                + quantitySold + " stk " + hairProductItem.getProductName() + ". Enhedspris: " + pricePerItem +
+                + quantitySold + " stk " + hairSalonItem.getProductName() + ". Enhedspris: " + pricePerItem +
                 ". Samlet pris: " + totalPrice + ". " + paymentStatus;
     }
+
+    public String printLineItem() {
+        return quantitySold + " stk " + hairSalonItem.getProductName() + ". Enhedspris: " + pricePerItem +
+                ". Samlet pris: " + totalPrice;
+    }
+
+
 
 }
