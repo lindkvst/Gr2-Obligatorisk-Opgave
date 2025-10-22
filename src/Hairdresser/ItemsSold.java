@@ -12,9 +12,9 @@ public class ItemsSold {
         this.bookingDateTime = bookingDateTime;
         this.hairSalonItem = hairSalonItem;
         this.quantitySold = quantitySold;
-        double itemPrice = hairSalonItem.getPrice();
-        this.pricePerItem = itemPrice;
-        this.totalPrice = itemPrice * quantitySold;
+        //double itemPrice = hairSalonItem.getPrice();
+        this.pricePerItem = hairSalonItem.getPrice();
+        this.totalPrice = pricePerItem * quantitySold;
         hairSalonItem.registerSale(quantitySold); // polymorft kald af registerSale metoden
     }
 

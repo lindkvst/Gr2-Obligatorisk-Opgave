@@ -8,6 +8,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
+
 // FileHandler klasse der styrer al filhåndtering
 public class FileHandler {
 
@@ -135,6 +136,34 @@ public class FileHandler {
         // Udskriver og returnerer readHairProducts/hairProducts
         // DEBUG FUNKTION: System.out.println(readHairProducts);
         return hairProducts;
+
+    }
+
+    //Metode til at læse Sales fra fil med try/catch, while- og for-loop. Returnerer en
+    //ArrayList med salg.
+    public ArrayList<List<String>> readFromSalesFile() {
+        //ArrayList<ItemsSold> ItemsSold = new ArrayList<>();
+        ArrayList<List<String>> readItemsSold = new ArrayList<>();
+        //String readItemsSold = "";
+        try (BufferedReader br = new BufferedReader(new FileReader("Sales.csv"))) {
+            String line;
+            // Vi vil kun have første linje ind
+            while ((line = br.readLine()) != null) {
+
+                String[] values = line.trim().split("[;]");
+
+                for (int i = 0; i < values.length; i++) {
+                    values[i] = values[i].trim();
+                }
+                readItemsSold.add(Arrays.asList(values));
+            }
+        } catch (IOException e) {
+            System.out.println("error message" + e);
+        }
+
+        //DEBUG KOMMENTAR
+        //System.out.println(readItemsSold);
+        return readItemsSold;
 
     }
 }

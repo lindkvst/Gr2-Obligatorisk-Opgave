@@ -3,6 +3,8 @@ package Hairdresser;
 import java.util.ArrayList;
 import java.time.*;
 import java.util.Collections;
+import java.util.List;
+
 // Test klasse der indeholder metoder for reel brug af programmet
 public class HairdresserTest {
     // Bruger ScannerHelper og FileHandler metoderne
@@ -16,11 +18,13 @@ public class HairdresserTest {
     ArrayList<HairCut> hairCuts = new ArrayList<HairCut>();
     ArrayList<ItemsSold> productSales = new ArrayList<ItemsSold>();
 
+
     // Main metoden
     public static void main(String[] args) {
         HairdresserTest test = new HairdresserTest();
         test.createHairCutTypes();
-        test.createSalesData();
+        test.readFromSalesFile();
+        //test.createSalesData();
         test.mainMenuProgram();
     }
 
@@ -30,7 +34,7 @@ public class HairdresserTest {
 
         while (!isDone) {
             printMainMenu();
-            int userChoice = sh.askNumber(11);
+            int userChoice = sh.askNumber(12);
             switch (userChoice) {
                 case 1:
                     bookTime();
@@ -409,6 +413,7 @@ public class HairdresserTest {
         BookingDateTime bookingDateTimeObj = null;
         String bookingDateTimeString = null;
         int productIndex = 0;
+        String productParentType = null;
         HairSalonSale hairSalonSaleObj = null;
         String productNameString;
         String productType;
@@ -432,6 +437,7 @@ public class HairdresserTest {
             hairSalonSaleObj = lineItem.getHairSalonItem();
             productType = hairSalonSaleObj.getProductName() + " " + hairSalonSaleObj.getProductType();
 
+
             //Looper igennem bookingTimes array og finder index værdi på bookingDateTimeObj
             for (int i = 0; i < bookingTimes.size(); i++) {
                 if (bookingTimes.get(i) == bookingDateTimeObj) {
@@ -447,6 +453,17 @@ public class HairdresserTest {
             for (int i = 0; i < hairProducts.size(); i++) {
                 if (hairProducts.get(i) == hairSalonSaleObj) {
                     productIndex = i;
+                    productParentType = "HairProduct";
+                    //debug kommentar
+                    System.out.println("Du fandt det rigtige produkt på index: " + i);
+                    break;
+                }
+            }
+            //Looper igennem HairCuts array og finder index værdi på hairCutObj
+            for (int i = 0; i < hairCuts.size(); i++) {
+                if (hairCuts.get(i) == hairSalonSaleObj) {
+                    productIndex = i;
+                    productParentType = "HairCut";
                     //debug kommentar
                     System.out.println("Du fandt det rigtige produkt på index: " + i);
                     break;
@@ -454,7 +471,7 @@ public class HairdresserTest {
             }
 
 
-            singleLine = singleLine + ";" + productIndex + ";" + productType;
+            singleLine = singleLine + ";" + productIndex + ";" + productType + ";" + productParentType;
 
             quantitySold = lineItem.getQuantitySold();
             pricePerItem = lineItem.getPricePerItem();
@@ -479,8 +496,8 @@ public class HairdresserTest {
         }
 
         // Debug kommentar
-        System.out.println("String som sendes til BufferedWriter");
-        System.out.println(savedItemSale);
+        //System.out.println("String som sendes til BufferedWriter");
+        //System.out.println(savedItemSale);
         String fileName = "Sales.csv";
         fh.writeFile(savedItemSale, fileName);
     }
@@ -758,6 +775,47 @@ public class HairdresserTest {
 
 
          */
+    }
+
+    public void readFromSalesFile() {
+        ArrayList<List<String>> readItemsSold = fh.readFromSalesFile();
+        //ArrayList<ItemsSold> ItemsSold = new ArrayList<>();
+
+
+        for (List<String> sale : readItemsSold) {
+            /*
+            String[] values = sale.trim().split("[,:;/]");
+
+            for (int i = 0; i < values.length; i++) {
+                values[i] = values[i].trim();
+            }
+            readItemsSold.add(Arrays.asList(values));
+*/
+            int bookingIndex = Integer.parseInt(sale.get(0));
+            String bookingString = sale.get(1);
+            int productIndex = Integer.parseInt(sale.get(2));
+            String productString = sale.get(3);
+            String productParentType = sale.get(4);
+            int quantitySold = Integer.parseInt(sale.get(5));
+
+
+            if (productParentType.equalsIgnoreCase("haircut")) {
+                productSales.add(new ItemsSold(bookingTimes.get(bookingIndex), hairCuts.get(productIndex), quantitySold ));
+            } else if (productParentType.equalsIgnoreCase("hairproduct")) {
+                productSales.add(new ItemsSold(bookingTimes.get(bookingIndex), hairProducts.get(productIndex), quantitySold ));
+            }
+
+
+
+
+        }
+
+    }
+
+    public void debugItemsSold() {
+        for (ItemsSold sale : productSales) {
+            System.out.println(sale);
+        }
     }
 
 
