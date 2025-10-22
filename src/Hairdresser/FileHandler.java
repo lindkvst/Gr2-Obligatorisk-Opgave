@@ -15,7 +15,7 @@ public class FileHandler {
     public void writeFile(String fileInput, String fileName) {
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(fileName))) {
             bw.write(fileInput);
-            System.out.println("Successfully wrote to the file.");
+            // DEBUG KOMMENTAR: System.out.println("Successfully wrote to the file.");
         } catch (IOException e) {
             System.out.println("Error writing file.");
         }
