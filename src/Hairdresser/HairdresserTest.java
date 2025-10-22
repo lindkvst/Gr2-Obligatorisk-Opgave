@@ -3,20 +3,20 @@ package Hairdresser;
 import java.util.ArrayList;
 import java.time.*;
 import java.util.Collections;
-//Test klasse
+// Test klasse der indeholder metoder for reel brug af programmet
 public class HairdresserTest {
-    //Bruger scannerhelper metoderne
+    // Bruger ScannerHelper og FileHandler metoderne
     FileHandler fh = new FileHandler();
     ScannerHelper sh = new ScannerHelper();
     LocalDate today = LocalDate.of(2025, 10, 6); //bruges i dato input validering - start booking date
 
-    //ArrayLister for bookingTimes og hairProducts
-    ArrayList<BookingDateTime> bookingTimes = fh.readFromFile();
+    // ArrayLister for BookingDateTime, HairProducts og ItemsSold hentes fra CSV filer vha. FileHandleren
+    ArrayList<BookingDateTime> bookingTimes = fh.readFromBookingFile();
     ArrayList<HairProducts> hairProducts = fh.readFromProductFile();
     ArrayList<HairCut> hairCuts = new ArrayList<HairCut>();
     ArrayList<ItemsSold> productSales = new ArrayList<ItemsSold>();
 
-    //Main metoden
+    // Main metoden
     public static void main(String[] args) {
         HairdresserTest test = new HairdresserTest();
         test.createHairCutTypes();
@@ -98,7 +98,9 @@ public class HairdresserTest {
     // Denne metode er så brugeren kan booke en tid i kalenderen.
     // Den anvender ScannerHelper klassen til at kunne modtage brugerinput.
     public void bookTime() {
+        //ArrayList til at gemme BookingDateTime index værdier, der passer med specifik dato og booking-kriterier
         ArrayList<Integer> indexValues = new ArrayList<Integer>();
+        // Nedenstående er til for at gøre det mere intuitivt for brugeren, at listen starter med 1 og ikke 0
         int selNum = 1;
 
         LocalDate userDate;
@@ -139,16 +141,18 @@ public class HairdresserTest {
 
         String bookingDateTime = bookingTimes.get(timeArrayIndexLookup).printDateTime();
         // BRUGES TIL AT DEBUGGE: System.out.println("Brugeren valgte: " + bookingDateTime);
-        String customerName = sh.askQuestion("Skriv venligst navnet på kunden, der booker denne tid:");
+        String customerName = sh.askQuestion("Skriv venligst navnet på kunden, der booker denne tid");
 
         bookingTimes.get(timeArrayIndexLookup).setCustomerName(customerName);
         bookingTimes.get(timeArrayIndexLookup).setBookingStatus(true);
         System.out.println("Du har booket en tid til " + customerName + " " + bookingDateTime);
 
     }
-    //Metoden her tjekker en booked tid
+    // Metoden her tjekker en booked tid
     public void checkBookedTime() {
-        ArrayList<Integer> indexValues2 = new ArrayList<Integer>();
+        //ArrayList til at gemme BookingDateTime index værdier, der passer med specifik dato og booking-kriterier
+        ArrayList<Integer> indexValues = new ArrayList<Integer>();
+        // Nedenstående er til for at gøre det mere intuitivt for brugeren, at listen starter med 1 og ikke 0
         int selNum = 1;
 
         LocalDate userDate = inputUserDate();
@@ -160,7 +164,7 @@ public class HairdresserTest {
 
                 if (isBooked) {
                     System.out.println(selNum + ". " + bookingTimes.get(i));
-                    indexValues2.add(i);
+                    indexValues.add(i);
                     // BRUGES TIL AT DEBUGGE: System.out.println("Array Index value: " + i);
 
                     selNum++;
@@ -171,7 +175,7 @@ public class HairdresserTest {
 
         int userSelect = sh.askNumber(selNum) - 1;
 
-        int timeArrayIndexLookup = indexValues2.get(userSelect);
+        int timeArrayIndexLookup = indexValues.get(userSelect);
 
 
         String bookingDateTime = bookingTimes.get(timeArrayIndexLookup).printDateTime();
@@ -183,7 +187,8 @@ public class HairdresserTest {
 
         //ArrayList til at gemme BookingDateTime index værdier, der passer med specifik dato og booking-kriterier
         ArrayList<Integer> indexValues = new ArrayList<Integer>();
-        int selNum = 1; //det tal som brugeren kan indtaste til at vælge den specifikke bookingtid
+        // Nedenstående er til for at gøre det mere intuitivt for brugeren, at listen starter med 1 og ikke 0
+        int selNum = 1;
 
 
         LocalDate userDate;
@@ -233,9 +238,11 @@ public class HairdresserTest {
     public void checkAvailableTimes() {
         LocalDate userDate;
         boolean userDateCorrect = false;
+        //ArrayList til at gemme BookingDateTime index værdier, der passer med specifik dato og booking-kriterier
         ArrayList<Integer> indexValues = new ArrayList<Integer>();
+        // Nedenstående er til for at gøre det mere intuitivt for brugeren, at listen starter med 1 og ikke 0
         int selNum = 1;
-    //    int numOfDaysLookup = 4;
+
         while(!userDateCorrect) {
             userDate = inputUserDate();
             // BRUGES TIL AT DEBUGGE: System.out.println("test userDate: " + userDate);
@@ -265,7 +272,7 @@ public class HairdresserTest {
     }
 
 
-    //Metoden her gemmer bookings
+    // Metoden her gemmer bookings
     public void saveBookings() {
         String savedBookings = null;
         String dateString;
@@ -291,8 +298,8 @@ public class HairdresserTest {
             }
         }
 
-        //debug kommentar System.out.println("String som sendes til BufferedWriter");
-        System.out.println(savedBookings);
+        // DEBUG FUNKTION: System.out.println("String som sendes til BufferedWriter");
+        // DEBUG FUNKTION: System.out.println(savedBookings);
         String fileName = "Bookings.csv";
         fh.writeFile(savedBookings, fileName);
     }
@@ -785,7 +792,7 @@ public class HairdresserTest {
 
             //hvis første char i brugerindtastningen er et bogstav, så er dato ikke korrekt
             if (Character.isLetter(userStringDate.charAt(0))) {
-                System.out.println("En dato skal starter med et tal i formatet DD/MM/YY. Prøv igen. ");
+                System.out.println("En dato skal starte med et tal i formatet DD/MM/YY. Prøv igen.");
                 //der skal minimum være én / i brugerindtastningen
             } else {
                 //finder ud af hvor mange / der er i min string

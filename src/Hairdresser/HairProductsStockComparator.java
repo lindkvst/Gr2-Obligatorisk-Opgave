@@ -1,7 +1,7 @@
 package Hairdresser;
 
 import java.util.Comparator;
-//Comparator klasse som implementerer fra HairProducts
+//Comparator klasse som implementerer som compare HairProducts
 class HairProductsStockComparator implements Comparator<HairProducts> {
     //Metode til at sortere efter stock, sammenligner stock med ét produkt med et andet produkt i array
     @Override

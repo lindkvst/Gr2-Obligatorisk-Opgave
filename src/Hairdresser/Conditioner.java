@@ -1,17 +1,19 @@
 package Hairdresser;
-//subklasse som inheriter fra HairProducts superklassen
+
+// Subklasse som inheriter fra HairProducts superklassen
 class Conditioner extends HairProducts {
     private int containsML;
-//constructor oprettes
+
+    // Constructor
     public Conditioner(String productName, ProductType productType, double price, int stock, int containsML) {
         super(productName, productType, price, stock);
         this.containsML = containsML;
     }
 
-    //Metode til at returnere containsML attribut
+    // Getter til containsML
     public int getContainsML(){return containsML;}
 
-    //ToString metode til at returnere getters + tekst + containsML attribut
+    // toString metode til at returnere getters + tekst + containsML attribut
     @Override
 
     public String toString(){return getProductName() + " " + getProductType() + " Pris i DKK: " + getPrice() + " Indeholder: " + containsML + "ml" + " Lager: " + getStock();}

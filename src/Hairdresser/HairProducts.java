@@ -1,4 +1,5 @@
 package Hairdresser;
+
 //Abstrakt superklasse
 abstract class HairProducts extends HairSalonSale {
     //private String productName;
