@@ -34,9 +34,11 @@ public class HairdresserTest {
             switch (userChoice) {
                 case 1:
                     bookTime();
+                    saveBookings();
                     break;
                 case 2:
                     deleteBooking();
+                    saveBookings();
                     break;
                 case 3:
                     checkAvailableTimes();
@@ -49,6 +51,7 @@ public class HairdresserTest {
                     break;
                 case 6:
                     setProductStock();
+                    saveProductStock();
                     break;
                 case 7:
                     blockDates();
@@ -57,13 +60,10 @@ public class HairdresserTest {
                     openDates();
                     break;
                 case 9:
-                    //saveBookings();
+                    registerSale();
                     saveItemsSold();
                     break;
                 case 10:
-                    registerSale();
-                    break;
-                case 11:
                     saveBookings();
                     saveProductStock();
                     saveItemsSold();
@@ -88,9 +88,8 @@ public class HairdresserTest {
                 Tryk 6 for at ændre lagerbeholdning.
                 Tryk 7 for at registrere fridag.
                 Tryk 8 for at se hvilke dage salonen har åbent.
-                Tryk 9 for at gemme bookings.
-                Tryk 10 for at registrere salg.
-                Tryk 11 for at lukke programmet.
+                Tryk 9 for at registrere salg.
+                Tryk 10 for at lukke programmet.
                 ******************************
                 """);
     }
