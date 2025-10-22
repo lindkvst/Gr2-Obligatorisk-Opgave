@@ -1,4 +1,4 @@
-25/10/06 10:00,true,true,Lisa,false
+25/10/06 10:00,true,true,Lisa,true
 25/10/06 11:00,true,true,Bjarne O,true
 25/10/06 13:00,true,true,Abdul,false
 25/10/06 14:00,true,true,S?ren K,true
@@ -29,7 +29,7 @@
 25/10/10 10:00,true,false,null,false
 25/10/10 11:00,true,false,null,false
 25/10/10 13:00,true,false,null,false
-25/10/10 14:00,true,true,Lars K,false
+25/10/10 14:00,true,true,Lars K,true
 25/10/10 15:00,true,true,Peter R,false
 25/10/10 16:00,true,true,Hans C,true
 25/10/10 17:00,true,true,Lisette,true

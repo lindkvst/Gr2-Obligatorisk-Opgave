@@ -1,10 +1,11 @@
-0;man. d. 06/10/25 kl. 10:00;0;Dameklip HAIRCUT;1;400.0;400.0;Lisa;Ordren er ikke betalt
-1;man. d. 06/10/25 kl. 11:00;0;Herreklip HAIRCUT;1;250.0;250.0;Bjarne O;Ordren er betalt
-2;man. d. 06/10/25 kl. 13:00;0;Herreklip HAIRCUT;1;250.0;250.0;Abdul;Ordren er ikke betalt
-3;man. d. 06/10/25 kl. 14:00;0;Børneklip HAIRCUT;1;150.0;150.0;S?ren K;Ordren er betalt
-4;man. d. 06/10/25 kl. 15:00;0;Herreklip HAIRCUT;1;250.0;250.0;John D;Ordren er ikke betalt
-5;man. d. 06/10/25 kl. 16:00;0;Dameklip HAIRCUT;1;400.0;400.0;Karo;Ordren er ikke betalt
-6;man. d. 06/10/25 kl. 17:00;0;Herreklip HAIRCUT;1;250.0;250.0;Lars Krimi;Ordren er ikke betalt
-7;tirs. d. 07/10/25 kl. 10:00;0;Dameklip HAIRCUT;1;400.0;400.0;Simone;Ordren er ikke betalt
-0;man. d. 06/10/25 kl. 10:00;5;Efalock HAIRNET;1;23.0;23.0;Lisa;Ordren er ikke betalt
-3;man. d. 06/10/25 kl. 14:00;3;Efalock HAIRNET;2;23.0;46.0;S?ren K;Ordren er betalt
+0;man. d. 06/10/25 kl. 10:00;1;Dameklip HAIRCUT;HairCut;1;400.0;400.0;Lisa;Ordren er betalt
+1;man. d. 06/10/25 kl. 11:00;0;Herreklip HAIRCUT;HairCut;1;250.0;250.0;Bjarne O;Ordren er betalt
+2;man. d. 06/10/25 kl. 13:00;0;Herreklip HAIRCUT;HairCut;1;250.0;250.0;Abdul;Ordren er ikke betalt
+3;man. d. 06/10/25 kl. 14:00;2;Børneklip HAIRCUT;HairCut;1;150.0;150.0;S?ren K;Ordren er betalt
+4;man. d. 06/10/25 kl. 15:00;0;Herreklip HAIRCUT;HairCut;1;250.0;250.0;John D;Ordren er ikke betalt
+5;man. d. 06/10/25 kl. 16:00;1;Dameklip HAIRCUT;HairCut;1;400.0;400.0;Karo;Ordren er ikke betalt
+6;man. d. 06/10/25 kl. 17:00;0;Herreklip HAIRCUT;HairCut;1;250.0;250.0;Lars Krimi;Ordren er ikke betalt
+7;tirs. d. 07/10/25 kl. 10:00;1;Dameklip HAIRCUT;HairCut;1;400.0;400.0;Simone;Ordren er ikke betalt
+0;man. d. 06/10/25 kl. 10:00;5;Efalock HAIRNET;HairProduct;1;23.0;23.0;Lisa;Ordren er betalt
+3;man. d. 06/10/25 kl. 14:00;3;Efalock HAIRNET;HairProduct;2;23.0;46.0;S?ren K;Ordren er betalt
+31;fre. d. 10/10/25 kl. 14:00;0;Herreklip HAIRCUT;HairCut;1;250.0;250.0;Lars K;Ordren er betalt
