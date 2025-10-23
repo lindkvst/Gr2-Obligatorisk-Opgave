@@ -140,7 +140,7 @@ public class HairdresserTest {
             }
         }
 
-        int userSelect = sh.askNumber(selNum) - 1;
+        int userSelect = sh.askNumber(indexValues.size()) - 1;
 
         int timeArrayIndexLookup = indexValues.get(userSelect);
 
@@ -179,7 +179,7 @@ public class HairdresserTest {
             }
         }
 
-        int userSelect = sh.askNumber(selNum) - 1;
+        int userSelect = sh.askNumber(indexValues.size()) - 1;
 
         int timeArrayIndexLookup = indexValues.get(userSelect);
 
@@ -228,7 +228,7 @@ public class HairdresserTest {
             }
         }
 
-        int userSelect = sh.askNumber(selNum) - 1;
+        int userSelect = sh.askNumber(indexValues.size()) - 1;
 
         int timeArrayIndexLookup = indexValues.get(userSelect);
 
@@ -598,7 +598,7 @@ public class HairdresserTest {
 
 
             // BRUGES TIL AT DEBUGGE: System.out.println("String som sendes til BufferedWriter");
-            System.out.println(allOpenDates);
+            // DEBUG KOMMENTAR: System.out.println(allOpenDates);
             String filename = "openDates.csv";
             fh.writeFile(allOpenDates, filename);
 
@@ -628,7 +628,7 @@ public class HairdresserTest {
             }
         }
 
-        int userSelect = sh.askNumber(selNum) - 1;
+        int userSelect = sh.askNumber(indexValues.size()) - 1;
 
         int timeArrayIndexLookup = indexValues.get(userSelect);
         BookingDateTime bookingDateTime = bookingTimes.get(timeArrayIndexLookup);
@@ -663,7 +663,7 @@ public class HairdresserTest {
                 selNum++;
             }
 
-            userSelect = sh.askNumber(selNum);
+            userSelect = sh.askNumber(3);
 
             switch (userSelect) {
                 case 1: // Herreklip
@@ -716,7 +716,7 @@ public class HairdresserTest {
                 indexValuesProducts.add(i);
                 selNum++;
             }
-            userSelect = sh.askNumber(selNum) - 1;
+            userSelect = sh.askNumber(indexValuesProducts.size()) - 1;
 
             int ProductArrayIndexLookup = indexValuesProducts.get(userSelect);
 
