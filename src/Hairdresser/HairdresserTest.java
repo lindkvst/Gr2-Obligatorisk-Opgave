@@ -611,20 +611,27 @@ public class HairdresserTest {
 
         System.out.println("Du er i gang med at registere et salg");
         ArrayList<Integer> indexValues = new ArrayList<Integer>();
-        int selNum = 1;
+        int selNum = 0;
+        boolean dateCorrect = false;
+        while (!dateCorrect) {
+            LocalDate userDate = inputUserDate();
 
-        LocalDate userDate = inputUserDate();
+            for (int i = 0; i < bookingTimes.size(); i++) {
+                if (bookingTimes.get(i).fallsWithinDays(userDate, 0)) {
+                    boolean isBooked = bookingTimes.get(i).getBookingStatus();
 
-        for (int i = 0; i < bookingTimes.size(); i++) {
-            if (bookingTimes.get(i).fallsWithinDays(userDate, 0)) {
-                boolean isBooked = bookingTimes.get(i).getBookingStatus();
-
-                if (isBooked) {
-                    System.out.println(selNum + ". " + bookingTimes.get(i).printDateTimeCustomer());
-                    indexValues.add(i);
-                    //System.out.println("Array Index value: " + i);
-                    selNum++;
+                    if (isBooked) {
+                        selNum++;
+                        System.out.println(selNum + ". " + bookingTimes.get(i).printDateTimeCustomer());
+                        indexValues.add(i);
+                        //System.out.println("Array Index value: " + i);
+                    }
                 }
+            }
+            if(selNum == 0) {
+                System.out.println("Ingen bookinger på denne dato, prøv igen.");
+            } else {
+                dateCorrect = true;
             }
         }
 
