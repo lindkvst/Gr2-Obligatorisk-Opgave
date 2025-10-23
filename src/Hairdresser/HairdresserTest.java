@@ -927,22 +927,6 @@ public class HairdresserTest {
         return userDate;
     }
 
-    public void createSalesData() {
-        productSales.add(new ItemsSold(bookingTimes.get(0), hairCuts.get(1), 1));
-
-        productSales.add(new ItemsSold(bookingTimes.get(1), hairCuts.get(0), 1));
-        productSales.add(new ItemsSold(bookingTimes.get(2), hairCuts.get(0), 1));
-        productSales.add(new ItemsSold(bookingTimes.get(3), hairCuts.get(2), 1));
-        productSales.add(new ItemsSold(bookingTimes.get(4), hairCuts.get(0), 1));
-        productSales.add(new ItemsSold(bookingTimes.get(5), hairCuts.get(1), 1));
-        productSales.add(new ItemsSold(bookingTimes.get(6), hairCuts.get(0), 1));
-        productSales.add(new ItemsSold(bookingTimes.get(7), hairCuts.get(1), 1));
-
-        productSales.add(new ItemsSold(bookingTimes.get(0), hairProducts.get(5), 1));
-        productSales.add(new ItemsSold(bookingTimes.get(3), hairProducts.get(3), 2));
-
-
-    }
 
     public void createHairCutTypes() {
         hairCuts.add(new HairCut("Herreklip", ProductType.HAIRCUT,250));
