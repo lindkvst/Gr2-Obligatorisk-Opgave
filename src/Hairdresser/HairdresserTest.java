@@ -24,7 +24,6 @@ public class HairdresserTest {
         HairdresserTest test = new HairdresserTest();
         test.createHairCutTypes();
         test.readFromSalesFile();
-        //test.createSalesData();
         test.mainMenuProgram();
     }
 
@@ -68,6 +67,9 @@ public class HairdresserTest {
                     saveItemsSold();
                     break;
                 case 10:
+                    checkItemsSold();
+                    break;
+                case 11:
                     saveBookings();
                     saveProductStock();
                     saveItemsSold();
@@ -82,19 +84,20 @@ public class HairdresserTest {
     public void printMainMenu() {
         System.out.println();
         System.out.println("""
-                 Velkommen til start menuen!
-                ******************************
-                Tryk 1 for at booke en ny tid.
-                Tryk 2 for at slette en tid.
-                Tryk 3 for at se ledige tider.
-                Tryk 4 for at se bookede tider.
-                Tryk 5 for at se lagerbeholdning.
-                Tryk 6 for at ændre lagerbeholdning.
-                Tryk 7 for at registrere fridag.
-                Tryk 8 for at se hvilke dage salonen har åbent.
-                Tryk 9 for at registrere salg.
-                Tryk 10 for at lukke programmet.
-                ******************************
+                           Velkommen til start menuen!
+                ┌──────────────────────────────────────────────────┐
+                │ Tryk  1 for at booke en ny tid.                  │
+                │ Tryk  2 for at slette en tid.                    │
+                │ Tryk  3 for at se ledige tider.                  │
+                │ Tryk  4 for at se bookede tider.                 │
+                │ Tryk  5 for at se lagerbeholdning.               │
+                │ Tryk  6 for at ændre lagerbeholdning.            │
+                │ Tryk  7 for at registrere fridag.                │
+                │ Tryk  8 for at se hvilke dage salonen har åbent. │
+                │ Tryk  9 for at registrere salg.                  │
+                │ Tryk 10 for at se salg.                          │
+                │ Tryk 11 for at lukke programmet.                 │
+                └──────────────────────────────────────────────────┘
                 """);
     }
 
@@ -424,7 +427,6 @@ public class HairdresserTest {
         String customerName = "";
         String paymentStatus = "";
         String savedItemSale = "";
-        String size;
         String singleLine = "";
 
 
@@ -767,7 +769,7 @@ public class HairdresserTest {
         System.out.println("\nSamlet pris: " + totalPrice + " DKK.\n\n");
 
 
-//Debug print af ItemsSold
+        //Debug print af ItemsSold
         /*
         for (ItemsSold lineItem : productSales) {
             System.out.println(lineItem);
@@ -783,14 +785,7 @@ public class HairdresserTest {
 
 
         for (List<String> sale : readItemsSold) {
-            /*
-            String[] values = sale.trim().split("[,:;/]");
 
-            for (int i = 0; i < values.length; i++) {
-                values[i] = values[i].trim();
-            }
-            readItemsSold.add(Arrays.asList(values));
-*/
             int bookingIndex = Integer.parseInt(sale.get(0));
             String bookingString = sale.get(1);
             int productIndex = Integer.parseInt(sale.get(2));
@@ -805,14 +800,11 @@ public class HairdresserTest {
                 productSales.add(new ItemsSold(bookingTimes.get(bookingIndex), hairProducts.get(productIndex), quantitySold ));
             }
 
-
-
-
         }
 
     }
 
-    public void debugItemsSold() {
+    public void checkItemsSold() {
         for (ItemsSold sale : productSales) {
             System.out.println(sale);
         }

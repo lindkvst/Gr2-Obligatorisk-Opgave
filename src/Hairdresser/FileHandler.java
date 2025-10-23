@@ -142,9 +142,7 @@ public class FileHandler {
     //Metode til at læse Sales fra fil med try/catch, while- og for-loop. Returnerer en
     //ArrayList med salg.
     public ArrayList<List<String>> readFromSalesFile() {
-        //ArrayList<ItemsSold> ItemsSold = new ArrayList<>();
         ArrayList<List<String>> readItemsSold = new ArrayList<>();
-        //String readItemsSold = "";
         try (BufferedReader br = new BufferedReader(new FileReader("Sales.csv"))) {
             String line;
             // Vi vil kun have første linje ind

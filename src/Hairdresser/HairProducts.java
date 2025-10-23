@@ -1,44 +1,18 @@
 package Hairdresser;
 
-//Abstrakt superklasse
+//Abstrakt superklasse som arver fra HairSalonSale
 abstract class HairProducts extends HairSalonSale {
-    //private String productName;
-    //private ProductType productType;
-    //double price;
     int stock;
 
 //Constructor
     public HairProducts(String productName, ProductType productType, double price, int stock) {
         super(productName, productType, price);
-    //    this.productName = productName;
-    //    this.productType = productType;
-    //    this.price = price;
         this.stock = stock;
     }
 //Getters og setters
-//Ikke nødvendige længere pga ny abstract class HairSalonSale
-    /*
-    public String getProductName() {return productName;}
-
-    public ProductType getProductType() {return productType;}
-
-    public double getPrice() {return price;}
-    */
 
     public int getStock() {return stock;}
-/*
-    public void setProductName(String productName) {
-        this.productName = productName;
-    }
 
-    public void setProductType(ProductType productType) {
-        this.productType = productType;
-    }
-
-    public void setPrice(double price) {
-        this.price = price;
-    }
-*/
     public void setStock(int stock) {
         this.stock = stock;
     }
