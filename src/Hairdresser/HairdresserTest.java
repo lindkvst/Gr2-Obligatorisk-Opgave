@@ -10,7 +10,7 @@ public class HairdresserTest {
     // Bruger ScannerHelper og FileHandler metoderne
     FileHandler fh = new FileHandler();
     ScannerHelper sh = new ScannerHelper();
-    LocalDate today = LocalDate.of(2025, 10, 6); //bruges i dato input validering - start booking date
+    LocalDate today = LocalDate.of(2025, 10, 7); //bruges i dato input validering - start booking date
 
     // ArrayLister for BookingDateTime, HairProducts og ItemsSold hentes fra CSV filer vha. FileHandleren
     ArrayList<BookingDateTime> bookingTimes = fh.readFromBookingFile();
@@ -33,7 +33,7 @@ public class HairdresserTest {
 
         while (!isDone) {
             printMainMenu();
-            int userChoice = sh.askNumber(12);
+            int userChoice = sh.askNumber(11);
             switch (userChoice) {
                 case 1:
                     bookTime();
@@ -824,7 +824,7 @@ public class HairdresserTest {
         //Problemer med at static metoder ikke kan tilgå de "generelle" variable fra toppen"
         ScannerHelper sh = new ScannerHelper();
         //LocalDate today = LocalDate.now(); //bruges i dato input validering
-        LocalDate today = LocalDate.of(2025, 10, 6); //bruges i dato input validering - start booking date
+        LocalDate today = LocalDate.of(2025, 10, 7); //bruges i dato input validering - start booking date
 
         boolean inputCorrect = false;
         boolean yearCorrect = false;
