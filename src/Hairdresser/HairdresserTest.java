@@ -445,7 +445,7 @@ public class HairdresserTest {
                 if (bookingTimes.get(i) == bookingDateTimeObj) {
                     bookingIndex = i;
                     //debug kommentar
-                    System.out.println("Du fandt den rigtige booking på index: " + i);
+                    //System.out.println("Du fandt den rigtige booking på index: " + i);
                     break;
                 }
             }
@@ -457,7 +457,7 @@ public class HairdresserTest {
                     productIndex = i;
                     productParentType = "HairProduct";
                     //debug kommentar
-                    System.out.println("Du fandt det rigtige produkt på index: " + i);
+                    //System.out.println("Du fandt det rigtige produkt på index: " + i);
                     break;
                 }
             }
@@ -467,7 +467,7 @@ public class HairdresserTest {
                     productIndex = i;
                     productParentType = "HairCut";
                     //debug kommentar
-                    System.out.println("Du fandt det rigtige produkt på index: " + i);
+                    //System.out.println("Du fandt det rigtige produkt på index: " + i);
                     break;
                 }
             }
