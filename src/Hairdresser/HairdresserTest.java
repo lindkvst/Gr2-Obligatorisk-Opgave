@@ -430,7 +430,8 @@ public class HairdresserTest {
         String singleLine = "";
 
 
-        System.out.println("Du er ved at gemme liste over solgte produkter.");
+        //debug
+        //System.out.println("Du er ved at gemme liste over solgte produkter.");
 
         //looper igennem alle salg og bygger singleLine string til CSV
         for (ItemsSold lineItem : productSales) {
