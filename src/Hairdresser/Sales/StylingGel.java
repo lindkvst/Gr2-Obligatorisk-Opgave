@@ -1,7 +1,7 @@
-package Hairdresser;
+package Hairdresser.Sales;
 
 //Subklasse som der inheriter fra abstrakt superklasse HairProducts
-class StylingGel extends HairProducts {
+public class StylingGel extends HairProducts {
     private int containsML;
 
     //Constructor

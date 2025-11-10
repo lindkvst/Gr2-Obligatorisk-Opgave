@@ -1,4 +1,4 @@
-package Hairdresser;
+package Hairdresser.Sales;
 //Enums for produkttyper
 public enum ProductType {
     HAIRSPRAY,

@@ -1,7 +1,9 @@
-package Hairdresser;
+package Hairdresser.Sales;
+
+import Hairdresser.Sales.*;
 
 //Abstrakt superklasse som arver fra HairSalonSale
-abstract class HairProducts extends HairSalonSale {
+public abstract class HairProducts extends HairSalonSale {
     int stock;
 
 //Constructor

@@ -1,6 +1,6 @@
-package Hairdresser;
+package Hairdresser.Sales;
 
-abstract class HairSalonSale {
+public abstract class HairSalonSale {
     private String productName;
     private ProductType productType;
     double price;

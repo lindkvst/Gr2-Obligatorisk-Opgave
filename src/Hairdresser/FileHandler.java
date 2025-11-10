@@ -1,5 +1,8 @@
 package Hairdresser;
 
+import Hairdresser.Sales.*;
+import Hairdresser.Comparators.*;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -117,10 +120,10 @@ public class FileHandler {
 
             // If-statements til at tilføje til ArrayListen og oprette HairProducts efter productType
             if(productType == productType.CONDITIONER) {
-                hairProducts.add(new Conditioner (productName, productType, price, stock, containsML));
+                hairProducts.add(new Conditioner(productName, productType, price, stock, containsML));
 
             } else if(productType == productType.HAIRSPRAY) {
-                hairProducts.add(new HairSpray (productName, productType, price, stock, containsML));
+                hairProducts.add(new HairSpray(productName, productType, price, stock, containsML));
 
             } else if(productType == productType.SHAMPOO) {
                 hairProducts.add(new Shampoo (productName, productType, price, stock, containsML));
@@ -129,7 +132,7 @@ public class FileHandler {
             hairProducts.add(new StylingGel (productName, productType, price, stock, containsML));
 
             } else if(productType == productType.HAIRNET) {
-            hairProducts.add(new Hairnet (productName, productType, price, stock, size));
+            hairProducts.add(new Hairnet(productName, productType, price, stock, size));
         }
         }
 

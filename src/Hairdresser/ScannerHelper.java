@@ -1,6 +1,7 @@
 package Hairdresser;
 
 import java.util.Scanner;
+import Hairdresser.Comparators.*;
 
 public class ScannerHelper {
 

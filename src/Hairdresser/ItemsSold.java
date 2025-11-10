@@ -1,5 +1,8 @@
 package Hairdresser;
 
+import Hairdresser.Sales.*;
+import Hairdresser.Comparators.*;
+
 public class ItemsSold {
     private BookingDateTime bookingDateTime;
     private HairSalonSale hairSalonItem;

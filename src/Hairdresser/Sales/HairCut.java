@@ -1,4 +1,6 @@
-package Hairdresser;
+package Hairdresser.Sales;
+
+import Hairdresser.Sales.*;
 
 public class HairCut extends HairSalonSale {
 

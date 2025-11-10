@@ -1,5 +1,9 @@
 package Hairdresser;
 
+import Hairdresser.Comparators.HairProductsStockComparator;
+import Hairdresser.Sales.*;
+import Hairdresser.Comparators.*;
+
 import java.util.ArrayList;
 import java.time.*;
 import java.util.Collections;

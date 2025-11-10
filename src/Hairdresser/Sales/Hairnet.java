@@ -1,7 +1,9 @@
-package Hairdresser;
+package Hairdresser.Sales;
+
+import Hairdresser.Sales.HairProducts;
 
 // Subklasse som der inheriter fra abstrakt superklasse HairProducts
-class Hairnet extends HairProducts {
+public class Hairnet extends HairProducts {
     private String size;
 
     //Constructor

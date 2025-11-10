@@ -1,7 +1,9 @@
-package Hairdresser;
+package Hairdresser.Sales;
+
+
 
 // Subklasse som inheriter fra HairProducts superklassen
-class Conditioner extends HairProducts {
+public class Conditioner extends HairProducts {
     private int containsML;
 
     // Constructor

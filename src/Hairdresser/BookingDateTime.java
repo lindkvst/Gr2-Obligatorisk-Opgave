@@ -2,6 +2,8 @@ package Hairdresser;
 import java.time.LocalDateTime;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
+import Hairdresser.Sales.*;
+import Hairdresser.Comparators.*;
 
 public class BookingDateTime {
     // Attributter
